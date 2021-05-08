@@ -1,0 +1,64 @@
+.parent {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //optionally set height and width, it will depend on the rest of the styling used
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.flexImage {
+  @extend .flex;
+}
+
+@import '../styles/mixins';
+
+.dateGame {
+  @extend .flex;
+  color: white;
+  border-top: 1px solid grey;
+  font-size: 18px;
+}
+
+.games {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  padding-bottom: 0.25rem;
+
+  @include device-size(laptop) {
+    width: 70vw;
+    margin: 1rem auto;
+  }
+
+  @include device-size(tablet) {
+    width: 90vw;
+    margin: 1rem auto;
+  }
+
+  @include device-size(tablet-landscape) {
+    width: 70vw;
+    margin: 1rem auto;
+  }
+
+  @include device-size(large-tablet) {
+    width: 90vw;
+    margin: 1rem auto;
+  }
+
+
+  &::after {
+    content: '';
+    flex: auto;
+  }
+}
+
+// .games::after {
+//   content: '';
+//   flex: auto;
+// }
