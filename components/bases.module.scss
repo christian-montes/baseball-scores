@@ -1,0 +1,41 @@
+
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  left: 20px;
+  border: 1px solid brown;
+  height: 4rem;
+  width: 4rem;
+}
+
+.count {
+  position: absolute;
+  font-size: 10px;
+  top: 41px;
+  right: 7px;
+}
+
+.base {
+  position: absolute;
+  transform: rotate(45deg);
+  font-size: 15px;
+}
+
+.firstBase {
+  @extend .base;
+  top: 20px;
+  right:10px;
+}
+
+.secondBase {
+  @extend .base;
+  top: 8px;
+  right: 23px;
+}
+
+.thirdBase {
+  @extend .base;
+  top: 20px;
+  right: 36px;
+}
