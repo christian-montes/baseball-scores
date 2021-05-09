@@ -4,11 +4,9 @@
     @media screen and (max-width: 600px) { @content; }
   } @else if $device == tablet {
     @media screen and (min-width: 768px) and (max-width: 991px) { @content; }
-  } @else if $device == tablet-landscape {
+  } @else if $device == tablet-laptop {
     @media screen and (min-width: 992px) and (max-width: 1199px) { @content; }
-  } @else if $device == laptop {
-    @media screen and (min-width: 1200px) and (max-width: 1300px) { @content; }
-  } @else if $device == large-tablet {
-    @media screen and (min-width: 1301px) { @content; }
+  } @else if $device == large-computer {
+    @media screen and (min-width: 1200px) { @content; }
   }
 }
