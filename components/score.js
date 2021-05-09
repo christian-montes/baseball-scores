@@ -9,7 +9,7 @@ export default function Score() {
 
   return (
     <div 
-      className='score container col-sm-6 col-lg-4 py-1'
+      className='score container py-1'
       style={{border: '1px solid lightgrey'}}>
       <div className='row' style={{height: '4rem'}}>
 
@@ -23,7 +23,7 @@ export default function Score() {
                 <FontAwesomeIcon icon={faBaseballBall} />
               </span>
             </div>
-            <div className='col-6 h-100 ps-2.5'>
+            <div className='col-8 h-100 ps-2.5'>
               <div 
                 className='row h-50' 
                 style={{fontSize: '13px', paddingBottom: '0px'}}>
@@ -35,7 +35,7 @@ export default function Score() {
                 Record
               </div>
             </div>
-            <div className='col-4 ps-4'>
+            <div className='col-2 ps-0'>
               5
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function Score() {
                 <FontAwesomeIcon icon={faBaseballBall} />
               </span>
             </div>
-            <div className='col-9 h-100 ps-2.5'>
+            <div className='col-8 h-100 ps-2.5'>
               <div 
                 className='row h-50' 
                 style={{fontSize: '13px', paddingBottom: '0px'}}>
@@ -60,7 +60,7 @@ export default function Score() {
                 Record
               </div>
             </div>
-            <div className='col-1 ps-0'>
+            <div className='col-2 ps-0'>
               2
             </div>
           </div>
