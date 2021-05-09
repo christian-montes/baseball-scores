@@ -1,61 +1,62 @@
+@import '../styles/mixins';
+
 .parent {
   background-color: black;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   //optionally set height and width, it will depend on the rest of the styling used
 }
 
-.flex {
+.child {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.flexImage {
-  @extend .flex;
-}
-
-@import '../styles/mixins';
-
 .dateGame {
-  @extend .flex;
-  color: white;
+  @extend .child;
+  padding: 3px 0;
   border-top: 1px solid grey;
-  font-size: 18px;
+  color: white;
+  font-size: 16px;
 }
 
 .games {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  padding-bottom: 0.25rem;
+  display: grid;
+  border: 1px solid blue;
+  padding-bottom: 1rem;
 
-  @include device-size(laptop) {
-    width: 70vw;
-    margin: 1rem auto;
+  @include device-size(phone) {
+    grid-template-columns: 1fr;
+    width: 100vw;
   }
 
   @include device-size(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100vw;
+    padding: 0 10px;
+  }
+
+  @include device-size(tablet-laptop) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 80vw;
+    margin: 0 auto;
+  }
+
+  @include device-size(large-computer) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     width: 90vw;
-    margin: 1rem auto;
-  }
-
-  @include device-size(tablet-landscape) {
-    width: 70vw;
-    margin: 1rem auto;
-  }
-
-  @include device-size(large-tablet) {
-    width: 90vw;
-    margin: 1rem auto;
+    margin: 0 auto;
   }
 
 
-  &::after {
-    content: '';
-    flex: auto;
-  }
+  // &::after {
+  //   content: '';
+  //   flex: auto;
+  // }
 }
 
 // .games::after {
