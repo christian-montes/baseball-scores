@@ -4,7 +4,7 @@ import styles from './layout.module.scss';
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <>
 
       {/* <Head>
         <meta name='keywords' content='MLB baseball scores live' />
@@ -13,7 +13,7 @@ export default function Layout({ children }) {
       </Head> */}
 
       <header className={styles.parent}>
-        <div className={styles.flexImage}>
+        <div className={styles.child}>
           <Image 
             src='/mlb-logo.svg' 
             alt='Major League Baseball'
@@ -36,6 +36,6 @@ export default function Layout({ children }) {
           Powered by NextJS
         </a>
       </footer>
-    </div>
+    </>
   )
 }
