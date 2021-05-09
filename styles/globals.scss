@@ -24,32 +24,32 @@ footer {
   margin-top: auto;
 }
 
-#__next > div {
+#__next {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-main {
-  .score {
-    @include device-size(laptop) {
-      width: 49%;
-      margin: 0.25rem 5px 0;
-    }
+// main {
+//   .score {
+//     @include device-size(laptop) {
+//       width: 49%;
+//       margin: 0.25rem 5px 0;
+//     }
 
-    @include device-size(tablet) {
-      width: 49%;
-      margin: 0.25rem 3px 0 3px;
-    }
+//     @include device-size(tablet) {
+//       width: 49%;
+//       margin: 0.25rem 3px 0 3px;
+//     }
 
-    @include device-size(tablet-landscape) {
-      width: 49%;
-      margin: 0.25rem 3px 0px 4px;
-    }
+//     @include device-size(tablet-landscape) {
+//       width: 49%;
+//       margin: 0.25rem 3px 0px 4px;
+//     }
 
-    @include device-size(large-tablet) {
-      width: 49%;
-      margin: 0.25rem 6px;
-    }
-  }
-}
+//     @include device-size(large-tablet) {
+//       width: 49%;
+//       margin: 0.25rem 6px;
+//     }
+//   }
+// }
