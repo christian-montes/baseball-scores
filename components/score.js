@@ -1,21 +1,45 @@
 import styles from './score.module.css';
 import Bases from './bases';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBaseballBall } from '@fortawesome/free-solid-svg-icons';
-import moment from 'moment';
+import Team from './team';
 
-export default function Score() {
-  const date = moment('2021-05-06').format('dddd MMM D');
+import axios from 'axios';
+import useSWR from 'swr';
+
+const fetcher = (url) => axios.get(url).then((res) => res.data);
+
+export default function Score({ link }) {
+  const gameURL = `https://statsapi.mlb.com${link}`;
+  const { data } = useSWR(gameURL, fetcher, { refreshInterval: 10000 });
+  console.log(data);
+
+  // extracting the necessary data to passdown to Team component;
+  if (!data) return <div>Loading...</div>;
+  const {
+    gameData: {
+      teams: { away: awayData, home: homeData },
+    },
+    liveData: {
+      linescore: {
+        teams: {
+          home: { runs: runsHome },
+          away: { runs: runsAway },
+        },
+      },
+    },
+  } = data;
+  // console.log(gameURL);
 
   return (
-    <div 
-      className='score container py-1'
-      style={{border: '1px solid lightgrey'}}>
-      <div className='row' style={{height: '4rem'}}>
-
-        <div className='col-7 col-sm-6'>
-
-          <div 
+    <div
+      className="score container py-1"
+      style={{ border: '1px solid lightgrey' }}
+    >
+      <div className="row" style={{ height: '4rem' }}>
+        <div className="col-7 col-sm-6">
+          <Team away teamData={awayData} runsScored={runsAway}/>
+          <Team teamData={homeData} runsScored={runsHome}/>
+          {/* <Team teamData={homeData} /> */}
+          {/* <div 
             className='row h-50 align-items-center' 
             style={{paddingBottom: '0px', marginBottom: '0px'}}>
             <div className='col-2 px-1'>
@@ -31,16 +55,15 @@ export default function Score() {
               </div>
               <div 
                 className='row h-50' 
-                style={{fontSize: '10px', marginBottom: '0px'}}>
+                style={{fontSize: '10px', paddingBottom: '0px'}}>
                 Record
               </div>
             </div>
             <div className='col-2 ps-0'>
               5
             </div>
-          </div>
-
-          <div 
+          </div> */}
+          {/* <div 
             className='row h-50 align-items-center' 
             style={{paddingTop: '0px', marginTop: '0px'}}>
             <div className='col-2 px-1'>
@@ -63,8 +86,7 @@ export default function Score() {
             <div className='col-2 ps-0'>
               2
             </div>
-          </div>
-
+          </div> */}
           {/* <div className='d-flex flex-row h-50 justify-content-between' style={{border: '1px solid blue'}}>
             <div>
               <span className={styles.icon}><FontAwesomeIcon icon={faBaseballBall} /></span>
@@ -73,18 +95,14 @@ export default function Score() {
               Score
             </div>
           </div> */}
-
         </div>
 
-        <div className='col pe-0 h-100 position-relative'>
-          <div className='position-absolute top-50 end-50 translate-middle pe-0'>
+        <div className="col pe-0 h-100 position-relative">
+          <div className="position-absolute top-50 end-50 translate-middle pe-0">
             <Bases />
           </div>
-          <div className='position-absolute pe-2 top-0 end-0'>
-            Inning
-          </div>
+          <div className="position-absolute pe-2 top-0 end-0">Inning</div>
         </div>
-
       </div>
     </div>
     // <>
@@ -112,5 +130,5 @@ export default function Score() {
     //     {/* </div> */}
     //   </div>
     // </>
-  )
+  );
 }
