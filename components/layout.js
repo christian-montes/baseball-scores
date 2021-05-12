@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from './layout.module.scss';
+import moment from 'moment';
 
-export default function Layout({ children }) {
+export default function Layout({ date, children }) {
+  const formattedDate = moment(date).format('dddd MMM D');
   return (
     <>
 
@@ -21,7 +23,7 @@ export default function Layout({ children }) {
           />
         </div>
         <div className={styles.dateGame}>
-          Friday May 7
+          {formattedDate || 'Today'}
         </div>
       </header>
 
