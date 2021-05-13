@@ -1,11 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBaseballBall } from '@fortawesome/free-solid-svg-icons';
 
-export default function Team({ away, teamData, runsScored }) {
+export default function Team({ away, teamRecord, teamRunData }) {
   const {
     teamName,
     record: { wins, losses },
-  } = teamData;
+  } = teamRecord;
+
+  const {
+    home: { runs: runsHome },
+    away: { runs: runsAway },
+  } = teamRunData;
 
   return (
     <>
@@ -38,7 +43,7 @@ export default function Team({ away, teamData, runsScored }) {
             {wins}-{losses}
           </div>
         </div>
-        <div className="col-2 ps-0">{runsScored}</div>
+        <div className="col-2 ps-0">{away ? runsAway : runsHome}</div>
       </div>
     </>
   );
