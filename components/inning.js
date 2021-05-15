@@ -1,23 +1,33 @@
-export default function Inning({ gameState, inningData, outs }) {
+
+export default function Inning({ gameState, inningData, outs, teamRunData, timeData }) {
   const { inningNumber, nth_Inning, inningHalf, scheduledInnings } = inningData;
+
+  const {
+    home: { runs: runsHome },
+    away: { runs: runsAway },
+  } = teamRunData;
+
+  const { time, ampm } = timeData;
 
   // need to add scheduled time data
   // may be better to check if the innings played are simply different, not if one is greater than the other;
   const display =
     gameState === 'Pre-Game'
-      ? 'Scheduled Time'
+      ? `${time} ${ampm}`
       : gameState === 'Warmup'
       ? gameState
       : gameState === 'In Progress'
       ? inningHalf === 'Top'
         ? outs === 3
-          ? `Mid ${nth_Inning}`
+          ? inningNumber >= scheduledInnings && runsHome > runsAway
+            ? 'Final'
+            : `Mid ${nth_Inning}`
           : `${inningHalf} ${nth_Inning}`
         : outs === 3
         ? `End ${nth_Inning}`
         : `Bot ${nth_Inning}`
       : gameState === 'Final'
-      ? inningNumber > scheduledInnings
+      ? inningNumber !== scheduledInnings
         ? `${gameState}/${inningNumber}`
         : gameState
       : 'Final';
