@@ -19,6 +19,7 @@ export default function Score({ link }) {
     gameData: {
       teams: { away: awayRecord, home: homeRecord },
       status: { detailedState },
+      datetime,
     },
     liveData: {
       linescore: {
@@ -36,14 +37,20 @@ export default function Score({ link }) {
   // console.log(detailedState);
 
   return (
-    <div
-      className="score container py-1"
-      style={{ border: '1px solid lightgrey' }}
-    >
-      <div className="row" style={{ height: '4rem' }}>
+    <div className="score container py-1">
+      <div className="row" style={{ height: '4.5rem' }}>
         <div className="col-7 col-sm-6">
-          <Team away teamRecord={awayRecord} teamRunData={teamRuns} />
-          <Team teamRecord={homeRecord} teamRunData={teamRuns} />
+          <Team
+            away
+            teamRecord={awayRecord}
+            teamRunData={teamRuns}
+            gameState={detailedState}
+          />
+          <Team
+            teamRecord={homeRecord}
+            teamRunData={teamRuns}
+            gameState={detailedState}
+          />
         </div>
 
         <div className="col pe-0 h-100 position-relative">
@@ -59,6 +66,8 @@ export default function Score({ link }) {
               scheduledInnings,
             }}
             outs={outs}
+            teamRunData={teamRuns}
+            timeData={datetime}
           />
         </div>
       </div>
