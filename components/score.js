@@ -1,7 +1,7 @@
-import styles from './score.module.css';
 import Bases from './bases';
 import Team from './team';
 import Inning from './inning';
+import SkeletonScore from './skeletons/SkeletonScore';
 
 import axios from 'axios';
 import useSWR from 'swr';
@@ -14,7 +14,7 @@ export default function Score({ link }) {
   // console.log(data);
 
   // extracting the necessary data to passdown to Team component;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <SkeletonScore />;
   const {
     gameData: {
       teams: { away: awayRecord, home: homeRecord },
@@ -32,6 +32,7 @@ export default function Score({ link }) {
         strikes,
         outs,
       },
+      plays: { allPlays },
     },
   } = data;
   // console.log(detailedState);
@@ -55,7 +56,11 @@ export default function Score({ link }) {
 
         <div className="col pe-0 h-100 position-relative">
           <div className="position-absolute top-50 end-50 translate-middle pe-0">
-            <Bases gameState={detailedState} count={{ balls, strikes, outs }} />
+            <Bases
+              gameState={detailedState}
+              count={{ balls, strikes, outs }}
+              plays={allPlays}
+            />
           </div>
           <Inning
             gameState={detailedState}
