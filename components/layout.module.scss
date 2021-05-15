@@ -1,55 +1,77 @@
 @import '../styles/mixins';
 
 .parent {
-  background-color: black;
+  background-color: $card-color;
   display: flex;
   flex-direction: column;
+  @include device-size(phone) {
+    margin: 0.5rem;
+    border-radius: 5px;
+  }
   //optionally set height and width, it will depend on the rest of the styling used
 }
 
-.child {
+.flex {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.dateGame {
-  @extend .child;
-  padding: 3px 0;
-  border-top: 1px solid grey;
-  color: white;
+.child {
+  @extend .flex;
+  @include device-size(phone) {
+    display: none;
+  }
+}
+
+.dateContainer {
+  @extend .flex;
+  padding: 0 0 5px 0;
+  // border-top: 1px solid #3A3B3C;
+  color: $secondary-text-color;
   font-size: 16px;
+  @include device-size(phone) {
+    padding: 0.5rem 0 0.5rem;
+  }
+}
+
+.gameDate {
+  background-color: $date-color;
+  // opacity: 0.2;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
 }
 
 .games {
   display: grid;
-  border: 1px solid blue;
-  padding-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
 
   @include device-size(phone) {
     grid-template-columns: 1fr;
     width: 100vw;
+    row-gap: 5px;
   }
 
   @include device-size(tablet) {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     width: 100vw;
-    padding: 0 10px;
+    padding: 1rem;
   }
 
   @include device-size(tablet-laptop) {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     width: 80vw;
-    margin: 0 auto;
+    margin: 2rem auto;
   }
 
   @include device-size(large-computer) {
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     width: 90vw;
-    margin: 0 auto;
+    margin: 2rem auto;
   }
 
 
