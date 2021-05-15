@@ -27,7 +27,7 @@ export default function Inning({ gameState, inningData, outs, teamRunData, timeD
         ? `End ${nth_Inning}`
         : `Bot ${nth_Inning}`
       : gameState === 'Final'
-      ? inningNumber !== scheduledInnings
+      ? inningNumber > scheduledInnings || scheduledInnings < 9
         ? `${gameState}/${inningNumber}`
         : gameState
       : 'Final';
