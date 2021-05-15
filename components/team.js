@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBaseballBall } from '@fortawesome/free-solid-svg-icons';
 
-export default function Team({ away, teamRecord, teamRunData }) {
+export default function Team({ away, teamRecord, teamRunData, gameState }) {
   const {
     teamName,
+    fileCode,
     record: { wins, losses },
   } = teamRecord;
 
@@ -22,12 +23,12 @@ export default function Team({ away, teamRecord, teamRunData }) {
             : { paddingTop: '0px', marginTop: '0px' }
         }
       >
-        <div className="col-2 px-1">
-          <span style={{ fontSize: '23px' }}>
+        <div className="col-2 px-1" style={{paddingTop: '5px'}}>
+          {<object data={`${fileCode}.svg`} width={23} height={23} /> || (
             <FontAwesomeIcon icon={faBaseballBall} />
-          </span>
+          )}
         </div>
-        <div className="col-8 h-100 ps-2.5">
+        <div className="col-7 h-100 ps-3">
           <div
             className="row h-50"
             style={{ fontSize: '13px', paddingBottom: '0px' }}
@@ -35,15 +36,16 @@ export default function Team({ away, teamRecord, teamRunData }) {
             {teamName}
             {/* Name */}
           </div>
-          <div
-            className="row h-50"
-            style={{ fontSize: '10px', marginBottom: '0px' }}
-          >
+          <div className="row" style={{ fontSize: '10px' }}>
             {/* 18-17 */}
-            {wins}-{losses}
+            {`${wins}-${losses}`}
           </div>
         </div>
-        <div className="col-2 ps-0">{away ? runsAway : runsHome}</div>
+        {gameState !== 'Pre-Game' && (
+          <div className="col-2 px-0" style={{ textAlign: 'center' }}>
+            {away ? runsAway : runsHome}
+          </div>
+        )}
       </div>
     </>
   );
