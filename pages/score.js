@@ -2,6 +2,7 @@ import Layout from '../components/layout';
 import Score from '../components/score';
 
 import axios from 'axios'
+import SkeletonScore from '../components/skeletons/SkeletonScore';
 // import useSWR from 'swr';
 
 export default function ScorePage({ todaysGames }) {
@@ -21,6 +22,7 @@ export default function ScorePage({ todaysGames }) {
 
     <Layout date={date}>
       {GameComponents}
+      <SkeletonScore />
     </Layout>
     
   )
