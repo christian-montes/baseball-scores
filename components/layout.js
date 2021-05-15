@@ -7,7 +7,6 @@ export default function Layout({ date, children }) {
   const formattedDate = moment(date).format('dddd MMM D');
   return (
     <>
-
       {/* <Head>
         <meta name='keywords' content='MLB baseball scores live' />
         <meta name='og:title' content='Live MLB Scores' />
@@ -16,14 +15,15 @@ export default function Layout({ date, children }) {
 
       <header className={styles.parent}>
         <div className={styles.child}>
-          <Image 
-            src='/mlb-logo.svg' 
-            alt='Major League Baseball'
-            width={60} height={60}
+          <Image
+            src="/mlb-logo.svg"
+            alt="Major League Baseball"
+            width={60}
+            height={60}
           />
         </div>
-        <div className={styles.dateGame}>
-          {formattedDate || 'Today'}
+        <div className={styles.dateContainer}>
+          <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
         </div>
       </header>
 
@@ -39,5 +39,5 @@ export default function Layout({ date, children }) {
         </a>
       </footer>
     </>
-  )
+  );
 }
