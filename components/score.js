@@ -32,7 +32,7 @@ export default function Score({ link }) {
         strikes,
         outs,
       },
-      plays: { allPlays },
+      plays: { allPlays, playsByInning },
     },
   } = data;
   // console.log(detailedState);
@@ -58,8 +58,8 @@ export default function Score({ link }) {
           <div className="position-absolute top-50 end-50 translate-middle pe-0">
             <Bases
               gameState={detailedState}
-              count={{ balls, strikes, outs }}
-              plays={allPlays}
+              count={{ balls, strikes, outs, inningNumber }}
+              plays={{ allPlays, playsByInning, inningHalf }}
             />
           </div>
           <Inning
