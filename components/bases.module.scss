@@ -28,16 +28,31 @@
   @extend .base;
   top: 20px;
   right: 10px;
+
+  &_runnerOn {
+    @extend .firstBase;
+    background: $runnerOnBase;
+  }
 }
 
 .secondBase {
   @extend .base;
   top: 8px;
   right: 23px;
+
+    &_runnerOn {
+    @extend .secondBase;
+    background: $runnerOnBase;
+  }
 }
 
 .thirdBase {
   @extend .base;
   top: 20px;
   right: 36px;
+
+    &_runnerOn {
+    @extend .thirdBase;
+    background: $runnerOnBase;
+  }
 }
