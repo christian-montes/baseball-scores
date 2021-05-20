@@ -1,44 +1,38 @@
 import Layout from '../components/layout';
 import Score from '../components/score';
 
-import axios from 'axios'
+import axios from 'axios';
 import SkeletonScore from '../components/skeletons/SkeletonScore';
 // import useSWR from 'swr';
 
 export default function ScorePage({ todaysGames }) {
   // destructuring data object to get date and games
-  const { dates: [{ date, games }]} = todaysGames;
-  const GameComponents = games.map(
-    game => {
-      return (
-        <Score key={game.gamePk} link={game.link} />
-      )
-    }
-  )
+  const {
+    dates: [{ date, games }],
+  } = todaysGames;
+  const GameComponents = games.map((game) => {
+    return <Score key={game.gamePk} link={game.link} />;
+  });
 
   // console.log(todaysGames);
 
   return (
-
-    <Layout date={date}>
+    <Layout date={date} games>
       {GameComponents}
-      <SkeletonScore />
     </Layout>
-    
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
-
-  const todaysGames = await axios.get(
-    'https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1'
-  ).then(res => res.data);
+  const todaysGames = await axios
+    .get('https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1')
+    .then((res) => res.data);
 
   if (!todaysGames) {
     return {
-      notFound: true
-    }
+      notFound: true,
+    };
   }
 
-  return { props: { todaysGames } }
+  return { props: { todaysGames } };
 }
