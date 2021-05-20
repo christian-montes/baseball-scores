@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from './layout.module.scss';
 import moment from 'moment';
 
-export default function Layout({ date, children }) {
+export default function Layout({ date, children, games }) {
   const formattedDate = moment(date).format('dddd MMM D');
   return (
     <>
@@ -14,7 +14,7 @@ export default function Layout({ date, children }) {
       </Head> */}
 
       <header className={styles.parent}>
-        <div className={styles.child}>
+        <div className={games ? styles.child : styles.flex}>
           <Image
             src="/mlb-logo.svg"
             alt="Major League Baseball"
@@ -22,12 +22,14 @@ export default function Layout({ date, children }) {
             height={60}
           />
         </div>
-        <div className={styles.dateContainer}>
-          <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
-        </div>
+        {games && (
+          <div className={styles.dateContainer}>
+            <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
+          </div>
+        )}
       </header>
 
-      <main className={styles.games}>{children}</main>
+      <main className={games && styles.games}>{children}</main>
 
       <footer>
         <a
