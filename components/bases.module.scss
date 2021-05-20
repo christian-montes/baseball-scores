@@ -31,6 +31,7 @@
 
   &_runnerOn {
     @extend .firstBase;
+    border: 1px solid $runnerOnBase;
     background: $runnerOnBase;
   }
 }
@@ -42,6 +43,7 @@
 
     &_runnerOn {
     @extend .secondBase;
+    border: 1px solid $runnerOnBase;
     background: $runnerOnBase;
   }
 }
@@ -53,6 +55,7 @@
 
     &_runnerOn {
     @extend .thirdBase;
+    border: 1px solid $runnerOnBase;
     background: $runnerOnBase;
   }
 }

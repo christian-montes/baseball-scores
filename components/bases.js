@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './bases.module.scss';
 
 export default function Bases({ gameState, count, plays }) {
@@ -9,7 +9,7 @@ export default function Bases({ gameState, count, plays }) {
   });
   const { balls, strikes, outs, inningNumber } = count;
   const { allPlays, playsByInning, inningHalf } = plays;
-  const display = ['In Progress', 'Warmup'].indexOf(gameState) >= 0;
+  const display = ['In Progress', 'Warmup'].includes(gameState);
   /**
    * If the length of the plays array is one,
    * that play will set the state of runners.
@@ -18,45 +18,87 @@ export default function Bases({ gameState, count, plays }) {
    * the previous play will set the state of runners,
    * UNLESS the previous play made the third out
    */
-  const inningHalfLower = inningHalf.toLowerCase();
-  const playsIndex = playsByInning[inningNumber - 1][inningHalfLower];
-  const playsThisInning = allPlays.slice(playsIndex[0]);
 
-  if (outs !== 3) {
-    const runnersOn = {
-      runnerFirst: false,
-      runnerSecond: false,
-      runnerThird: false,
-    };
+  const updateRunners = () => {
+    const inningHalfLower = inningHalf.toLowerCase();
+    const playsIndex = playsByInning[inningNumber - 1][inningHalfLower];
+    const playsThisInning = allPlays.slice(playsIndex[0]);
+    if (outs !== 3) {
+      const runnersOn = {
+        '1B': false,
+        '2B': false,
+        '3B': false,
+      };
+      // console.log(runnersOn);
 
-    playsThisInning.map((play) => {
-      const {
-        runners,
-        about: { isComplete },
-      } = play;
-      if (isComplete && runners.length > 1) {
-        runnersOn[runnerFirst] = false;
-        runnersOn[runnerSecond] = false;
-        runnersOn[runnerThird] = false;
-        runners.map((runner) => {
-          const {
-            movement: { end },
-          } = runner;
-          end === '1B'
-            ? (runnersOn[runnerFirst] = true)
-            : end === '2B'
-            ? (runnersOn[runnerSecond] = true)
-            : end === '3B'
-            ? (runnersOn[runnerThird] = true)
-            : null;
-        });
-      }
-    });
+      playsThisInning.map((play) => {
+        const {
+          runners,
+          about: { isComplete },
+        } = play;
+        // console.log(runnersOn);
+        if (true) {
+          // console.log(runnersOn);
+          if (runners.length > 1) {
+            Object.keys(runnersOn).forEach((r) => (runnersOn[r] = false));
+            // console.log(runnersOn);
+            runners.map((runner) => {
+              const {
+                movement: { end },
+              } = runner;
 
-    setRunners(runnersOn);
-  } else {
-    setRunners({ runnerFirst: false, runnerSecond: false, runnerThird: false });
-  }
+              if (end === '1B') {
+                runnersOn[end] = true;
+              } else if (end === '2B') {
+                runnersOn[end] = true;
+              } else if (end === '3B') {
+                runnersOn[end] = true;
+              }
+              // console.log(runnersOn);
+            });
+          } else if (runners.length === 1) {
+           !runnersOn['1B'] &&
+             !runnersOn['2B'] &&
+             !runnersOn['3B'] &&
+             runners.map((runner) => {
+               const {
+                 movement: { end },
+               } = runner;
+
+               if (end === '1B') {
+                 runnersOn[end] = true;
+               } else if (end === '2B') {
+                 runnersOn[end] = true;
+               } else if (end === '3B') {
+                 runnersOn[end] = true;
+               }
+               // console.log(runnersOn);
+             });
+          }
+        }
+      });
+      console.log(runnersOn);
+      setRunners({
+        runnerFirst: runnersOn['1B'],
+        runnerSecond: runnersOn['2B'],
+        runnerThird: runnersOn['3B'],
+      });
+    } else {
+      setRunners({
+        runnerFirst: false,
+        runnerSecond: false,
+        runnerThird: false,
+      });
+    }
+  };
+
+  // console.log(testfn)
+
+  useEffect(() => {
+    // console.log(['useEffect', outs, inningNumber]);
+    updateRunners();
+  }, [balls, strikes, outs, allPlays]);
+  // console.log([runnerFirst, runnerSecond, runnerThird]);
 
   // const first = null;
   // const second = null;
@@ -83,9 +125,9 @@ export default function Bases({ gameState, count, plays }) {
 
             <span
               className={
-                runnerFirst ? styles.thirdBase_runnerOn : styles.thirdBase
+                runnerThird ? styles.thirdBase_runnerOn : styles.thirdBase
               }
-              id="second-base"
+              id="third-base"
             ></span>
 
             <span className={styles.count} id="count">
