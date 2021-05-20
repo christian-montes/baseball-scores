@@ -4,7 +4,7 @@ import SkeletonTeam from './SkeletonTeam';
 export default function SkeletonScore() {
   return (
     <>
-      <div className="score container py-1">
+      <div className="score wrapper container py-1">
         <div className="row" style={{ height: '4.5rem' }}>
           <div className="col-8 col-sm-7">
             <SkeletonTeam />
