@@ -14,7 +14,7 @@ export default function Layout({ date, children, games }) {
       </Head> */}
 
       <header className={styles.parent}>
-        <div className={games ? styles.child : styles.flex}>
+        <div className={styles.child}>
           <Image
             src="/mlb-logo.svg"
             alt="Major League Baseball"
@@ -22,14 +22,18 @@ export default function Layout({ date, children, games }) {
             height={60}
           />
         </div>
-        {games && (
+        {date && (
           <div className={styles.dateContainer}>
             <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
           </div>
         )}
       </header>
 
-      <main className={games && styles.games}>{children}</main>
+      {games ? (
+        <main className={styles.games}>{children}</main>
+      ) : (
+        <main>{children}</main>
+      )}
 
       <footer>
         <a
