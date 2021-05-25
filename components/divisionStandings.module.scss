@@ -1,0 +1,42 @@
+@import '../styles/mixins';
+
+.table {
+  border: 1px solid $hover-color;
+  border-collapse: separate !important;
+  border-spacing: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+  table-layout: fixed;
+  background-color: $date-color;
+  margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.header {
+  background-color: $table-header;
+  & tr {
+    & th {
+      &:first-child {
+        text-align: start;
+      }
+    }
+  }
+}
+
+.body {
+  & tr {
+    background-color: $even-row;
+    &:nth-child(odd) {
+      background-color: $odd-row;
+    }
+    & td {
+      &:first-child {
+        text-align: start;
+      }
+    }
+  }
+}

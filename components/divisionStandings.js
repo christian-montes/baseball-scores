@@ -1,3 +1,5 @@
+import styles from './divisionStandings.module.scss';
+
 export default function DivisionStandings({ divisionName, teams }) {
   const displayStats = [
     'wins',
@@ -5,6 +7,7 @@ export default function DivisionStandings({ divisionName, teams }) {
     'winPercent',
     'gamesBehind',
     'streak',
+    'Last Ten'
   ];
 
   const [{ value: firstPlaceWins }, { value: firstPlaceLosses }] = teams[0][
@@ -30,7 +33,13 @@ export default function DivisionStandings({ divisionName, teams }) {
     });
 
     // console.log(wins, losses);
-    const GB = (Math.round((Math.abs(wins - firstPlaceWins) + Math.abs(losses - firstPlaceLosses)) * 10) / 20).toFixed(1)
+    const GB = (
+      Math.round(
+        (Math.abs(wins - firstPlaceWins) +
+          Math.abs(losses - firstPlaceLosses)) *
+          10
+      ) / 20
+    ).toFixed(1);
 
     const gamesBackProcess = {
       team,
@@ -90,14 +99,14 @@ export default function DivisionStandings({ divisionName, teams }) {
   // console.log(tableRows);
   return (
     <>
-      <table>
-        <thead>
+      <table className={styles.table}>
+        <thead className={styles.header}>
           <tr>
             <th>{divisionName}</th>
             {tableHeaders}
           </tr>
         </thead>
-        <tbody>{tableRows}</tbody>
+        <tbody className={styles.body}>{tableRows}</tbody>
       </table>
     </>
   );
