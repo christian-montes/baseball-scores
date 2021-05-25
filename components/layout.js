@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from './layout.module.scss';
 import moment from 'moment';
 
-export default function Layout({ date, children, games }) {
+export default function Layout({ date, children, page }) {
   const formattedDate = moment(date).format('dddd MMM D');
   return (
     <>
@@ -29,8 +29,10 @@ export default function Layout({ date, children, games }) {
         )}
       </header>
 
-      {games ? (
+      {page === 'scores' ? (
         <main className={styles.games}>{children}</main>
+      ) : page === 'standings' ? (
+        <main className={styles.standings}>{children}</main>
       ) : (
         <main>{children}</main>
       )}
