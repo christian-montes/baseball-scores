@@ -2,8 +2,6 @@ import Layout from '../components/layout';
 import Score from '../components/score';
 
 import axios from 'axios';
-import SkeletonScore from '../components/skeletons/SkeletonScore';
-// import useSWR from 'swr';
 
 export default function ScorePage({ todaysGames }) {
   // destructuring data object to get date and games
@@ -17,7 +15,7 @@ export default function ScorePage({ todaysGames }) {
   // console.log(todaysGames);
 
   return (
-    <Layout date={date} games>
+    <Layout date={date} page={'scores'} >
       {GameComponents}
     </Layout>
   );

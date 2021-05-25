@@ -55,9 +55,13 @@ export async function getStaticProps() {
 export default function StandingsPage({ AmericanLeague, NationalLeague }) {
   // console.log(AmericanLeague)
   const dateProp = new Date();
+  const StandingsTables = [AmericanLeague, NationalLeague].map(league => {
+    return <Standings key={league['name']} data={league} />
+  })
+
   return (
-    <Layout date={dateProp} >
-      <Standings data={AmericanLeague} />
+    <Layout date={dateProp} page={'standings'}>
+      {StandingsTables}
     </Layout>
   );
 }

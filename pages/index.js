@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout>
+      <Layout page={'index'} >
         <div className={styles.container}>
           <h1 className={styles.title}>Scores</h1>
           <Link href='/score'>
