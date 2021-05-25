@@ -1,7 +1,9 @@
 import DivisionStandings from './divisionStandings';
+import styles from './standings.module.scss';
 
 export default function Standings({ data }) {
   const {
+    name,
     shortName,
     standings: { entries },
   } = data;
@@ -32,6 +34,9 @@ export default function Standings({ data }) {
   });
 
   return (
-    tables
+    <section className={styles.section} >
+      <h3 className={name === 'American League' ? styles.AmericanLeague : styles.NationalLeague} >{name}</h3>
+      {tables}
+    </section>
   );
 }
