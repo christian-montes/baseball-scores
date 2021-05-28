@@ -3,30 +3,33 @@
 .parent {
   background-color: $card-color;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   @include device-size(phone) {
     margin: 5px;
     border-radius: 5px;
+    justify-content: center;
   }
   //optionally set height and width, it will depend on the rest of the styling used
 }
 
-.flex {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
+// .flex {
+//   display: flex;
+//   flex-direction: row;
+// }
 
 .child {
-  @extend .flex;
+  // @extend .flex;
+  padding: 0 1rem;
   @include device-size(phone) {
     display: none;
   }
 }
 
 .dateContainer {
-  @extend .flex;
-  padding: 0 0 5px 0;
+  // @extend .flex;
+  // padding: 10px 0 5px 0;
   // border-top: 1px solid #3A3B3C;
   color: $secondary-text-color;
   font-size: 16px;
@@ -36,7 +39,8 @@
 }
 
 .gameDate {
-  background-color: $date-color;
+  align-self: center;
+  background-color: $hover-color;
   // opacity: 0.2;
   border-radius: 30px;
   padding: 0.5rem 1rem;

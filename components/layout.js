@@ -27,6 +27,9 @@ export default function Layout({ date, children, page }) {
             <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
           </div>
         )}
+        <div className={styles.child}>
+          <div style={{ height: '60px', width: '60px' }} />
+        </div>
       </header>
 
       {page === 'scores' ? (
