@@ -9,7 +9,7 @@ export default function Layout({ date, children, page }) {
 
   const footerPaths = [
     { name: 'Home', link: '/' },
-    { name: 'Scores', link: '/score' },
+    { name: 'Scores', link: '/scores' },
     { name: 'Standings', link: '/standings' },
     {
       name: 'About',
