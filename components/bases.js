@@ -10,15 +10,17 @@ export default function Bases({ gameState, count, plays }) {
   const { balls, strikes, outs, inningNumber } = count;
   const { allPlays, playsByInning, inningHalf } = plays;
   const display = ['In Progress', 'Warmup'].includes(gameState);
-  /**
-   * If the length of the plays array is one,
-   * that play will set the state of runners.
-   *
-   * if the length of the array is gt one,
-   * the previous play will set the state of runners,
-   * UNLESS the previous play made the third out
-   */
 
+
+  /**
+   * The update runners is the basis of the
+   * Bases component. This function takes the plays of the current half inning and
+   * loops through the array of plays. 
+   * By extracting 
+   * the originBase,
+   * the start Base, and
+   * the End Base, the correct bases can be shown to have a runner on.
+   */
   const updateRunners = () => {
     const inningHalfLower = inningHalf.toLowerCase();
     const playsIndex = playsByInning[inningNumber - 1][inningHalfLower];
@@ -29,55 +31,73 @@ export default function Bases({ gameState, count, plays }) {
         '2B': false,
         '3B': false,
       };
-      // console.log(runnersOn);
 
       playsThisInning.map((play) => {
         const {
           runners,
           about: { isComplete },
         } = play;
-        // console.log(runnersOn);
+        // Origin base is used to track which base the runner originated from;
+        // used to track runner advancing on the play
+        let originBases = [];
         if (true) {
-          // console.log(runnersOn);
+
           if (runners.length > 1) {
+            // the error for the bases may be coming from runners advancing on a throw and "end" appearing more than once;
+            // maybe create an array to hold the bases where the runner started to keep track of the same runner making another move on the same play
             Object.keys(runnersOn).forEach((r) => (runnersOn[r] = false));
             // console.log(runnersOn);
             runners.map((runner) => {
               const {
-                movement: { end },
+                movement: { originBase, start, end },
               } = runner;
 
-              if (end === '1B') {
-                runnersOn[end] = true;
-              } else if (end === '2B') {
-                runnersOn[end] = true;
-              } else if (end === '3B') {
-                runnersOn[end] = true;
+              if (!originBases.includes(originBase)) {
+                originBases.push(originBase);
+
+                if (end === '1B') {
+                  runnersOn[end] = true;
+                } else if (end === '2B') {
+                  runnersOn[end] = true;
+                } else if (end === '3B') {
+                  runnersOn[end] = true;
+                }
+              } else {
+                runnersOn[start] = false;
+
+                if (end === '1B') {
+                  runnersOn[end] = true;
+                } else if (end === '2B') {
+                  runnersOn[end] = true;
+                } else if (end === '3B') {
+                  runnersOn[end] = true;
+                }
               }
+
               // console.log(runnersOn);
             });
           } else if (runners.length === 1) {
-           !runnersOn['1B'] &&
-             !runnersOn['2B'] &&
-             !runnersOn['3B'] &&
-             runners.map((runner) => {
-               const {
-                 movement: { end },
-               } = runner;
+            !runnersOn['1B'] &&
+              !runnersOn['2B'] &&
+              !runnersOn['3B'] &&
+              runners.map((runner) => {
+                const {
+                  movement: { end },
+                } = runner;
 
-               if (end === '1B') {
-                 runnersOn[end] = true;
-               } else if (end === '2B') {
-                 runnersOn[end] = true;
-               } else if (end === '3B') {
-                 runnersOn[end] = true;
-               }
-               // console.log(runnersOn);
-             });
+                if (end === '1B') {
+                  runnersOn[end] = true;
+                } else if (end === '2B') {
+                  runnersOn[end] = true;
+                } else if (end === '3B') {
+                  runnersOn[end] = true;
+                }
+                // console.log(runnersOn);
+              });
           }
         }
       });
-      console.log(runnersOn);
+      // console.log(runnersOn);
       setRunners({
         runnerFirst: runnersOn['1B'],
         runnerSecond: runnersOn['2B'],
@@ -92,17 +112,11 @@ export default function Bases({ gameState, count, plays }) {
     }
   };
 
-  // console.log(testfn)
-
   useEffect(() => {
     // console.log(['useEffect', outs, inningNumber]);
     updateRunners();
   }, [balls, strikes, outs, allPlays]);
   // console.log([runnerFirst, runnerSecond, runnerThird]);
-
-  // const first = null;
-  // const second = null;
-  // const third = null;
 
   return (
     <>
