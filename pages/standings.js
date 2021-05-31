@@ -48,8 +48,8 @@ export async function getStaticProps() {
   if (!AmericanLeague || !NationalLeague) {
     return { notFound: true };
   }
-
-  return { props: { AmericanLeague, NationalLeague } };
+  // set to 3600 so the page's data can be revalidated after __1__ hour
+  return { props: { AmericanLeague, NationalLeague }, revalidate: 3600 };
 }
 
 export default function StandingsPage({ AmericanLeague, NationalLeague }) {
