@@ -4,23 +4,19 @@ import styles from '../styles/Home.module.scss';
 import Layout from '../components/layout';
 
 export default function Home() {
+  const dateProp = new Date();
+  console.log(dateProp)
   return (
     <>
-      <Head>
-        <title>Create Next App</title>
-        <meta name="description" content="MLB Score Tracking" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Layout page={'index'} >
+      <Layout page={'index'} date={dateProp}>
         <div className={styles.container}>
           <h1 className={styles.title}>Scores</h1>
-          <Link href='/score'>
+          <Link href="/score">
             <a className={styles.scores}>View Live Scores</a>
           </Link>
 
           <h1 className={styles.title}>Current Standings</h1>
-          <Link href='/standings'>
+          <Link href="/standings">
             <a className={styles.scores}>View Standings</a>
           </Link>
         </div>
