@@ -11,7 +11,7 @@ export default function Home() {
       <Layout page={'index'} date={dateProp}>
         <div className={styles.container}>
           <h1 className={styles.title}>Scores</h1>
-          <Link href="/score">
+          <Link href="/scores">
             <a className={styles.scores}>View Live Scores</a>
           </Link>
 
