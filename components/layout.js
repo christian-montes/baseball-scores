@@ -28,17 +28,38 @@ export default function Layout({ date, children, page }) {
     <>
       {page === 'index' ? (
         <Head>
-          <title>Daily Baseball Scores and Standings</title>
+          <title>Baseball Scores and Standings</title>
           <meta name="description" content="MLB Score Tracking" />
           <link rel="shortcut icon" href="/favicon.ico" />
-          <meta name="keywords" content="MLB baseball scores live" />
-          <meta name="og:title" content="Live MLB Scores" />
+          <meta
+            name="keywords"
+            content="MLB major league baseball scores standings live"
+          />
+          <meta name="og:title" content="View baseball Scores and Standings" />
+        </Head>
+      ) : page === 'scores' ? (
+        <Head>
+          <title>Live Baseball Scores</title>
+          <meta name="Description" content="Live scores for today's games" />
+          <link rel="shortcut icon" href="/favicon.ico" />
+          <meta
+            name="keywords"
+            content="MLB scores live major league baseball"
+          />
+          <meta name="og:title" content="Live baseball Scores" />
+          <meta name="twitter:card" content="Live Baseball score feed" />
         </Head>
       ) : (
         <Head>
-          <meta name="keywords" content="MLB baseball scores live" />
-          <meta name="og:title" content="Live MLB Scores" />
-          <meta name="twitter:card" content="Live Baseball score feed" />
+          <title>MLB Standings</title>
+          <meta name="Description" content="Current MLB Divisional Standings" />
+          <link rel="shortcut icon" href="/favicon.ico" />
+          <meta
+            name="keywords"
+            content="Current MLB Standings major league baseball division standings divisional American National"
+          />
+          <meta name="og:title" content="Current MLB Standings" />
+          <meta name="twitter:card" content="Current Baseball Standings" />
         </Head>
       )}
 
