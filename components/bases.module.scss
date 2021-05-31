@@ -1,3 +1,4 @@
+@import '../styles/mixins';
 
 .field {
   position: relative;
@@ -16,23 +17,45 @@
 .base {
   position: absolute;
   transform: rotate(45deg);
-  font-size: 15px;
+  // experimental changes
+  width: 15px;
+  height: 15px;
+  background: $card-color;
+  border: 1px solid $primary-text-color;
 }
 
 .firstBase {
   @extend .base;
   top: 20px;
-  right:10px;
+  right: 10px;
+
+  &_runnerOn {
+    @extend .firstBase;
+    border: 1px solid $runnerOnBase;
+    background: $runnerOnBase;
+  }
 }
 
 .secondBase {
   @extend .base;
   top: 8px;
   right: 23px;
+
+    &_runnerOn {
+    @extend .secondBase;
+    border: 1px solid $runnerOnBase;
+    background: $runnerOnBase;
+  }
 }
 
 .thirdBase {
   @extend .base;
   top: 20px;
   right: 36px;
+
+    &_runnerOn {
+    @extend .thirdBase;
+    border: 1px solid $runnerOnBase;
+    background: $runnerOnBase;
+  }
 }

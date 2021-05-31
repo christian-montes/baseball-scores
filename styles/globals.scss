@@ -18,11 +18,34 @@ a {
 }
 
 footer {
-  background-color: $card-color;
+  width: 90vw;
+  background-color: inherit;
+  border-top: 1px solid rgb(100, 100, 100);
   display: flex;
-  flex-direction: row-reverse;
-  padding: 1rem 1rem 1rem;
-  margin-top: auto;
+  flex-direction: row;
+  padding: 1rem 0 2rem;
+  // margin-top: auto;
+  margin: auto auto 0;
+  // align-content: center;
+
+  ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    li {
+      display: inline;
+      padding: 10px;
+      a {
+        color: $secondary-text-color;
+
+        &:hover,
+        :active,
+        :focus {
+          color: $primary-text-color;
+        }
+      }
+    }
+  }
 }
 
 #__next {
@@ -35,4 +58,27 @@ footer {
   border: 1px solid $hover-color;
   border-radius: 5px;
   background-color: $card-color;
+}
+
+.score.wrapper {
+  background-image: linear-gradient(
+    90deg,
+    $score-color,
+    $loading-color 49%,
+    $loading-color 51%,
+    $score-color
+  );
+  animation: shimmer 1.2s ease-in-out infinite;
+  background-repeat: no-repeat;
+  width: 100%;
+}
+
+// loading animation for skeleton
+@keyframes shimmer {
+  0% {
+    background-position: -450px 0;
+  }
+  100% {
+    background-position: calc(450px + 100%) 0;
+  }
 }

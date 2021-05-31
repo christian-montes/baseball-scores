@@ -1,5 +1,10 @@
-
-export default function Inning({ gameState, inningData, outs, teamRunData, timeData }) {
+export default function Inning({
+  gameState,
+  inningData,
+  outs,
+  teamRunData,
+  timeData,
+}) {
   const { inningNumber, nth_Inning, inningHalf, scheduledInnings } = inningData;
 
   const {
@@ -27,10 +32,12 @@ export default function Inning({ gameState, inningData, outs, teamRunData, timeD
         ? `End ${nth_Inning}`
         : `Bot ${nth_Inning}`
       : gameState === 'Final'
-      ? inningNumber !== scheduledInnings
+      ? inningNumber > scheduledInnings || scheduledInnings < 9
         ? `${gameState}/${inningNumber}`
         : gameState
-      : 'Final';
+      : gameState === 'Scheduled'
+      ? 'Postponed'
+      : gameState;
 
   return (
     <>
