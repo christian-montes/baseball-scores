@@ -1,0 +1,26 @@
+@import '../styles/mixins';
+
+.section {
+  background-color: $card-color;
+  border-radius: 5px;
+  padding: 10px;
+  @include device-size(phone) {
+    padding: 5px;
+    margin: 5px;
+  }
+}
+
+.league {
+  padding: 0.25rem;
+  border-radius: 5px;
+}
+
+.AmericanLeague {
+  @extend .league; 
+  background-color: $AmericanLeagueRed;
+}
+
+.NationalLeague {
+  @extend .league; 
+  background-color: $NationalLeagueBlue;
+}

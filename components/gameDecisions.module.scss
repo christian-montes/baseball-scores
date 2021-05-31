@@ -1,0 +1,13 @@
+.final {
+  font-size: 14px;
+  text-align: center;
+}
+
+.scores {
+  text-align: center;
+}
+
+.decisions {
+  @extend .final;
+  color: #99A6AB;
+}

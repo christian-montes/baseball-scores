@@ -1,0 +1,27 @@
+@import '../../styles/mixins';
+
+.skeleton {
+  background:  #dce5ebaa;
+  opacity: 20%;
+  border-radius: 5px;
+  margin: 2px 0;
+
+  &_teamname {
+    @extend .skeleton;
+    width: 100%;
+    height: 13px;
+  }
+
+  &_teamRecord {
+    @extend .skeleton;
+    width: 100%;
+    height: 10px;
+  }
+
+  &_teamLogo {
+    @extend .skeleton;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+  }
+}
