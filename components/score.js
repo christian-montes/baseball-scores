@@ -39,7 +39,6 @@ export default function Score({ link }) {
       decisions,
     },
   } = data;
-  // console.log(detailedState);
 
   const toggleViewDecisions = (event) => {
     event.preventDefault();
@@ -84,11 +83,13 @@ export default function Score({ link }) {
 
             <div className="col pe-0 h-100 position-relative">
               <div className="position-absolute top-50 end-50 translate-middle pe-0">
-                <Bases
-                  gameState={detailedState}
-                  count={{ balls, strikes, outs, inningNumber }}
-                  plays={{ allPlays, playsByInning, inningHalf }}
-                />
+                {['Preview', 'In Progress'].includes(detailedState) && (
+                  <Bases
+                    gameState={detailedState}
+                    count={{ balls, strikes, outs, inningNumber }}
+                    plays={{ allPlays, playsByInning, inningHalf }}
+                  />
+                )}
               </div>
               <Inning
                 gameState={detailedState}
