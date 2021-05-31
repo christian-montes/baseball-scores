@@ -30,6 +30,10 @@ export default function Layout({ date, children, page }) {
         <Head>
           <title>Baseball Scores and Standings</title>
           <meta name="description" content="MLB Score Tracking" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta
             name="keywords"
@@ -41,6 +45,10 @@ export default function Layout({ date, children, page }) {
         <Head>
           <title>Live Baseball Scores</title>
           <meta name="Description" content="Live scores for today's games" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta
             name="keywords"
@@ -51,8 +59,12 @@ export default function Layout({ date, children, page }) {
         </Head>
       ) : (
         <Head>
-          <title>MLB Standings</title>
+          <title>Current MLB Standings</title>
           <meta name="Description" content="Current MLB Divisional Standings" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta
             name="keywords"
