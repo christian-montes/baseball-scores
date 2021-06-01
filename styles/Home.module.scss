@@ -8,15 +8,16 @@
   justify-content: flex-start;
   @include device-size(phone) {
     justify-content: center;
-    min-height: 70vh;
+    // min-height: 70%;
   }
   align-items: center;
   margin: 2rem auto;
 }
 
 .main {
+  // min-height: 70%;
   padding: 5rem 0;
-  flex: 1;
+  // flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,6 +60,9 @@
   margin: 0;
   line-height: 1.15;
   font-size: 3rem;
+  @include device-size(phone) {
+    font-size: 2rem;
+  }
 }
 
 .title,
