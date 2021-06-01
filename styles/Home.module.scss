@@ -11,7 +11,7 @@
     // min-height: 70%;
   }
   align-items: center;
-  margin: 2rem auto;
+  margin: calc((100vh - 70px - 89px - 232px)/2) auto;
 }
 
 .main {
@@ -32,11 +32,14 @@
   color: $secondary-text-color;
   font-size: 20px;
   text-align: center;
-  width: 20vw;
+  width: 30vw;
   @include device-size(phone) {
-    width: 90vw;
+    width: 95vw;
   }
-  margin-bottom: 1rem;;
+  @include device-size(miniDevice) {
+    width: 95vw;
+  }
+  margin-bottom: 1rem;
 
   &:hover {
     color: $primary-text-color;
@@ -62,6 +65,9 @@
   font-size: 3rem;
   @include device-size(phone) {
     font-size: 2rem;
+  }
+  @include device-size(miniDevice) {
+    font-size: 1.75rem;
   }
 }
 
