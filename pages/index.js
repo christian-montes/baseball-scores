@@ -5,7 +5,7 @@ import Layout from '../components/layout';
 
 export default function Home() {
   const dateProp = new Date();
-  console.log(dateProp)
+  // console.log(dateProp)
   return (
     <>
       <Layout page={'index'} date={dateProp}>
