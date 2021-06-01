@@ -6,7 +6,6 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   color: $primary-text-color;
   background-color: $background-color;
-  height: 100%;
 }
 
 a {
@@ -55,8 +54,9 @@ footer {
 #__next {
   display: flex;
   flex-direction: column;
-  // height: 100vh;
-  height: 100%;
+  @include device-size(large-computer) {
+    height: 100vh;
+  }
   justify-content: space-between;
 }
 
