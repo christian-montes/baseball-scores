@@ -26,6 +26,9 @@ footer {
   padding: 1rem 0 2rem;
   // margin-top: auto;
   margin: auto auto 0;
+  @include device-size(phone) {
+    margin: 0 auto 1rem;
+  }
   // align-content: center;
 
   ul {
@@ -51,7 +54,10 @@ footer {
 #__next {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  @include device-size(large-computer) {
+    height: 100vh;
+  }
+  justify-content: space-between;
 }
 
 .score {

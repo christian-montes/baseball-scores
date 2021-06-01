@@ -2,6 +2,8 @@
 @mixin device-size($device) {
   @if $device == phone {
     @media screen and (max-width: 600px) { @content; }
+  } @else if $device == miniDevice {
+    @media screen and (min-width: 601px) and (max-width: 767px) { @content; }
   } @else if $device == tablet {
     @media screen and (min-width: 768px) and (max-width: 991px) { @content; }
   } @else if $device == tablet-laptop {
