@@ -34,7 +34,7 @@ export default function Layout({ date, children, page }) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="icon" href="/favicon.ico" />
           <meta
             name="keywords"
             content="MLB major league baseball scores standings live"
@@ -49,7 +49,7 @@ export default function Layout({ date, children, page }) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="icon" href="/favicon.ico" />
           <meta
             name="keywords"
             content="MLB scores live major league baseball"
@@ -65,7 +65,7 @@ export default function Layout({ date, children, page }) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="icon" href="/favicon.ico" />
           <meta
             name="keywords"
             content="Current MLB Standings major league baseball division standings divisional American National"
