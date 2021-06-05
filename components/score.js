@@ -21,7 +21,7 @@ export default function Score({ link }) {
   const {
     gameData: {
       teams: { away: awayRecord, home: homeRecord },
-      status: { detailedState },
+      status: { detailedState, abstractGameState },
       datetime,
     },
     liveData: {
@@ -93,6 +93,7 @@ export default function Score({ link }) {
               </div>
               <Inning
                 gameState={detailedState}
+                absGameState={abstractGameState}
                 inningData={{
                   inningNumber,
                   nth_Inning,
