@@ -2,10 +2,27 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './layout.module.scss';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronCircleLeft,
+  faChevronCircleRight,
+} from '@fortawesome/free-solid-svg-icons';
+import { format } from 'date-fns';
 import moment from 'moment';
 
-export default function Layout({ date, children, page }) {
-  const formattedDate = moment(date).format('dddd MMM D');
+export default function Layout({
+  date,
+  children,
+  page,
+  dateCallback,
+  returnCallback,
+}) {
+  // const formattedDate = moment(date).format('dddd MMM D');
+  const formattedDate = format(date, 'eeee MMM d');
+  const todayFormatted = format(new Date(), 'eeee MMM d');
+
+  const datesEqual = formattedDate === todayFormatted;
 
   const footerPaths = [
     { name: 'Home', link: '/' },
@@ -85,8 +102,25 @@ export default function Layout({ date, children, page }) {
           />
         </div>
         {date && (
-          <div className={styles.dateContainer}>
-            <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
+          <div className={styles.todayContainer}>
+            {/* {page === 'scores' && (
+              <div className={styles.arrows}>
+                <FontAwesomeIcon icon={faChevronCircleLeft} />
+              </div>
+            )} */}
+            {datesEqual ? (
+              <div className={styles.gameDate}>Today</div>
+            ) : (
+              <div className={styles.todayDisplay} onClick={returnCallback}>
+                Return to today
+              </div>
+            )}
+
+            {/* {page === 'scores' && (
+              <div className={styles.arrows}>
+                <FontAwesomeIcon icon={faChevronCircleRight} />
+              </div>
+            )} */}
           </div>
         )}
         <div className={styles.child}>
@@ -103,11 +137,32 @@ export default function Layout({ date, children, page }) {
       </header>
 
       {page === 'scores' ? (
-        <main className={styles.games}>{children}</main>
+        <>
+          {date && (
+            <div className={styles.dateContainer}>
+              {page === 'scores' && (
+                <div id="left" className={styles.arrows} onClick={dateCallback}>
+                  <FontAwesomeIcon icon={faChevronCircleLeft} />
+                </div>
+              )}
+              <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
+              {page === 'scores' && (
+                <div
+                  id="right"
+                  className={styles.arrows}
+                  onClick={dateCallback}
+                >
+                  <FontAwesomeIcon icon={faChevronCircleRight} />
+                </div>
+              )}
+            </div>
+          )}
+          <main className={styles.games}>{children}</main>
+        </>
       ) : page === 'standings' ? (
         <main className={styles.standings}>{children}</main>
       ) : (
-        <main>{children}</main>
+        <main className={styles.index}>{children}</main>
       )}
 
       <footer>
