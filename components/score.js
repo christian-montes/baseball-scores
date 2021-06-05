@@ -21,7 +21,7 @@ export default function Score({ link }) {
   const {
     gameData: {
       teams: { away: awayRecord, home: homeRecord },
-      status: { detailedState },
+      status: { detailedState, abstractGameState },
       datetime,
     },
     liveData: {
@@ -86,6 +86,7 @@ export default function Score({ link }) {
                 {['Preview', 'In Progress'].includes(detailedState) && (
                   <Bases
                     gameState={detailedState}
+                    absGameState={abstractGameState}
                     count={{ balls, strikes, outs, inningNumber }}
                     plays={{ allPlays, playsByInning, inningHalf }}
                   />
