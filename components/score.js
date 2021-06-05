@@ -86,7 +86,6 @@ export default function Score({ link }) {
                 {['Preview', 'In Progress'].includes(detailedState) && (
                   <Bases
                     gameState={detailedState}
-                    absGameState={abstractGameState}
                     count={{ balls, strikes, outs, inningNumber }}
                     plays={{ allPlays, playsByInning, inningHalf }}
                   />
@@ -94,6 +93,7 @@ export default function Score({ link }) {
               </div>
               <Inning
                 gameState={detailedState}
+                absGameState={abstractGameState}
                 inningData={{
                   inningNumber,
                   nth_Inning,
