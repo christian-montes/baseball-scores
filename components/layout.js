@@ -9,7 +9,6 @@ import {
   faChevronCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
-import moment from 'moment';
 
 export default function Layout({
   date,
