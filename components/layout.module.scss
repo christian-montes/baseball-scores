@@ -38,6 +38,9 @@
 .index {
   display: flex;
   flex-direction: column;
+  @include device-size(miniDevice) {
+    margin: 1rem 0;
+  }
 }
 
 .child {
