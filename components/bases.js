@@ -11,12 +11,11 @@ export default function Bases({ gameState, count, plays }) {
   const { allPlays, playsByInning, inningHalf } = plays;
   const display = ['In Progress', 'Warmup'].includes(gameState);
 
-
   /**
    * The update runners is the basis of the
    * Bases component. This function takes the plays of the current half inning and
-   * loops through the array of plays. 
-   * By extracting 
+   * loops through the array of plays.
+   * By extracting
    * the originBase,
    * the start Base, and
    * the End Base, the correct bases can be shown to have a runner on.
@@ -41,7 +40,6 @@ export default function Bases({ gameState, count, plays }) {
         // used to track runner advancing on the play
         let originBases = [];
         if (true) {
-
           if (runners.length > 1) {
             // the error for the bases may be coming from runners advancing on a throw and "end" appearing more than once;
             // maybe create an array to hold the bases where the runner started to keep track of the same runner making another move on the same play
@@ -77,9 +75,7 @@ export default function Bases({ gameState, count, plays }) {
               // console.log(runnersOn);
             });
           } else if (runners.length === 1) {
-            !runnersOn['1B'] &&
-              !runnersOn['2B'] &&
-              !runnersOn['3B'] &&
+            if (!runnersOn['1B'] && !runnersOn['2B'] && !runnersOn['3B']) {
               runners.map((runner) => {
                 const {
                   movement: { end },
@@ -94,6 +90,22 @@ export default function Bases({ gameState, count, plays }) {
                 }
                 // console.log(runnersOn);
               });
+            } else if (runnersOn['1B'] || runnersOn['2B'] || runnersOn['3B']) {
+              runners.map((runner) => {
+                const {
+                  movement: { start, end },
+                } = runner;
+
+                runnersOn[start] = false;
+                if (end === '1B') {
+                  runnersOn[end] = true;
+                } else if (end === '2B') {
+                  runnersOn[end] = true;
+                } else if (end === '3B') {
+                  runnersOn[end] = true;
+                }
+              });
+            }
           }
         }
       });
