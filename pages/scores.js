@@ -17,7 +17,7 @@ export default function ScorePage({ todaysGames }) {
     return <Score key={game.gamePk} link={game.link} />;
   });
 
-  const toggleDate = (event) => {
+  const toggleDate = async (event) => {
     event.preventDefault();
     let gameDate;
 
@@ -29,28 +29,44 @@ export default function ScorePage({ todaysGames }) {
     // console.log(formattedDate);
     setSelDate(gameDate);
     setFormedDate(formattedDate);
+
+    let switchData = await axios
+      .get(
+        `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${formattedDate}&endDate=${formattedDate}`
+      )
+      .then((res) => res.data);
+
+    setData(switchData);
   };
 
-  const returnToToday = (event) => {
+  const returnToToday = async (event) => {
     event.preventDefault();
 
     const today = format(new Date(), 'yyyy-MM-dd');
     setSelDate(new Date());
-    setFormedDate(today)
+    setFormedDate(today);
+
+    let todayData = await axios
+      .get(
+        `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${today}&endDate=${today}`
+      )
+      .then((res) => res.data);
+
+    setData(todayData);
   };
 
-  useEffect(async () => {
-    // console.log('effect');
-    let newData =
-      formedDate &&
-      (await axios
-        .get(
-          `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${formedDate}&endDate=${formedDate}`
-        )
-        .then((res) => res.data));
+  // useEffect(async () => {
+  //   // console.log('effect');
+  //   // let newData =
+  //   //   formedDate &&
+  //   //   (await axios
+  //   //     .get(
+  //   //       `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${formedDate}&endDate=${formedDate}`
+  //   //     )
+  //   //     .then((res) => res.data));
 
-    formedDate && setData(newData);
-  }, [formedDate]);
+  //   formedDate && setData(newData);
+  // }, [formedDate]);
 
   // console.log(todaysGames);
 
