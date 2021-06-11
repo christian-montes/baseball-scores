@@ -14,12 +14,21 @@ export default function Layout({
   date,
   children,
   page,
+  referenceDate,
   dateCallback,
   returnCallback,
 }) {
   // const formattedDate = moment(date).format('dddd MMM D');
-  const formattedDate = format(date, 'eeee MMM d');
-  const todayFormatted = format(new Date(), 'eeee MMM d');
+  const formattedDate = format(new Date(date), 'eeee MMM d');
+  // console.log([date, referenceDate, formattedDate]);
+  let todayFormatted;
+  // const todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
+  // console.log([date, referenceDate]);
+  try {
+    todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
+  } catch {
+    todayFormatted = format(new Date(date), 'eeee MMM d');
+  }
 
   const datesEqual = formattedDate === todayFormatted;
 
@@ -102,22 +111,22 @@ export default function Layout({
         </div>
         {date && (
           <div className={styles.todayContainer}>
-            {/* {page === 'scores' && (
-              <div className={styles.arrows}>
-                <FontAwesomeIcon icon={faChevronCircleLeft} />
-              </div>
-            )} */}
-            {datesEqual ? (
-              <div className={styles.gameDate}>Today</div>
+            {page === 'index' ? (
+              <div className={styles.gameDate}>Home</div>
+            ) : page === 'standings' ? (
+              <div className={styles.gameDate}>Standings</div>
+            ) : datesEqual ? (
+              <div className={styles.gameDate}>Scores</div>
             ) : (
               <div className={styles.todayDisplay} onClick={returnCallback}>
                 Return to today
               </div>
             )}
-
-            {/* {page === 'scores' && (
-              <div className={styles.arrows}>
-                <FontAwesomeIcon icon={faChevronCircleRight} />
+            {/* {datesEqual ? (
+              <div className={styles.gameDate}>Today</div>
+            ) : (
+              <div className={styles.todayDisplay} onClick={returnCallback}>
+                Return to today
               </div>
             )} */}
           </div>
