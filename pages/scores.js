@@ -58,21 +58,6 @@ export default function ScorePage({ todaysGames, currentGames }) {
     setData(todayData);
   };
 
-  // useEffect(async () => {
-  //   // console.log('effect');
-  //   // let newData =
-  //   //   formedDate &&
-  //   //   (await axios
-  //   //     .get(
-  //   //       `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${formedDate}&endDate=${formedDate}`
-  //   //     )
-  //   //     .then((res) => res.data));
-
-  //   formedDate && setData(newData);
-  // }, [formedDate]);
-
-  // console.log(todaysGames);
-
   return (
     <Layout
       date={formedDate}
