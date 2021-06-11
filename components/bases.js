@@ -39,73 +39,79 @@ export default function Bases({ gameState, count, plays }) {
         // Origin base is used to track which base the runner originated from;
         // used to track runner advancing on the play
         let originBases = [];
-        if (true) {
-          if (runners.length > 1) {
-            // the error for the bases may be coming from runners advancing on a throw and "end" appearing more than once;
-            // maybe create an array to hold the bases where the runner started to keep track of the same runner making another move on the same play
-            Object.keys(runnersOn).forEach((r) => (runnersOn[r] = false));
+        let endBases = [];
+        if (runners.length > 1) {
+          // the error for the bases may be coming from runners advancing on a throw and "end" appearing more than once;
+          // maybe create an array to hold the bases where the runner started to keep track of the same runner making another move on the same play
+          // Object.keys(runnersOn).forEach((r) => (runnersOn[r] = false));
+          // console.log(runnersOn);
+          runners.map((runner) => {
+            const {
+              movement: { originBase, start, end, isOut },
+            } = runner;
+
+            if (isOut) {
+              return;
+            }
+            if (!originBases.includes(originBase)) {
+              if (!endBases.includes(start)) {
+                runnersOn[start] = false;
+              }
+              endBases.push(end);
+              originBases.push(originBase);
+
+              if (end === '1B') {
+                runnersOn[end] = true;
+              } else if (end === '2B') {
+                runnersOn[end] = true;
+              } else if (end === '3B') {
+                runnersOn[end] = true;
+              }
+            } else {
+              runnersOn[start] = false;
+
+              if (end === '1B') {
+                runnersOn[end] = true;
+              } else if (end === '2B') {
+                runnersOn[end] = true;
+              } else if (end === '3B') {
+                runnersOn[end] = true;
+              }
+            }
+
             // console.log(runnersOn);
+          });
+        } else if (runners.length === 1) {
+          if (!runnersOn['1B'] && !runnersOn['2B'] && !runnersOn['3B']) {
             runners.map((runner) => {
               const {
-                movement: { originBase, start, end },
+                movement: { end },
               } = runner;
 
-              if (!originBases.includes(originBase)) {
-                originBases.push(originBase);
-
-                if (end === '1B') {
-                  runnersOn[end] = true;
-                } else if (end === '2B') {
-                  runnersOn[end] = true;
-                } else if (end === '3B') {
-                  runnersOn[end] = true;
-                }
-              } else {
-                runnersOn[start] = false;
-
-                if (end === '1B') {
-                  runnersOn[end] = true;
-                } else if (end === '2B') {
-                  runnersOn[end] = true;
-                } else if (end === '3B') {
-                  runnersOn[end] = true;
-                }
+              if (end === '1B') {
+                runnersOn[end] = true;
+              } else if (end === '2B') {
+                runnersOn[end] = true;
+              } else if (end === '3B') {
+                runnersOn[end] = true;
               }
-
               // console.log(runnersOn);
             });
-          } else if (runners.length === 1) {
-            if (!runnersOn['1B'] && !runnersOn['2B'] && !runnersOn['3B']) {
-              runners.map((runner) => {
-                const {
-                  movement: { end },
-                } = runner;
+          } else if (runnersOn['1B'] || runnersOn['2B'] || runnersOn['3B']) {
+            runners.map((runner) => {
+              const {
+                movement: { start, end },
+              } = runner;
 
-                if (end === '1B') {
-                  runnersOn[end] = true;
-                } else if (end === '2B') {
-                  runnersOn[end] = true;
-                } else if (end === '3B') {
-                  runnersOn[end] = true;
-                }
-                // console.log(runnersOn);
-              });
-            } else if (runnersOn['1B'] || runnersOn['2B'] || runnersOn['3B']) {
-              runners.map((runner) => {
-                const {
-                  movement: { start, end },
-                } = runner;
-
-                runnersOn[start] = false;
-                if (end === '1B') {
-                  runnersOn[end] = true;
-                } else if (end === '2B') {
-                  runnersOn[end] = true;
-                } else if (end === '3B') {
-                  runnersOn[end] = true;
-                }
-              });
-            }
+              runnersOn[start] = false;
+              if (end === '1B') {
+                runnersOn[end] = true;
+              } else if (end === '2B') {
+                runnersOn[end] = true;
+              } else if (end === '3B') {
+                runnersOn[end] = true;
+              }
+            });
           }
         }
       });
