@@ -7,7 +7,7 @@ export default function DivisionStandings({ divisionName, teams }) {
     'winPercent',
     'gamesBehind',
     'streak',
-    'Last Ten'
+    'Last Ten',
   ];
 
   const [{ value: firstPlaceWins }, { value: firstPlaceLosses }] = teams[0][
@@ -40,6 +40,7 @@ export default function DivisionStandings({ divisionName, teams }) {
           10
       ) / 20
     ).toFixed(1);
+    // console.log(GB === '0.0');
 
     const gamesBackProcess = {
       team,
@@ -57,8 +58,13 @@ export default function DivisionStandings({ divisionName, teams }) {
         stat['name'] === 'gamesBehind' &&
         team['name'] !== firstPlaceTeam
       ) {
-        stat['value'] = GB;
-        stat['displayValue'] = GB.toString();
+        if (Boolean(GB === '0.0')) {
+          stat['value'] = '-';
+          stat['displayValue'] = '-';
+        } else {
+          stat['value'] = GB;
+          stat['displayValue'] = GB.toString();
+        }
       }
     });
 
