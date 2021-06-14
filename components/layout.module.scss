@@ -169,12 +169,13 @@
     grid-template-columns: 1fr;
     width: 100vw;
     row-gap: 5px;
+    margin-bottom: 1rem;
   }
 
   @include device-size(tablet) {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    width: 90vw;
+    width: 100vw;
     padding: 1rem;
     margin: 1rem auto;
   }

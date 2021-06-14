@@ -6,7 +6,7 @@
   padding: 10px;
   @include device-size(phone) {
     padding: 5px;
-    margin: 5px;
+    margin: 5px 5px 0;
   }
 
   @include device-size(miniDevice) {
@@ -16,16 +16,20 @@
 }
 
 .league {
-  padding: 0.25rem;
-  border-radius: 5px;
+  padding-bottom: 0.25rem;
+  margin: 0;
+  font-weight: 400;
+  // border-radius: 5px;
+  border-bottom: 1px solid #F0F0F0AA;
+  border-width: thin;
 }
 
 .AmericanLeague {
   @extend .league; 
-  background-color: $AmericanLeagueRed;
+  // background-color: $AmericanLeagueRed;
 }
 
 .NationalLeague {
   @extend .league; 
-  background-color: $NationalLeagueBlue;
+  // background-color: $NationalLeagueBlue;
 }
