@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Layout from '../components/layout';
 import Standings from '../components/standings';
+import { changeAbbreviation, getFileCode } from '../lib/teamNames';
 
 export async function getStaticProps() {
   const { children } = await axios
@@ -40,6 +41,8 @@ export async function getStaticProps() {
         team: { abbreviation },
       } = entry;
       entry['team']['division'] = teamDivisions[abbreviation];
+      entry['team']['fileCode'] = getFileCode(abbreviation);
+      entry['team']['abbreviation'] = changeAbbreviation(abbreviation);
     });
   });
 
@@ -55,9 +58,9 @@ export async function getStaticProps() {
 export default function StandingsPage({ AmericanLeague, NationalLeague }) {
   // console.log(AmericanLeague)
   const dateProp = new Date();
-  const StandingsTables = [AmericanLeague, NationalLeague].map(league => {
-    return <Standings key={league['name']} data={league} />
-  })
+  const StandingsTables = [AmericanLeague, NationalLeague].map((league) => {
+    return <Standings key={league['name']} data={league} />;
+  });
 
   return (
     <Layout date={dateProp} page={'standings'}>
