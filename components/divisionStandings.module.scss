@@ -28,7 +28,7 @@
         margin-right: 5px;
         text-align: start;
         border-right: 1px solid #f0f0f0aa;
-        width: 60px;
+        width: 80px;
       }
     }
   }
@@ -44,7 +44,9 @@
       border-bottom: 1px solid rgba(245, 245, 245, 0.2);
       &:first-child {
         border-right: 1px solid #f0f0f0aa;
-        text-align: start;
+        text-align: center;
+        display: flex;
+        // justify-content: space-between;
       }
     }
   }

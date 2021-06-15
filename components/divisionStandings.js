@@ -83,7 +83,7 @@ export default function DivisionStandings({ divisionName, teams }) {
 
   const tableRows = teamsFiltered.map((tm) => {
     const {
-      team: { abbreviation },
+      team: { abbreviation, fileCode },
       stats,
     } = tm;
 
@@ -93,7 +93,13 @@ export default function DivisionStandings({ divisionName, teams }) {
       return <td key={name}>{displayValue}</td>;
     });
 
-    const rowData = [<td key={abbreviation}>{abbreviation}</td>, ...statData];
+    const rowData = [
+      <td key={abbreviation}>
+        <object data={`${fileCode}.svg`} width={40} height={23} />{' '}
+        {abbreviation}
+      </td>,
+      ...statData,
+    ];
     return <tr key={abbreviation}>{rowData}</tr>;
     // stats.map((stat) => {
     //   const { name, displayValue } = stat;
