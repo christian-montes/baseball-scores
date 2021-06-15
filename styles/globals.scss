@@ -52,6 +52,7 @@ footer {
 }
 
 #__next {
+  position: relative;
   display: flex;
   flex-direction: column;
   @include device-size(large-computer) {
