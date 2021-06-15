@@ -9,6 +9,7 @@ import {
   faChevronCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+import { useState } from 'react';
 
 export default function Layout({
   date,
@@ -18,12 +19,10 @@ export default function Layout({
   dateCallback,
   returnCallback,
 }) {
-  // const formattedDate = moment(date).format('dddd MMM D');
+  const [showMenu, setShowMenu] = useState(false);
   const formattedDate = format(new Date(date), 'eeee MMM d');
-  // console.log([date, referenceDate, formattedDate]);
   let todayFormatted;
   // const todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
-  // console.log([date, referenceDate]);
   try {
     todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
   } catch {
@@ -135,10 +134,15 @@ export default function Layout({
           {page === 'index' ? (
             <div style={{ width: '60px', height: '60px' }} />
           ) : (
-            <div className={styles.menu}>
-              <div id="bar1" className={styles.bar} />
-              <div id="bar2" className={styles.bar} />
-              <div id="bar3" className={styles.bar} />
+            <div
+              className={styles.menu}
+              onClick={() => {
+                setShowMenu(!showMenu);
+              }}
+            >
+              <div id="bar1" className={showMenu ? styles.bar1 : styles.bar} />
+              <div id="bar2" className={showMenu ? styles.bar2 : styles.bar} />
+              <div id="bar3" className={showMenu ? styles.bar3 : styles.bar} />
             </div>
           )}
         </div>

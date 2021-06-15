@@ -27,13 +27,7 @@
     margin-bottom: 0.5rem;
   }
   
-  //optionally set height and width, it will depend on the rest of the styling used
 }
-
-// .flex {
-//   display: flex;
-//   flex-direction: row;
-// }
 
 .index {
   display: flex;
@@ -54,8 +48,11 @@
 
 .menu {
   width: 60px;
-  display: flex;
-  flex-direction: column;
+  // height: 25px;
+  // border: 1px solid white;
+  display: inline-block;
+  // flex-direction: column;
+  cursor: pointer;
 }
 
 // style for the three line menu bar
@@ -63,8 +60,28 @@
   height: 3px;
   width: 50%;
   background-color: $secondary-text-color;
-  margin: 2px auto 2px;
+  margin: 4px auto 4px;
   border-radius: 5px;
+  transition: 0.4s;
+}
+
+.bar1 {
+  @extend .bar;
+  -webkit-transform: rotate(-45deg) translate(-6px, 4px);
+  // transform: rotate(-45deg) translate(-3px, 7px);
+  transform: rotate(-45deg) translate(-6px, 4px);
+}
+
+.bar2 {
+  @extend .bar;
+  opacity: 0;
+}
+
+.bar3 {
+  @extend .bar;
+  -webkit-transform: rotate(45deg) translate(-6px, -4px);
+  // transform: rotate(45deg) translate(-3px, -7px);
+  transform: rotate(45deg) translate(-6px, -4px);
 }
 
 .todayContainer {
