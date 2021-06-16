@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 import { useState } from 'react';
+import Menu from './menu';
 
 export default function Layout({
   date,
@@ -28,7 +29,6 @@ export default function Layout({
   } catch {
     todayFormatted = format(new Date(date), 'eeee MMM d');
   }
-
   const datesEqual = formattedDate === todayFormatted;
 
   const footerPaths = [
@@ -48,6 +48,11 @@ export default function Layout({
       </li>
     );
   });
+
+  function toggleMenu(event) {
+    event.preventDefault();
+    setShowMenu(!showMenu);
+  }
   return (
     <>
       {page === 'index' ? (
@@ -134,15 +139,25 @@ export default function Layout({
           {page === 'index' ? (
             <div style={{ width: '60px', height: '60px' }} />
           ) : (
-            <div
-              className={styles.menu}
-              onClick={() => {
-                setShowMenu(!showMenu);
-              }}
-            >
-              <div id="bar1" className={showMenu ? styles.bar1 : styles.bar} />
-              <div id="bar2" className={showMenu ? styles.bar2 : styles.bar} />
-              <div id="bar3" className={showMenu ? styles.bar3 : styles.bar} />
+            <div className={styles.dropdown}>
+              <div
+                className={styles.menu}
+                onClick={toggleMenu}
+              >
+                <div
+                  id="bar1"
+                  className={showMenu ? styles.bar1 : styles.bar}
+                />
+                <div
+                  id="bar2"
+                  className={showMenu ? styles.bar2 : styles.bar}
+                />
+                <div
+                  id="bar3"
+                  className={showMenu ? styles.bar3 : styles.bar}
+                />
+              </div>
+              <Menu show={showMenu} />
             </div>
           )}
         </div>

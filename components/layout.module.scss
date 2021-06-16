@@ -46,11 +46,16 @@
   justify-content: center;
 }
 
+.dropdown {
+  // position: relative;
+  display: inline-block;
+}
+
 .menu {
   width: 60px;
   // height: 25px;
   // border: 1px solid white;
-  display: inline-block;
+  // display: inline-block;
   // flex-direction: column;
   cursor: pointer;
 }
