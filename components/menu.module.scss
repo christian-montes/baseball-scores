@@ -51,9 +51,9 @@
 
 .hiddenMenu {
   @extend .dropdownContent;
-  right: -300px;
+  right: -500px;
   @include device-size (phone) {
-    left: -50%;
+    left: -100%;
   }
 
 }

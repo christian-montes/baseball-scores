@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 export default function Menu({show}) {
   const [elemHeight, setElemHeight] = useState('0');
+  const [windowWidth, setWindowWidth] = useState(0);
   const menuLinks = [
     { name: 'Home', link: '/' },
     { name: 'Scores', link: '/scores' },
@@ -42,7 +43,13 @@ export default function Menu({show}) {
 
   useEffect(() => {
     getHeight();
-  }, []);
+  }, [windowWidth]);
+
+  useEffect(() => {
+    var windowW = window.innerWidth;
+    console.log(windowW)
+    setWindowWidth(windowW);
+  })
 
   return (
     <div
