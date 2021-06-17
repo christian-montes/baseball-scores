@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './layout.module.scss';
+import { useRouter } from 'next/router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,6 +12,7 @@ import {
 import { format } from 'date-fns';
 import { useState } from 'react';
 import Menu from './menu';
+import { check } from 'prettier';
 
 export default function Layout({
   date,
@@ -21,6 +23,7 @@ export default function Layout({
   returnCallback,
 }) {
   const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter();
   const formattedDate = format(new Date(date), 'eeee MMM d');
   let todayFormatted;
   // const todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
@@ -52,6 +55,15 @@ export default function Layout({
   function toggleMenu(event) {
     event.preventDefault();
     setShowMenu(!showMenu);
+  }
+
+  function checkWindowLocation(event) {
+    event.preventDefault();
+    // console.log(window.location.href);
+    console.log(event.currentTarget.href);
+    event.currentTarget.href === window.location.href
+      ? setShowMenu(!showMenu)
+      : router.push(event.currentTarget.href);
   }
   return (
     <>
@@ -140,10 +152,7 @@ export default function Layout({
             <div style={{ width: '60px', height: '60px' }} />
           ) : (
             <div className={styles.dropdown}>
-              <div
-                className={styles.menu}
-                onClick={toggleMenu}
-              >
+              <div className={styles.menu} onClick={toggleMenu}>
                 <div
                   id="bar1"
                   className={showMenu ? styles.bar1 : styles.bar}
@@ -157,7 +166,7 @@ export default function Layout({
                   className={showMenu ? styles.bar3 : styles.bar}
                 />
               </div>
-              <Menu show={showMenu} />
+              <Menu show={showMenu} clickCallback={checkWindowLocation} />
             </div>
           )}
         </div>

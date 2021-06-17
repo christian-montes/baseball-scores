@@ -2,14 +2,13 @@ import styles from './menu.module.scss';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function Menu({show}) {
-  const [elemHeight, setElemHeight] = useState('0');
-  const [windowWidth, setWindowWidth] = useState(0);
+export default function Menu({ show, clickCallback }) {
+  // const [elemHeight, setElemHeight] = useState('0');
+  // const [windowWidth, setWindowWidth] = useState(0);
   const menuLinks = [
     { name: 'Home', link: '/' },
     { name: 'Scores', link: '/scores' },
     { name: 'Standings', link: '/standings' },
-    { name: 'Boxscores', link: '/' },
     {
       name: 'About',
       link: 'https://github.com/christian-montes/baseball-scores',
@@ -18,48 +17,49 @@ export default function Menu({show}) {
   const menuItems = menuLinks.map((item) => {
     return (
       <li key={item.name}>
-        <Link href={item.link}>{item.name}</Link>
+        <a href={item.link} onClick={clickCallback}>
+          {item.name}
+        </a>
       </li>
+
+      // <a key={item.name} href={item.link} onClick={clickCallback}>
+      //   <li>{item.name}</li>
+      // </a>
     );
   });
 
-  function getHeight() {
-    var windowH = window.innerHeight;
-    var header = document.querySelector('header');
-    let headerHeight = header.offsetHeight;
-    headerHeight += parseInt(
-      window.getComputedStyle(header).getPropertyValue('margin-top')
-    );
-    headerHeight += parseInt(
-      window.getComputedStyle(header).getPropertyValue('margin-bottom')
-    );
+  // function getHeight() {
+  //   var windowH = window.innerHeight;
+  //   var header = document.querySelector('header');
+  //   let headerHeight = header.offsetHeight;
+  //   headerHeight += parseInt(
+  //     window.getComputedStyle(header).getPropertyValue('margin-top')
+  //   );
+  //   headerHeight += parseInt(
+  //     window.getComputedStyle(header).getPropertyValue('margin-bottom')
+  //   );
 
-    let menuHeight = String(windowH - headerHeight);
-    menuHeight += 'px';
-    if (window.innerWidth < 500) {
-      setElemHeight(menuHeight);
-    }
-  }
+  //   let menuHeight = String(windowH - headerHeight);
+  //   menuHeight += 'px';
+  //   if (window.innerWidth < 500) {
+  //     setElemHeight(menuHeight);
+  //   }
+  // }
 
-  useEffect(() => {
-    getHeight();
-  }, [windowWidth]);
+  // useEffect(() => {
+  //   getHeight();
+  // }, [windowWidth]);
 
-  useEffect(() => {
-    var windowW = window.innerWidth;
-    console.log(windowW)
-    setWindowWidth(windowW);
-  })
+  // useEffect(() => {
+  //   var windowW = window.innerWidth;
+  //   console.log(windowW)
+  //   setWindowWidth(windowW);
+  // })
 
   return (
     <div
       id="menuContainer"
       className={show ? styles.dropdownContent : styles.hiddenMenu}
-      style={
-        elemHeight !== '0'
-          ? { height: elemHeight }
-          : { height: '410px' }
-      }
     >
       <ul>{menuItems}</ul>
     </div>
