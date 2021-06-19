@@ -56,22 +56,29 @@ export default function Layout({
     event.preventDefault();
     setShowMenu(!showMenu);
     const body = document.querySelector('body');
+    const next = document.querySelector('main');
+    const footer = document.querySelector('footer');
     body.classList.toggle('showMenu');
+    next.classList.toggle('showMenuSafari');
+    footer.classList.toggle('hideFooter');
 
-    const menu = document.getElementById('menu');
-    menu.classList.toggle('menuDisplay');
+    // const menu = document.getElementById('menu');
+    // menu.classList.toggle('menuDisplay');
   }
 
   function checkWindowLocation(event) {
     event.preventDefault();
 
-    if (event.currentTarget.href === window.location.href) {
-      setShowMenu(!showMenu);
-      const body = document.querySelector('body');
-      body.classList.toggle('showMenu');
-    } else {
-      router.push(event.currentTarget.href);
-    }
+    const body = document.querySelector('body');
+    const next = document.querySelector('main');
+    const footer = document.querySelector('footer');
+    body.classList.toggle('showMenu');
+    next.classList.toggle('showMenuSafari');
+    footer.classList.toggle('hideFooter');
+
+    event.currentTarget.href === window.location.href
+      ? setShowMenu(!showMenu)
+      : router.push(event.currentTarget.href);
   }
   return (
     <>
