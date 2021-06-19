@@ -17,9 +17,9 @@ export default function Menu({ show, clickCallback }) {
   const menuItems = menuLinks.map((item) => {
     return (
       <li key={item.name}>
-        <a href={item.link} onClick={clickCallback}>
-          {item.name}
-        </a>
+        <Link href={item.link}>
+          <a onClick={clickCallback}>{item.name}</a>
+        </Link>
       </li>
 
       // <a key={item.name} href={item.link} onClick={clickCallback}>

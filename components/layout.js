@@ -55,15 +55,23 @@ export default function Layout({
   function toggleMenu(event) {
     event.preventDefault();
     setShowMenu(!showMenu);
+    const body = document.querySelector('body');
+    body.classList.toggle('showMenu');
+
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('menuDisplay');
   }
 
   function checkWindowLocation(event) {
     event.preventDefault();
-    // console.log(window.location.href);
-    console.log(event.currentTarget.href);
-    event.currentTarget.href === window.location.href
-      ? setShowMenu(!showMenu)
-      : router.push(event.currentTarget.href);
+
+    if (event.currentTarget.href === window.location.href) {
+      setShowMenu(!showMenu);
+      const body = document.querySelector('body');
+      body.classList.toggle('showMenu');
+    } else {
+      router.push(event.currentTarget.href);
+    }
   }
   return (
     <>
@@ -148,11 +156,10 @@ export default function Layout({
           </div>
         )}
         <div className={styles.child}>
-          {page === 'index' ? (
-            <div style={{ width: '60px', height: '60px' }} />
-          ) : (
+          <div style={{ width: '60px', height: '60px' }} />
+          {page !== 'index' && (
             <div className={styles.dropdown}>
-              <div className={styles.menu} onClick={toggleMenu}>
+              <div id="menu" className={styles.menu} onClick={toggleMenu}>
                 <div
                   id="bar1"
                   className={showMenu ? styles.bar1 : styles.bar}
