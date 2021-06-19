@@ -63,6 +63,12 @@ footer {
   justify-content: space-between;
 }
 
+.showMenu {
+  @include device-size(phone) {
+    overflow-y: hidden;
+  }
+}
+
 .score {
   border: 1px solid $hover-color;
   border-radius: 5px;

@@ -7,8 +7,7 @@
   align-items: center;
   justify-content: space-between;
   @include device-size(phone) {
-    margin: 5px 5px 0.5rem;
-    border-radius: 5px;
+    margin: 0 0 0.5rem;
   }
   @include device-size(miniDevice) {
     margin: 5px;
@@ -52,6 +51,10 @@
 }
 
 .menu {
+  position: absolute;
+  right: 21px;
+  top: 20px;
+  z-index: 3;
   width: 60px;
   // height: 25px;
   // border: 1px solid white;
