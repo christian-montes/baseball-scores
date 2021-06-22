@@ -12,13 +12,14 @@ import {
 import { format } from 'date-fns';
 import { useState } from 'react';
 import Menu from './menu';
-import { check } from 'prettier';
 
 export default function Layout({
   date,
   children,
   page,
   referenceDate,
+  standings,
+  toggleStandings,
   dateCallback,
   returnCallback,
 }) {
@@ -210,7 +211,33 @@ export default function Layout({
           <main className={styles.games}>{children}</main>
         </>
       ) : page === 'standings' ? (
-        <main className={styles.standings}>{children}</main>
+        <>
+          <div className={styles.container}>
+            <div
+              id="divisional"
+              onClick={toggleStandings}
+              className={
+                standings === 'divisional'
+                  ? styles.selectedElement
+                  : styles.element
+              }
+            >
+              Division
+            </div>
+            <div
+              id="wildcard"
+              onClick={toggleStandings}
+              className={
+                standings === 'wildcard'
+                  ? styles.selectedElement
+                  : styles.element
+              }
+            >
+              Wilcard
+            </div>
+          </div>
+          <main className={styles.standings}>{children}</main>
+        </>
       ) : (
         <main className={styles.index}>{children}</main>
       )}

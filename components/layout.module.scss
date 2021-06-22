@@ -194,14 +194,19 @@
     grid-template-columns: 1fr;
     width: 100vw;
     row-gap: 5px;
+    margin-top: 8px;
     margin-bottom: 1rem;
+  }
+
+  @include device-size(miniDevice) {
+    margin-top: 8px;
   }
 
   @include device-size(tablet) {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     width: 100vw;
-    padding: 1rem;
+    padding: 0 1rem 2rem;
     margin: 1rem auto;
   }
 
@@ -209,13 +214,40 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     width: 80vw;
-    margin: 2rem auto;
+    margin: 24px auto;
   }
 
   @include device-size(large-computer) {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     width: 90vw;
-    margin: 2rem auto;
+    margin: 24px auto;
   }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 200px;
+  margin: 3px auto 1px;
+  font-size: 20px;
+  background-color: $hover-color;
+  border-radius: 50px;
+}
+
+.element {
+  color: $secondary-text-color;
+  height: 50px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.selectedElement {
+  @extend .element;
+  color: $primary-text-color;
+  background-color: $selected-color;
+  border-radius: 50px;
+  // box-shadow: inset 0px 0px aliceblue, inset 1px 1px 1px -4px aliceblue, 0px 0px 1px 1px aliceblue, 0px 0px 1px 1px aliceblue;
+  // filter: drop-shadow(0 0 2px aliceblue);
 }

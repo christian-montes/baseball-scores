@@ -67,36 +67,20 @@ export default function StandingsPage({ AmericanLeague, NationalLeague }) {
     );
   });
 
+  function toggleStandings(event) {
+    event.preventDefault();
+    event.currentTarget.id === 'divisional'
+      ? setViewStandings('divisional')
+      : setViewStandings('wildcard');
+  }
+
   return (
-    <Layout date={dateProp} page={'standings'}>
-      <div className={styles.container}>
-        <div
-          onClick={(event) => {
-            event.preventDefault();
-            setViewStandings('divisional');
-          }}
-          className={
-            viewStandings === 'divisional'
-              ? styles.selectedElement
-              : styles.element
-          }
-        >
-          Division
-        </div>
-        <div
-          onClick={(event) => {
-            event.preventDefault();
-            setViewStandings('wildcard');
-          }}
-          className={
-            viewStandings === 'wildcard'
-              ? styles.selectedElement
-              : styles.element
-          }
-        >
-          Wilcard
-        </div>
-      </div>
+    <Layout
+      date={dateProp}
+      page={'standings'}
+      toggleStandings={toggleStandings}
+      standings={viewStandings}
+    >
       {StandingsTables}
     </Layout>
   );
