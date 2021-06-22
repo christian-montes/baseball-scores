@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Layout from '../components/layout';
 import Standings from '../components/standings';
 import { changeAbbreviation, getFileCode } from '../lib/teamNames';
-import styles from '../styles/Standings.module.scss';
 
 export async function getStaticProps() {
   const { children } = await axios
