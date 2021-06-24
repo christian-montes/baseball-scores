@@ -10,8 +10,14 @@ body {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: $secondary-text-color;
+
+  &:hover,
+  :active,
+  :focus {
+    color: $primary-text-color;
+  }
 }
 
 * {
