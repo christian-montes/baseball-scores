@@ -230,16 +230,16 @@
   justify-content: space-between;
   align-content: center;
   width: 200px;
-  margin: 3px auto 1px;
-  font-size: 20px;
+  margin: 2px auto 0px;
+  // font-size: 20px;
   background-color: $hover-color;
   border-radius: 50px;
 }
 
 .element {
   color: $secondary-text-color;
-  height: 50px;
-  padding: 10px 16px;
+  height: 40px;
+  padding: 11px 18px;
   cursor: pointer;
 }
 
