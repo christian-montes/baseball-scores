@@ -1,6 +1,6 @@
 import DivisionStandings from './divisionStandings';
 import styles from './standings.module.scss';
-import WilcardStandings from './wildcardStandings';
+import WildcardStandings from './wildcardStandings';
 
 export default function Standings({ data, show }) {
   const {
@@ -34,7 +34,7 @@ export default function Standings({ data, show }) {
     );
   });
 
-  const wildCardTable = <WilcardStandings data={entries} />;
+  const wildCardTable = <WildcardStandings data={entries} />;
 
   return (
     <section className={styles.section}>
