@@ -1,6 +1,7 @@
+import wcCorrectGB from '../lib/wildcardGB';
 import styles from './divisionStandings.module.scss';
 
-export default function WilcardStandings({ data }) {
+export default function WildcardStandings({ data }) {
   // console.log(data)
 
   const displayStats = [
@@ -12,39 +13,80 @@ export default function WilcardStandings({ data }) {
     'Last Ten',
   ];
 
-  const filteredStats = data.map((tm) => {
+  const subsetStats = data.map((tm) => {
     const { stats, team } = tm;
-    const filtered = stats.filter((stat) => {
-      const { name } = stat;
-      return displayStats.includes(name);
-    });
+    let DGBIndex;
+    let STRKIndex;
+    let L10Index;
+    let filteredStats = stats
+      .filter((stat) => {
+        const { name } = stat;
+        return displayStats.includes(name);
+      })
+      .map((stat, index) => {
+        stat.name === 'divisionGamesBehind' &&
+          ((DGBIndex = index), (stat['shortDisplayName'] = 'GB'));
+        stat.name === 'streak' && (STRKIndex = index);
+        stat.name === 'Last Ten' && (L10Index = index);
+        return stat;
+      });
 
-    return { team, stats: filtered };
+    filteredStats = filteredStats
+      .slice(0, STRKIndex)
+      .concat(
+        filteredStats[DGBIndex],
+        filteredStats[STRKIndex],
+        filteredStats[L10Index]
+      );
+
+    return { team, stats: filteredStats };
   });
 
-  console.log(filteredStats);
+  let divisionLeaderRep = { East: [], Central: [], West: [] };
 
-  const wilcardLeaders = filteredStats.filter((team) => {
-    const { stats } = team;
+  const wildcardLeaders = subsetStats.filter((team) => {
+    const {
+      stats,
+      team: { abbreviation, division },
+    } = team;
     const [{ displayValue: GB }] = stats.filter((stat) => {
       const { name } = stat;
       return name === 'divisionGamesBehind';
     });
+
+    GB === '-' && divisionLeaderRep[division].push(abbreviation);
     return GB === '-';
   });
 
-  const nonLeaders = filteredStats.filter((team) => {
-    const { stats } = team;
+  let divisionTied = [];
+  for (let [division, leaders] of Object.entries(divisionLeaderRep)) {
+    if (leaders.length > 1) {
+      divisionTied.push(division);
+    }
+  }
+
+  // console.log(wildcardLeaders);
+
+  const wildcardChasers = subsetStats.filter((team) => {
+    const {
+      stats,
+      team: { division },
+    } = team;
     const [{ displayValue: GB }] = stats.filter((stat) => {
       const { name } = stat;
       return name === 'divisionGamesBehind';
     });
     // console.log([team.team.name, GB]);
-    return GB !== '-';
+    return GB !== '-' || divisionTied.includes(division);
   });
 
-  // console.log(nonLeaders);
-  const Headers = wilcardLeaders[0]['stats'].map((stat) => {
+  // The second team in the array is what the Wildcard standings are based on
+  // const refTeam = wildcardChasers[1];
+  const chasersCorrectGB = wcCorrectGB(wildcardChasers);
+  const wildcardLeadersGB = wcCorrectGB(wildcardLeaders, divisionTied);
+
+  // console.log(wildcardChasers);
+  const Headers = wildcardLeadersGB[0]['stats'].map((stat) => {
     const { name, shortDisplayName } = stat;
 
     return <th key={name}>{shortDisplayName}</th>;
@@ -74,8 +116,8 @@ export default function WilcardStandings({ data }) {
     });
   }
 
-  const LeaderRows = tableRows(wilcardLeaders);
-  const nonLeaderRows = tableRows(nonLeaders);
+  const LeaderRows = tableRows(wildcardLeadersGB);
+  const nonLeaderRows = tableRows(chasersCorrectGB);
 
   return (
     <>
@@ -89,7 +131,7 @@ export default function WilcardStandings({ data }) {
         <tbody className={styles.body}>{LeaderRows}</tbody>
         <thead className={styles.header}>
           <tr>
-            <th>Wilcard</th>
+            <th>Wildcard</th>
             {Headers}
           </tr>
         </thead>
