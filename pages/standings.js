@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import Head from 'next/head';
 import Layout from '../components/layout';
 import Standings from '../components/standings';
 import { changeAbbreviation, getFileCode } from '../lib/teamNames';
@@ -74,6 +75,22 @@ export default function StandingsPage({ AmericanLeague, NationalLeague }) {
   }
 
   return (
+    <>
+            <Head>
+          <title>Current MLB Standings</title>
+          <meta name="Description" content="Current MLB Divisional Standings" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <link rel="icon" href="/favicon.ico" />
+          <meta
+            name="keywords"
+            content="Current MLB Standings major league baseball division standings divisional American National"
+          />
+          <meta name="og:title" content="Current MLB Standings" />
+          <meta name="twitter:card" content="Current Baseball Standings" />
+        </Head>
     <Layout
       date={dateProp}
       page={'standings'}
@@ -82,5 +99,6 @@ export default function StandingsPage({ AmericanLeague, NationalLeague }) {
     >
       {StandingsTables}
     </Layout>
+    </>
   );
 }

@@ -1,6 +1,3 @@
-// importing bootstrap stylesheet
-import 'bootstrap/dist/css/bootstrap.css';
-
 import '../styles/globals.scss';
 
 // adding function to track Performance metrics
