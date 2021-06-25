@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBaseballBall } from '@fortawesome/free-solid-svg-icons';
+import Image from "next/image";
 
 export default function Team({ away, teamRecord, teamRunData, gameState }) {
   const {
@@ -23,10 +22,8 @@ export default function Team({ away, teamRecord, teamRunData, gameState }) {
             : { paddingTop: '0px', marginTop: '0px' }
         }
       >
-        <div className="col-2 px-1" style={{paddingTop: '5px'}}>
-          {<object data={`${fileCode}.svg`} width={23} height={23} /> || (
-            <FontAwesomeIcon icon={faBaseballBall} />
-          )}
+        <div className="col-2 px-1" style={{ paddingTop: '5px' }}>
+          <Image src={`/${fileCode}.svg`} alt={teamName} width={23} height={23} />
         </div>
         <div className="col-7 h-100 ps-3">
           <div

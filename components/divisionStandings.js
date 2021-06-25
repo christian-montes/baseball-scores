@@ -7,7 +7,7 @@ export default function DivisionStandings({ divisionName, teams }) {
     'winPercent',
     'gamesBehind',
     'streak',
-    'Last Ten'
+    'Last Ten',
   ];
 
   const [{ value: firstPlaceWins }, { value: firstPlaceLosses }] = teams[0][
@@ -40,6 +40,7 @@ export default function DivisionStandings({ divisionName, teams }) {
           10
       ) / 20
     ).toFixed(1);
+    // console.log(GB === '0.0');
 
     const gamesBackProcess = {
       team,
@@ -57,8 +58,13 @@ export default function DivisionStandings({ divisionName, teams }) {
         stat['name'] === 'gamesBehind' &&
         team['name'] !== firstPlaceTeam
       ) {
-        stat['value'] = GB;
-        stat['displayValue'] = GB.toString();
+        if (Boolean(GB === '0.0')) {
+          stat['value'] = '-';
+          stat['displayValue'] = '-';
+        } else {
+          stat['value'] = GB;
+          stat['displayValue'] = GB.toString();
+        }
       }
     });
 
@@ -77,7 +83,7 @@ export default function DivisionStandings({ divisionName, teams }) {
 
   const tableRows = teamsFiltered.map((tm) => {
     const {
-      team: { abbreviation },
+      team: { abbreviation, fileCode },
       stats,
     } = tm;
 
@@ -87,7 +93,13 @@ export default function DivisionStandings({ divisionName, teams }) {
       return <td key={name}>{displayValue}</td>;
     });
 
-    const rowData = [<td key={abbreviation}>{abbreviation}</td>, ...statData];
+    const rowData = [
+      <td key={abbreviation}>
+        <object data={`${fileCode}.svg`} width={40} height={23} />{' '}
+        {abbreviation}
+      </td>,
+      ...statData,
+    ];
     return <tr key={abbreviation}>{rowData}</tr>;
     // stats.map((stat) => {
     //   const { name, displayValue } = stat;

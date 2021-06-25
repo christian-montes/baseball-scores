@@ -6,11 +6,18 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   color: $primary-text-color;
   background-color: $background-color;
+  margin: 0;
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: $secondary-text-color;
+
+  &:hover,
+  :active,
+  :focus {
+    color: $primary-text-color;
+  }
 }
 
 * {
@@ -52,12 +59,33 @@ footer {
 }
 
 #__next {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
   display: flex;
   flex-direction: column;
   @include device-size(large-computer) {
     height: 100vh;
   }
   justify-content: space-between;
+}
+
+.showMenu {
+  @include device-size(phone) {
+    overflow-y: hidden;
+  }
+}
+
+.showMenuSafari {
+  @include device-size(phone) {
+    height: 85vh;
+  }
+}
+
+.hideFooter {
+  @include device-size(phone) {
+    display: none;
+  }
 }
 
 .score {

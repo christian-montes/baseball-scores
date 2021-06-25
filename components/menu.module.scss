@@ -1,0 +1,85 @@
+@import '../styles/mixins';
+
+.dropdownContent {
+  // border: 1px solid white;
+  background-color: $hover-color;
+  display: block;
+  position: absolute;
+  right: 30px;
+  z-index: 2;
+  border-radius: 5px;
+  transform: translateY(3%);
+  width: 20vw;
+  transition: 0.5s ease;
+  height: 300px;
+
+  @include device-size(phone) {
+    // top: 3rem;
+    // right: 16px;
+    // top: 35%;
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    left: 50%;
+    top: 0%;
+    transform: translate(-50%, 0%);
+    width: 98vw;
+    height: 100%;
+  }
+
+  @include device-size(miniDevice) {
+    width: 30vw;
+  }
+
+  @include device-size(tablet) {
+    width: 25vw;
+  }
+
+  ul {
+    height: 100%;
+    @include device-size(phone) {
+      height: 60%;
+    }
+    list-style: none;
+    margin: auto 0;
+    padding: 1rem;
+
+    li {
+      @include device-size(phone) {
+        font-size: 20px;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+      display: flex;
+      border-bottom: 1px solid $primary-text-color;
+      height: 25%;
+      padding: 8px 1rem;
+      @include device-size(phone) {
+        padding: 6px 2rem;
+      }
+      text-align: center;
+      background-color: $hover-color;
+
+      a {
+        &:active {
+          color: $primary-text-color;
+        }
+        @include device-size(phone) {
+          padding: 20px 60px;
+        }
+        padding: 8px 2rem;
+        margin: auto;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.hiddenMenu {
+  @extend .dropdownContent;
+  right: -500px;
+  @include device-size(phone) {
+    left: -100%;
+  }
+}

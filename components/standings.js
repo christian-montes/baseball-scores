@@ -1,7 +1,8 @@
 import DivisionStandings from './divisionStandings';
 import styles from './standings.module.scss';
+import WildcardStandings from './wildcardStandings';
 
-export default function Standings({ data }) {
+export default function Standings({ data, show }) {
   const {
     name,
     shortName,
@@ -33,10 +34,20 @@ export default function Standings({ data }) {
     );
   });
 
+  const wildCardTable = <WildcardStandings data={entries} />;
+
   return (
-    <section className={styles.section} >
-      <h3 className={name === 'American League' ? styles.AmericanLeague : styles.NationalLeague} >{name}</h3>
-      {tables}
+    <section className={styles.section}>
+      <h3
+        className={
+          name === 'American League'
+            ? styles.AmericanLeague
+            : styles.NationalLeague
+        }
+      >
+        {name}
+      </h3>
+      {show === 'divisional' ? tables : wildCardTable}
     </section>
   );
 }

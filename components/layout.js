@@ -1,7 +1,7 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './layout.module.scss';
+import { useRouter } from 'next/router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,88 +9,87 @@ import {
   faChevronCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+import { useState } from 'react';
+import Menu from './menu';
 
 export default function Layout({
   date,
   children,
   page,
+  referenceDate,
+  standings,
+  toggleStandings,
   dateCallback,
   returnCallback,
 }) {
-  // const formattedDate = moment(date).format('dddd MMM D');
-  const formattedDate = format(date, 'eeee MMM d');
-  const todayFormatted = format(new Date(), 'eeee MMM d');
-
+  const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter();
+  const formattedDate = format(new Date(date), 'eeee MMM d');
+  let todayFormatted;
+  // const todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
+  try {
+    todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
+  } catch {
+    todayFormatted = format(new Date(date), 'eeee MMM d');
+  }
   const datesEqual = formattedDate === todayFormatted;
 
   const footerPaths = [
     { name: 'Home', link: '/' },
     { name: 'Scores', link: '/scores' },
-    { name: 'Standings', link: '/standings' },
-    {
-      name: 'About',
-      link: 'https://github.com/christian-montes/baseball-scores',
-    },
+    { name: 'Standings', link: '/standings' }
   ];
 
-  const footerLinks = footerPaths.map((path) => {
-    return (
-      <li key={path.name}>
-        <Link href={path.link}>{path.name}</Link>
+  const footerLinks = footerPaths
+    .map((path) => {
+      return (
+        <li key={path.name}>
+          <Link href={path.link}>{path.name}</Link>
+        </li>
+      );
+    })
+    .concat(
+      <li key='github'>
+        <a
+          target="_blank"
+          href="https://github.com/christian-montes/baseball-scores"
+          rel="external noopener noreferrer"
+        >
+          GitHub
+        </a>
       </li>
     );
-  });
+
+  function toggleMenu(event) {
+    event.preventDefault();
+    setShowMenu(!showMenu);
+    const body = document.querySelector('body');
+    const next = document.querySelector('main');
+    const footer = document.querySelector('footer');
+    body.classList.toggle('showMenu');
+    next.classList.toggle('showMenuSafari');
+    footer.classList.toggle('hideFooter');
+
+    // const menu = document.getElementById('menu');
+    // menu.classList.toggle('menuDisplay');
+  }
+
+  function checkWindowLocation(event) {
+    event.preventDefault();
+
+    const body = document.querySelector('body');
+    const next = document.querySelector('main');
+    const footer = document.querySelector('footer');
+    body.classList.toggle('showMenu');
+    next.classList.toggle('showMenuSafari');
+    footer.classList.toggle('hideFooter');
+
+    event.currentTarget.href === window.location.href
+      ? setShowMenu(!showMenu)
+      : router.push(event.currentTarget.href);
+  }
   return (
     <>
-      {page === 'index' ? (
-        <Head>
-          <title>Baseball Scores and Standings</title>
-          <meta name="description" content="MLB Score Tracking" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          <link rel="icon" href="/favicon.ico" />
-          <meta
-            name="keywords"
-            content="MLB major league baseball scores standings live"
-          />
-          <meta name="og:title" content="View baseball Scores and Standings" />
-        </Head>
-      ) : page === 'scores' ? (
-        <Head>
-          <title>Live Baseball Scores</title>
-          <meta name="Description" content="Live scores for today's games" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          <link rel="icon" href="/favicon.ico" />
-          <meta
-            name="keywords"
-            content="MLB scores live major league baseball"
-          />
-          <meta name="og:title" content="Live baseball Scores" />
-          <meta name="twitter:card" content="Live Baseball score feed" />
-        </Head>
-      ) : (
-        <Head>
-          <title>Current MLB Standings</title>
-          <meta name="Description" content="Current MLB Divisional Standings" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          <link rel="icon" href="/favicon.ico" />
-          <meta
-            name="keywords"
-            content="Current MLB Standings major league baseball division standings divisional American National"
-          />
-          <meta name="og:title" content="Current MLB Standings" />
-          <meta name="twitter:card" content="Current Baseball Standings" />
-        </Head>
-      )}
-
       <header className={styles.parent}>
         <div className={styles.child}>
           <Image
@@ -102,34 +101,45 @@ export default function Layout({
         </div>
         {date && (
           <div className={styles.todayContainer}>
-            {/* {page === 'scores' && (
-              <div className={styles.arrows}>
-                <FontAwesomeIcon icon={faChevronCircleLeft} />
-              </div>
-            )} */}
-            {datesEqual ? (
-              <div className={styles.gameDate}>Today</div>
+            {page === 'index' ? (
+              <div className={styles.gameDate}>Home</div>
+            ) : page === 'standings' ? (
+              <div className={styles.gameDate}>Standings</div>
+            ) : datesEqual ? (
+              <div className={styles.gameDate}>Scores</div>
             ) : (
               <div className={styles.todayDisplay} onClick={returnCallback}>
                 Return to today
               </div>
             )}
-
-            {/* {page === 'scores' && (
-              <div className={styles.arrows}>
-                <FontAwesomeIcon icon={faChevronCircleRight} />
+            {/* {datesEqual ? (
+              <div className={styles.gameDate}>Today</div>
+            ) : (
+              <div className={styles.todayDisplay} onClick={returnCallback}>
+                Return to today
               </div>
             )} */}
           </div>
         )}
         <div className={styles.child}>
-          {page === 'index' ? (
-            <div style={{ width: '60px', height: '60px' }} />
-          ) : (
-            <div className={styles.menu}>
-              <div id="bar1" className={styles.bar} />
-              <div id="bar2" className={styles.bar} />
-              <div id="bar3" className={styles.bar} />
+          <div style={{ width: '60px', height: '60px' }} />
+          {page !== 'index' && (
+            <div className={styles.dropdown}>
+              <div id="menu" className={styles.menu} onClick={toggleMenu}>
+                <div
+                  id="bar1"
+                  className={showMenu ? styles.bar1 : styles.bar}
+                />
+                <div
+                  id="bar2"
+                  className={showMenu ? styles.bar2 : styles.bar}
+                />
+                <div
+                  id="bar3"
+                  className={showMenu ? styles.bar3 : styles.bar}
+                />
+              </div>
+              <Menu show={showMenu} clickCallback={checkWindowLocation} />
             </div>
           )}
         </div>
@@ -159,20 +169,39 @@ export default function Layout({
           <main className={styles.games}>{children}</main>
         </>
       ) : page === 'standings' ? (
-        <main className={styles.standings}>{children}</main>
+        <>
+          <div className={styles.container}>
+            <div
+              id="divisional"
+              onClick={toggleStandings}
+              className={
+                standings === 'divisional'
+                  ? styles.selectedElement
+                  : styles.element
+              }
+            >
+              Division
+            </div>
+            <div
+              id="wildcard"
+              onClick={toggleStandings}
+              className={
+                standings === 'wildcard'
+                  ? styles.selectedElement
+                  : styles.element
+              }
+            >
+              Wildcard
+            </div>
+          </div>
+          <main className={styles.standings}>{children}</main>
+        </>
       ) : (
         <main className={styles.index}>{children}</main>
       )}
 
       <footer>
         <ul>{footerLinks}</ul>
-        {/* <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by NextJS
-        </a> */}
       </footer>
     </>
   );

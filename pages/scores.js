@@ -1,23 +1,33 @@
+import Head from 'next/head';
 import Layout from '../components/layout';
 import Score from '../components/score';
 
 import axios from 'axios';
 import { add, format, sub } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 
-export default function ScorePage({ todaysGames }) {
-  const [selDate, setSelDate] = useState(new Date());
-  const [formedDate, setFormedDate] = useState('');
+export default function ScorePage({ todaysGames, currentGames }) {
+  const [selDate, setSelDate] = useState(new Date(currentGames));
+  const [formedDate, setFormedDate] = useState(currentGames);
   const [data, setData] = useState(todaysGames);
+  const refDate = useRef(currentGames);
   // destructuring data object to get date and games
   const {
-    dates: [{ date, games }],
+    dates: [{ games }],
   } = data;
   const GameComponents = games.map((game) => {
-    return <Score key={game.gamePk} link={game.link} />;
+    return (
+      <Score
+        key={game.gamePk}
+        link={game.link}
+        publicGS={game.status.detailedState}
+      />
+    );
   });
+  // console.log(GameComponents);
+  // console.log(refDate);
 
-  const toggleDate = (event) => {
+  const toggleDate = async (event) => {
     event.preventDefault();
     let gameDate;
 
@@ -28,52 +38,70 @@ export default function ScorePage({ todaysGames }) {
     let formattedDate = format(gameDate, 'yyyy-MM-dd');
     // console.log(formattedDate);
     setSelDate(gameDate);
-    setFormedDate(formattedDate);
+    setFormedDate(`${formattedDate}T23:05:00Z`);
+
+    let switchData = await axios
+      .get(
+        `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${formattedDate}&endDate=${formattedDate}`
+      )
+      .then((res) => res.data);
+
+    setData(switchData);
   };
 
-  const returnToToday = (event) => {
+  const returnToToday = async (event) => {
     event.preventDefault();
 
-    const today = format(new Date(), 'yyyy-MM-dd');
-    setSelDate(new Date());
-    setFormedDate(today)
+    const today = format(new Date(refDate.current), 'yyyy-MM-dd');
+    setSelDate(new Date(refDate.current));
+    setFormedDate(refDate.current);
+
+    let todayData = await axios
+      .get(
+        `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${today}&endDate=${today}`
+      )
+      .then((res) => res.data);
+
+    setData(todayData);
   };
 
-  useEffect(async () => {
-    // console.log('effect');
-    let newData =
-      formedDate &&
-      (await axios
-        .get(
-          `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${formedDate}&endDate=${formedDate}`
-        )
-        .then((res) => res.data));
-
-    formedDate && setData(newData);
-  }, [formedDate]);
-
-  // console.log(todaysGames);
-
   return (
-    <Layout
-      date={selDate}
-      page={'scores'}
-      dateCallback={toggleDate}
-      returnCallback={returnToToday}
-    >
-      {GameComponents}
-    </Layout>
+    <>
+      <Head>
+        <title>Live Baseball Scores</title>
+        <meta name="Description" content="Live scores for today's games" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/favicon.ico" />
+        {/* importing bootstrap stylesheet here instead of global _appcomponent */}
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous"
+        />
+        <meta name="keywords" content="MLB scores live major league baseball" />
+        <meta name="og:title" content="Live baseball Scores" />
+        <meta name="twitter:card" content="Live Baseball score feed" />
+      </Head>
+      <Layout
+        date={formedDate}
+        page={'scores'}
+        referenceDate={refDate.current}
+        dateCallback={toggleDate}
+        returnCallback={returnToToday}
+      >
+        {GameComponents}
+      </Layout>
+    </>
   );
 }
 
 export async function getServerSideProps(context) {
-  const gameDate = format(new Date(), 'yyyy-MM-dd');
+  // const gameDate = format(new Date(), 'yyyy-MM-dd');
   // console.log(gameDate);
 
   const todaysGames = await axios
-    .get(
-      `https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&startDate=${gameDate}&endDate=${gameDate}`
-    )
+    .get(`https://statsapi.mlb.com/api/v1/schedule/games/?sportId=1`)
     .then((res) => res.data);
 
   if (!todaysGames) {
@@ -82,5 +110,11 @@ export async function getServerSideProps(context) {
     };
   }
 
-  return { props: { todaysGames } };
+  const {
+    dates: [{ date }],
+  } = todaysGames;
+  const currentGames = `${date}T23:05:00Z`;
+  // console.log(currentGames)
+
+  return { props: { todaysGames, currentGames } };
 }

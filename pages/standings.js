@@ -1,6 +1,9 @@
 import axios from 'axios';
+import { useState } from 'react';
+import Head from 'next/head';
 import Layout from '../components/layout';
 import Standings from '../components/standings';
+import { changeAbbreviation, getFileCode } from '../lib/teamNames';
 
 export async function getStaticProps() {
   const { children } = await axios
@@ -40,6 +43,8 @@ export async function getStaticProps() {
         team: { abbreviation },
       } = entry;
       entry['team']['division'] = teamDivisions[abbreviation];
+      entry['team']['fileCode'] = getFileCode(abbreviation);
+      entry['team']['abbreviation'] = changeAbbreviation(abbreviation);
     });
   });
 
@@ -53,15 +58,47 @@ export async function getStaticProps() {
 }
 
 export default function StandingsPage({ AmericanLeague, NationalLeague }) {
+  const [viewStandings, setViewStandings] = useState('divisional');
   // console.log(AmericanLeague)
   const dateProp = new Date();
-  const StandingsTables = [AmericanLeague, NationalLeague].map(league => {
-    return <Standings key={league['name']} data={league} />
-  })
+  const StandingsTables = [AmericanLeague, NationalLeague].map((league) => {
+    return (
+      <Standings key={league['name']} data={league} show={viewStandings} />
+    );
+  });
+
+  function toggleStandings(event) {
+    event.preventDefault();
+    event.currentTarget.id === 'divisional'
+      ? setViewStandings('divisional')
+      : setViewStandings('wildcard');
+  }
 
   return (
-    <Layout date={dateProp} page={'standings'}>
+    <>
+            <Head>
+          <title>Current MLB Standings</title>
+          <meta name="Description" content="Current MLB Divisional Standings" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <link rel="icon" href="/favicon.ico" />
+          <meta
+            name="keywords"
+            content="Current MLB Standings major league baseball division standings divisional American National"
+          />
+          <meta name="og:title" content="Current MLB Standings" />
+          <meta name="twitter:card" content="Current Baseball Standings" />
+        </Head>
+    <Layout
+      date={dateProp}
+      page={'standings'}
+      toggleStandings={toggleStandings}
+      standings={viewStandings}
+    >
       {StandingsTables}
     </Layout>
+    </>
   );
 }

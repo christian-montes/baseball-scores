@@ -10,14 +10,23 @@ import { useState } from 'react';
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-export default function Score({ link }) {
+export default function Score({ link, publicGS }) {
   const gameURL = `https://statsapi.mlb.com${link}`;
-  const { data } = useSWR(gameURL, fetcher, { refreshInterval: 10000 });
+  const { data: liveGameData } = useSWR(
+    publicGS !== 'Final' ? gameURL : null,
+    fetcher,
+    { refreshInterval: 10000 }
+  );
+  const { data: gameEndedData } = useSWR(
+    publicGS === 'Final' ? gameURL : null,
+    fetcher,
+    { refreshInterval: 0 }
+  );
   const [viewDecisions, setViewDecisions] = useState(false);
-  // console.log(data);
+  const appData = liveGameData ? liveGameData : gameEndedData;
 
   // extracting the necessary data to passdown to Team component;
-  if (!data) return <SkeletonScore />;
+  if (!appData) return <SkeletonScore />;
   const {
     gameData: {
       teams: { away: awayRecord, home: homeRecord },
@@ -38,7 +47,7 @@ export default function Score({ link }) {
       plays: { allPlays, playsByInning },
       decisions,
     },
-  } = data;
+  } = appData;
 
   const toggleViewDecisions = (event) => {
     event.preventDefault();
@@ -92,8 +101,9 @@ export default function Score({ link }) {
                 )}
               </div>
               <Inning
-                gameState={detailedState}
-                absGameState={abstractGameState}
+                publicGS={publicGS}
+                detailedState={detailedState}
+                abstractGameState={abstractGameState}
                 inningData={{
                   inningNumber,
                   nth_Inning,

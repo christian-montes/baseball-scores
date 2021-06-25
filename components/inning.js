@@ -1,6 +1,7 @@
 export default function Inning({
-  gameState,
-  absGameState,
+  publicGS,
+  detailedState,
+  abstractGameState,
   inningData,
   outs,
   teamRunData,
@@ -18,12 +19,12 @@ export default function Inning({
   // need to add scheduled time data
   // may be better to check if the innings played are simply different, not if one is greater than the other;
   const display =
-    gameState === 'Pre-Game' ||
-    (gameState === 'Scheduled' && absGameState !== 'Final')
+    ['Pre-Game', 'Scheduled'].includes(detailedState) &&
+    publicGS !== 'Postponed'
       ? `${time} ${ampm}`
-      : gameState === 'Warmup'
-      ? gameState
-      : gameState === 'In Progress'
+      : detailedState === 'Warmup'
+      ? detailedState
+      : detailedState === 'In Progress'
       ? inningHalf === 'Top'
         ? outs === 3
           ? inningNumber >= scheduledInnings && runsHome > runsAway
@@ -33,13 +34,13 @@ export default function Inning({
         : outs === 3
         ? `End ${nth_Inning}`
         : `Bot ${nth_Inning}`
-      : gameState === 'Final'
-      ? inningNumber > scheduledInnings || scheduledInnings < 9
-        ? `${gameState}/${inningNumber}`
-        : gameState
-      : gameState === 'Scheduled' && absGameState === 'Final'
+      : detailedState === 'Final' || abstractGameState === 'Final'
+      ? inningNumber != scheduledInnings || scheduledInnings < 9
+        ? `Final/${inningNumber}`
+        : detailedState
+      : detailedState === 'Scheduled' && publicGS === 'Postponed'
       ? 'Postponed'
-      : gameState;
+      : detailedState;
 
   return (
     <>
