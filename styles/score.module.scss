@@ -1,0 +1,64 @@
+// .score {
+//   border: 1px solid $hover-color;
+//   border-radius: 5px;
+//   background-color: $card-color;
+// }
+
+.container {
+  height: 78px;
+  max-width: 450px;
+  background-color: #405259;
+  padding: 4px 0px;
+  border: 1px solid #2f4354;
+  border-radius: 5px;
+}
+
+.everything {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  // height: 4.5rem;
+}
+
+.nameAndScore {
+  width: 50%;
+}
+
+.teamRow {
+  display: flex;
+  height: 50%;
+  align-items: center;
+}
+
+.image {
+  padding-left: 5px;
+  flex-basis: 30px;
+}
+
+.record {
+  padding-left: 8px;
+  flex-basis: 150px;
+  height: 100%;
+}
+
+.teamName {
+  height: 50%;
+  font-size: 13px;
+}
+
+.winLoss {
+  height: 50%;
+  font-size: 10px;
+}
+
+.basesInning {
+  @extend.nameAndScore;
+  height: 100%;
+  position: relative;
+}
+
+.basesContainer {
+  position: absolute;
+  left: 20px;
+  top: 5px;
+}

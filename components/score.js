@@ -2,6 +2,7 @@ import Bases from './bases';
 import Team from './team';
 import Inning from './inning';
 import SkeletonScore from './skeletons/SkeletonScore';
+import styles from '../styles/score.module.scss';
 
 import axios from 'axios';
 import useSWR from 'swr';
@@ -58,15 +59,8 @@ export default function Score({ link, publicGS }) {
   };
 
   return (
-    <div
-      className="score container py-1"
-      style={{ backgroundColor: '#405259' }}
-    >
-      <div
-        className="row"
-        style={{ height: '4.5rem' }}
-        onClick={toggleViewDecisions}
-      >
+    <div className={styles.container}>
+      <div className={styles.everything} onClick={toggleViewDecisions}>
         {viewDecisions ? (
           <Decision
             teamRuns={teamRuns}
@@ -76,7 +70,7 @@ export default function Score({ link, publicGS }) {
           />
         ) : (
           <>
-            <div className="col-7 col-sm-6">
+            <div className={styles.nameAndScore}>
               <Team
                 away
                 teamRecord={awayRecord}
@@ -90,8 +84,9 @@ export default function Score({ link, publicGS }) {
               />
             </div>
 
-            <div className="col pe-0 h-100 position-relative">
-              <div className="position-absolute top-50 end-50 translate-middle pe-0">
+            <div className={styles.basesInning}>
+              {/* position-absolute top-50 end-50 translate-middle pe-0" */}
+              <div className={styles.basesContainer}>
                 {['Preview', 'In Progress'].includes(detailedState) && (
                   <Bases
                     gameState={detailedState}

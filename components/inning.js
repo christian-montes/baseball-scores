@@ -45,8 +45,13 @@ export default function Inning({
   return (
     <>
       <div
-        className="position-absolute pe-2 top-0 end-0"
-        style={{ fontSize: '13px' }}
+        style={{
+          fontSize: '13px',
+          position: 'absolute',
+          paddingRight: '8px',
+          top: '0',
+          right: '0',
+        }}
       >
         {display}
       </div>

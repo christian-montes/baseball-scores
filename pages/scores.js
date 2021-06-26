@@ -72,13 +72,6 @@ export default function ScorePage({ todaysGames, currentGames }) {
         <meta name="Description" content="Live scores for today's games" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
-        {/* importing bootstrap stylesheet here instead of global _appcomponent */}
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous"
-        />
         <meta name="keywords" content="MLB scores live major league baseball" />
         <meta name="og:title" content="Live baseball Scores" />
         <meta name="twitter:card" content="Live Baseball score feed" />
