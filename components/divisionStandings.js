@@ -1,4 +1,5 @@
 import styles from './divisionStandings.module.scss';
+import Image from 'next/image';
 
 export default function DivisionStandings({ divisionName, teams }) {
   const displayStats = [
@@ -95,7 +96,7 @@ export default function DivisionStandings({ divisionName, teams }) {
 
     const rowData = [
       <td key={abbreviation}>
-        <object data={`${fileCode}.svg`} width={40} height={23} />{' '}
+        <Image src={`/${fileCode}.svg`} width={40} height={23} />{' '}
         {abbreviation}
       </td>,
       ...statData,
