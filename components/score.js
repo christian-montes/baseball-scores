@@ -6,9 +6,11 @@ import styles from '../styles/score.module.scss';
 
 import axios from 'axios';
 import useSWR from 'swr';
-import Decision from './gameDecisions';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
+const DynamicBases = dynamic(() => import('./bases'));
+const DynamicDecisions = dynamic(() => import('./gameDecisions'))
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export default function Score({ link, publicGS }) {
@@ -62,7 +64,7 @@ export default function Score({ link, publicGS }) {
     <div className={styles.container}>
       <div className={styles.everything} onClick={toggleViewDecisions}>
         {viewDecisions ? (
-          <Decision
+          <DynamicDecisions
             teamRuns={teamRuns}
             teamInfoAway={awayRecord}
             teamInfoHome={homeRecord}
@@ -88,7 +90,7 @@ export default function Score({ link, publicGS }) {
               {/* position-absolute top-50 end-50 translate-middle pe-0" */}
               <div className={styles.basesContainer}>
                 {['Preview', 'In Progress'].includes(detailedState) && (
-                  <Bases
+                  <DynamicBases
                     gameState={detailedState}
                     count={{ balls, strikes, outs, inningNumber }}
                     plays={{ allPlays, playsByInning, inningHalf }}
