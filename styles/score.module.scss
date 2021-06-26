@@ -14,6 +14,7 @@
 }
 
 .everything {
+  width: 100%;
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -21,7 +22,7 @@
 }
 
 .nameAndScore {
-  width: 50%;
+  width: 52%;
 }
 
 .teamRow {
@@ -54,6 +55,7 @@
 .basesInning {
   @extend.nameAndScore;
   height: 100%;
+  width: 48%;
   position: relative;
 }
 
