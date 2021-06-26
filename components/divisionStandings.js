@@ -84,7 +84,7 @@ export default function DivisionStandings({ divisionName, teams }) {
 
   const tableRows = teamsFiltered.map((tm) => {
     const {
-      team: { abbreviation, fileCode },
+      team: { abbreviation, fileCode, teamName },
       stats,
     } = tm;
 
@@ -96,7 +96,7 @@ export default function DivisionStandings({ divisionName, teams }) {
 
     const rowData = [
       <td key={abbreviation}>
-        <Image src={`/${fileCode}.svg`} width={40} height={23} />{' '}
+        <Image src={`/${fileCode}.svg`} alt={teamName} width={40} height={23} />{' '}
         {abbreviation}
       </td>,
       ...statData,
