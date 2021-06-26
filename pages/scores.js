@@ -1,7 +1,13 @@
 import Head from 'next/head';
 import Layout from '../components/layout';
 import Score from '../components/score';
+import styles from '../styles/Scores.module.scss';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronCircleLeft,
+  faChevronCircleRight,
+} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { add, format, sub } from 'date-fns';
 import { useRef, useState } from 'react';
@@ -80,10 +86,20 @@ export default function ScorePage({ todaysGames, currentGames }) {
         date={formedDate}
         page={'scores'}
         referenceDate={refDate.current}
-        dateCallback={toggleDate}
         returnCallback={returnToToday}
       >
-        {GameComponents}
+        <div className={styles.dateContainer}>
+          <div id="left" className={styles.arrows} onClick={toggleDate}>
+            <FontAwesomeIcon icon={faChevronCircleLeft} />
+          </div>
+          <div className={styles.gameDate}>
+            {format(new Date(formedDate), 'eeee MMMM d') || 'Today'}
+          </div>
+          <div id="right" className={styles.arrows} onClick={toggleDate}>
+            <FontAwesomeIcon icon={faChevronCircleRight} />
+          </div>
+        </div>
+        <main className={styles.games}>{GameComponents}</main>
       </Layout>
     </>
   );

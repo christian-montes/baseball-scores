@@ -3,11 +3,6 @@ import Link from 'next/link';
 import styles from './layout.module.scss';
 import { useRouter } from 'next/router';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronCircleLeft,
-  faChevronCircleRight,
-} from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import Menu from './menu';
@@ -17,16 +12,12 @@ export default function Layout({
   children,
   page,
   referenceDate,
-  standings,
-  toggleStandings,
-  dateCallback,
   returnCallback,
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
   const formattedDate = format(new Date(date), 'eeee MMM d');
   let todayFormatted;
-  // const todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
   try {
     todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
   } catch {
@@ -37,7 +28,7 @@ export default function Layout({
   const footerPaths = [
     { name: 'Home', link: '/' },
     { name: 'Scores', link: '/scores' },
-    { name: 'Standings', link: '/standings' }
+    { name: 'Standings', link: '/standings' },
   ];
 
   const footerLinks = footerPaths
@@ -49,7 +40,7 @@ export default function Layout({
       );
     })
     .concat(
-      <li key='github'>
+      <li key="github">
         <a
           target="_blank"
           href="https://github.com/christian-montes/baseball-scores"
@@ -99,28 +90,19 @@ export default function Layout({
             height={60}
           />
         </div>
-        {date && (
-          <div className={styles.todayContainer}>
-            {page === 'index' ? (
-              <div className={styles.gameDate}>Home</div>
-            ) : page === 'standings' ? (
-              <div className={styles.gameDate}>Standings</div>
-            ) : datesEqual ? (
-              <div className={styles.gameDate}>Scores</div>
-            ) : (
-              <div className={styles.todayDisplay} onClick={returnCallback}>
-                Return to today
-              </div>
-            )}
-            {/* {datesEqual ? (
-              <div className={styles.gameDate}>Today</div>
-            ) : (
-              <div className={styles.todayDisplay} onClick={returnCallback}>
-                Return to today
-              </div>
-            )} */}
-          </div>
-        )}
+        <div className={styles.todayContainer}>
+          {page === 'index' ? (
+            <div className={styles.pageName}>Home</div>
+          ) : page === 'standings' ? (
+            <div className={styles.pageName}>Standings</div>
+          ) : datesEqual ? (
+            <div className={styles.pageName}>Scores</div>
+          ) : (
+            <div className={styles.todayDisplay} onClick={returnCallback}>
+              Return to today
+            </div>
+          )}
+        </div>
         <div className={styles.child}>
           <div style={{ width: '60px', height: '60px' }} />
           {page !== 'index' && (
@@ -145,60 +127,7 @@ export default function Layout({
         </div>
       </header>
 
-      {page === 'scores' ? (
-        <>
-          {date && (
-            <div className={styles.dateContainer}>
-              {page === 'scores' && (
-                <div id="left" className={styles.arrows} onClick={dateCallback}>
-                  <FontAwesomeIcon icon={faChevronCircleLeft} />
-                </div>
-              )}
-              <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
-              {page === 'scores' && (
-                <div
-                  id="right"
-                  className={styles.arrows}
-                  onClick={dateCallback}
-                >
-                  <FontAwesomeIcon icon={faChevronCircleRight} />
-                </div>
-              )}
-            </div>
-          )}
-          <main className={styles.games}>{children}</main>
-        </>
-      ) : page === 'standings' ? (
-        <>
-          <div className={styles.container}>
-            <div
-              id="divisional"
-              onClick={toggleStandings}
-              className={
-                standings === 'divisional'
-                  ? styles.selectedElement
-                  : styles.element
-              }
-            >
-              Division
-            </div>
-            <div
-              id="wildcard"
-              onClick={toggleStandings}
-              className={
-                standings === 'wildcard'
-                  ? styles.selectedElement
-                  : styles.element
-              }
-            >
-              Wildcard
-            </div>
-          </div>
-          <main className={styles.standings}>{children}</main>
-        </>
-      ) : (
-        <main className={styles.index}>{children}</main>
-      )}
+      {children}
 
       <footer>
         <ul>{footerLinks}</ul>
