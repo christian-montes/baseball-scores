@@ -8,22 +8,19 @@ import { useState } from 'react';
 import Menu from './menu';
 
 export default function Layout({
-  date,
   children,
   page,
-  referenceDate,
-  returnCallback,
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
-  const formattedDate = format(new Date(date), 'eeee MMM d');
-  let todayFormatted;
-  try {
-    todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
-  } catch {
-    todayFormatted = format(new Date(date), 'eeee MMM d');
-  }
-  const datesEqual = formattedDate === todayFormatted;
+  // const formattedDate = format(new Date(date), 'eeee MMM d');
+  // let todayFormatted;
+  // try {
+  //   todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
+  // } catch {
+  //   todayFormatted = format(new Date(date), 'eeee MMM d');
+  // }
+  // const datesEqual = formattedDate === todayFormatted;
 
   const footerPaths = [
     { name: 'Home', link: '/' },
@@ -95,12 +92,10 @@ export default function Layout({
             <div className={styles.pageName}>Home</div>
           ) : page === 'standings' ? (
             <div className={styles.pageName}>Standings</div>
-          ) : datesEqual ? (
-            <div className={styles.pageName}>Scores</div>
+          ) : page === 'gameDetails' ? (
+            <div className={styles.pageName}>Details</div>
           ) : (
-            <div className={styles.todayDisplay} onClick={returnCallback}>
-              Return to today
-            </div>
+            <div className={styles.pageName}>Scores</div>
           )}
         </div>
         <div className={styles.child}>
