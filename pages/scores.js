@@ -27,6 +27,7 @@ export default function ScorePage({ todaysGames, currentGames }) {
         key={game.gamePk}
         link={game.link}
         publicGS={game.status.detailedState}
+        publicAGC={game.status.abstractGameCode}
       />
     );
   });
@@ -71,6 +72,9 @@ export default function ScorePage({ todaysGames, currentGames }) {
     setData(todayData);
   };
 
+  console.log([refDate.current, formedDate]);
+  const datesEqual = refDate.current === formedDate;
+
   return (
     <>
       <Head>
@@ -81,25 +85,66 @@ export default function ScorePage({ todaysGames, currentGames }) {
         <meta name="keywords" content="MLB scores live major league baseball" />
         <meta name="og:title" content="Live baseball Scores" />
         <meta name="twitter:card" content="Live Baseball score feed" />
+        <script
+          async
+          src="https://platform.twitter.com/widgets.js"
+          charSet="utf-8"
+        />
       </Head>
       <Layout
-        date={formedDate}
         page={'scores'}
-        referenceDate={refDate.current}
-        returnCallback={returnToToday}
       >
-        <div className={styles.dateContainer}>
+        {/* <div className={styles.dateContainer}>
           <div id="left" className={styles.arrows} onClick={toggleDate}>
             <FontAwesomeIcon icon={faChevronCircleLeft} />
           </div>
           <div className={styles.gameDate}>
-            {format(new Date(formedDate), 'eeee MMMM d') || 'Today'}
+            {format(new Date(formedDate), 'eee MMMM d') || 'Today'}
           </div>
           <div id="right" className={styles.arrows} onClick={toggleDate}>
             <FontAwesomeIcon icon={faChevronCircleRight} />
           </div>
-        </div>
-        <main className={styles.games}>{GameComponents}</main>
+        </div> */}
+
+        <main className={styles.primaryContainer}>
+          <div className={styles.DateSwitching}>
+            <div className={styles.dateContainer}>
+              <div id="left" className={styles.arrowLeft} onClick={toggleDate}>
+                <FontAwesomeIcon icon={faChevronCircleLeft} />
+              </div>
+              <div className={styles.gameDate}>
+                {format(new Date(formedDate), 'eee MMMM d') || 'Today'}
+              </div>
+              <div id="right" className={styles.arrowRight} onClick={toggleDate}>
+                <FontAwesomeIcon icon={faChevronCircleRight} />
+              </div>
+            </div>
+            <div
+              className={
+                datesEqual
+                  ? styles.returnTodayHidden
+                  : styles.returnTodayVisible
+              }
+              onClick={returnToToday}
+            >
+              Today &#8617;
+            </div>
+          </div>
+          <div className={styles.contentContainer}>
+            <section className={styles.games}>{GameComponents}</section>
+            <section className={styles.twitter}>
+              <a
+                className="twitter-timeline"
+                data-width="350"
+                data-height="700"
+                data-theme="dark"
+                href="https://twitter.com/MLB?ref_src=twsrc%5Etfw"
+              >
+                Tweets by MLB
+              </a>
+            </section>
+          </div>
+        </main>
       </Layout>
     </>
   );
