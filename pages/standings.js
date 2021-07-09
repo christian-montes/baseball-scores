@@ -61,7 +61,6 @@ export async function getStaticProps() {
 export default function StandingsPage({ AmericanLeague, NationalLeague }) {
   const [viewStandings, setViewStandings] = useState('divisional');
   // console.log(AmericanLeague)
-  const dateProp = new Date();
   const StandingsTables = [AmericanLeague, NationalLeague].map((league) => {
     return (
       <Standings key={league['name']} data={league} show={viewStandings} />
@@ -90,7 +89,7 @@ export default function StandingsPage({ AmericanLeague, NationalLeague }) {
         <meta name="twitter:card" content="Current Baseball Standings" />
       </Head>
 
-      <Layout date={dateProp} page={'standings'}>
+      <Layout page={'standings'}>
         <div className={styles.container}>
           <div
             id="divisional"
