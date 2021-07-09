@@ -9,8 +9,8 @@ export default function Team({ away, teamRecord, teamRunData, gameState }) {
   } = teamRecord;
 
   const {
-    home: { runs: runsHome },
-    away: { runs: runsAway },
+    home: { runs: runsHome, hits: hitsHome, errors: errHome },
+    away: { runs: runsAway, hits: hitsAway, errors: errAway },
   } = teamRunData;
 
   return (
@@ -35,7 +35,15 @@ export default function Team({ away, teamRecord, teamRunData, gameState }) {
           </div>
         </div>
         {gameState !== 'Pre-Game' && (
-          <div className="runs">{away ? runsAway : runsHome}</div>
+          <div className={styles.runs}>
+            <div className={styles.entry_container}>
+              {away ? runsAway : runsHome}
+            </div>
+            <div className={styles.hits_errors}>
+              {away ? hitsAway : hitsHome}
+            </div>
+            <div className={styles.hits_errors}>{away ? errAway : errHome}</div>
+          </div>
         )}
       </div>
     </>
