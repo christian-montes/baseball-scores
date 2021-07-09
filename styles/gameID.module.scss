@@ -1,0 +1,16 @@
+@import './_mixins';
+
+.mainContainer {
+  display: flex;
+  margin: 0 auto 2rem;
+  width: 90vw;
+  min-height: 30px;
+}
+
+.firstColumn {
+  width: 65%;
+}
+
+.secondColumn {
+  width: 35%;
+}
