@@ -5,7 +5,6 @@ import Layout from '../components/layout';
 import styles from '../styles/Home.module.scss';
 
 export default function Home() {
-  const dateProp = new Date();
   return (
     <>
       <Head>
@@ -19,7 +18,7 @@ export default function Home() {
         />
         <meta name="og:title" content="View baseball Scores and Standings" />
       </Head>
-      <Layout page={'index'} date={dateProp}>
+      <Layout page={'index'}>
         <main className={styles.index}>
           <div className={styles.container}>
             <Link href="/scores">
