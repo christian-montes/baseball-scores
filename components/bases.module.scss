@@ -4,13 +4,27 @@
   position: relative;
   height: 4rem;
   width: 4rem;
+  left: 20px;
+  @media screen and (min-width: 768px) {
+    height: 100%;
+    left: 30px;
+  }
 }
 
 .count {
   position: absolute;
   font-size: 10px;
-  top: 41px;
+  top: 46px;
   right: 7px;
+  @include device-size(tablet) {
+    top: 67px;
+    font-size: 12px;
+    right: 4px;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 12px;
+    top: 72px;
+  }
 }
 
 .base {
@@ -19,14 +33,27 @@
   // experimental changes
   width: 15px;
   height: 15px;
+  @media screen and (min-width: 767px) {
+    width: 18px;
+    height: 18px;
+  }
+
   background: $card-color;
   border: 1px solid $primary-text-color;
 }
 
 .firstBase {
   @extend .base;
-  top: 20px;
+  top: 25px;
   right: 10px;
+  @include device-size(tablet) {
+    top: 43px;
+    right: 8px;
+  }
+  @media screen and (min-width: 992px) {
+    top: 49px;
+    right: 6px;
+  }
 
   &_runnerOn {
     @extend .firstBase;
@@ -37,10 +64,17 @@
 
 .secondBase {
   @extend .base;
-  top: 8px;
+  top: 13px;
   right: 23px;
+  @include device-size(tablet) {
+    top: 28px;
+  }
+  @media screen and (min-width: 992px) {
+    top: 33px;
+    right: 23px;
+  }
 
-    &_runnerOn {
+  &_runnerOn {
     @extend .secondBase;
     border: 1px solid $runnerOnBase;
     background: $runnerOnBase;
@@ -49,10 +83,18 @@
 
 .thirdBase {
   @extend .base;
-  top: 20px;
+  top: 25px;
   right: 36px;
+  @include device-size(tablet) {
+    top: 43px;
+    right: 38px;
+  }
+  @media screen and (min-width: 992px) {
+    top: 49px;
+    right: 40px;
+  }
 
-    &_runnerOn {
+  &_runnerOn {
     @extend .thirdBase;
     border: 1px solid $runnerOnBase;
     background: $runnerOnBase;
