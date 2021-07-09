@@ -1,34 +1,50 @@
 @import '../styles/mixins';
 
-.dateContainer {
-  display: flex;
-  color: $secondary-text-color;
-  font-size: 16px;
-  justify-content: space-between;
-  margin: 0 auto;
-  width: 300px;
-  @include device-size(phone) {
-    width: 100%;
-    padding: 0 5px;
-  }
-  @include device-size(miniDevice) {
-    width: 70vw;
-  }
-}
+// .dateContainer {
+//   display: flex;
+//   color: $secondary-text-color;
+//   font-size: 16px;
+//   justify-content: space-between;
+//   margin: 0 1.5rem 0 0;
+//   // width: 300px;
+//   width: 50vw;
+//   @include device-size(phone) {
+//     width: 100%;
+//     padding: 0 5px;
+//   }
+//   @include device-size(miniDevice) {
+//     width: 70vw;
+//   }
+// }
 
-.arrows {
+.arrowLeft {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, $secondary-text-color 50%, $hover-color 51%);
+  background: radial-gradient(
+    circle at center,
+    $secondary-text-color 50%,
+    $hover-color 51%
+  );
   color: $hover-color;
   transition: 0.3s;
   @include device-size(phone) {
-    margin: 0 calc(10px + 1rem);
+    margin: 0 1rem 0 0;
   }
   &:hover {
     cursor: pointer;
-    background: radial-gradient(circle at center, $primary-text-color 50%, $hover-color 51%);
+    background: radial-gradient(
+      circle at center,
+      $primary-text-color 50%,
+      $hover-color 51%
+    );
+  }
+}
+
+.arrowRight {
+  @extend .arrowLeft;
+  @include device-size(phone) {
+    margin: 0 0 0 1rem;
   }
 }
 
@@ -37,43 +53,158 @@
   align-self: center;
   background-color: $hover-color;
   border-radius: 30px;
-  padding: 0.5rem 1rem;
+  padding: 11px 1rem;
   margin: 0 5px;
+}
+
+.primaryContainer {
+  display: flex;
+  flex-direction: column;
+  // margin-top: 1.5rem;
+  // // align-items: center;
+  // width: 100vw;
+  // @include device-size(phone) {
+  //   margin-top: 0.5rem;
+  // }
+  // @include device-size(miniDevice) {
+  //   margin-top: 0.5rem;
+  // }
+  // @include device-size(tablet) {
+  //   margin: 1rem 0 0 0;
+  // }
+}
+
+.dateContainer {
+  display: flex;
+  color: $secondary-text-color;
+  font-size: 16px;
+  justify-content: space-between;
+  margin: 0 1.5rem 0 0;
+  // width: 300px;
+  width: 50vw;
+  @include device-size(phone) {
+    // width: 100%;
+    width: 100vw;
+    padding: 0 5px;
+    margin: 0;
+  }
+  @include device-size(miniDevice) {
+    // width: 70vw;
+    width: 100vw;
+  }
+
+  @include device-size(tablet) {
+    width: 55%;
+    margin: 0 1rem 1rem 0;
+  }
+
+  @include device-size(tablet-laptop) {
+    width: 50vw;
+    margin: 0 1.5rem 1rem 0;
+  }
+
+  @include device-size(large-computer) {
+    width: 50vw;
+    margin: 0 2rem 3rem 0;
+  }
 }
 
 .games {
   display: grid;
-  padding: 0.5rem;
+  // padding: 0.5rem;
   border-radius: 5px;
+  grid-template-columns: 1fr;
 
   @include device-size(phone) {
-    grid-template-columns: 1fr;
     width: 100vw;
     row-gap: 5px;
   }
 
   @include device-size(miniDevice) {
     row-gap: 5px;
+    width: 100vw;
   }
 
   @include device-size(tablet) {
-    grid-template-columns: repeat(2, 1fr);
     gap: 5px;
-    width: 100vw;
-    padding: 1rem;
+    width: 55%;
+    margin: 0 1rem 1rem 0;
   }
 
   @include device-size(tablet-laptop) {
-    grid-template-columns: repeat(2, 1fr);
     gap: 5px;
-    width: 80vw;
-    margin: 1rem auto;
+    width: 50vw;
+    margin: 0 1.5rem 1rem 0;
   }
 
   @include device-size(large-computer) {
-    grid-template-columns: repeat(3, 1fr);
     gap: 5px;
-    width: 90vw;
-    margin: 1rem auto;
+    width: 50vw;
+    margin: 0 2rem 3rem 0;
   }
+}
+
+.twitter {
+  width: 300px;
+  @include device-size(phone) {
+    display: none;
+  }
+  @include device-size(miniDevice) {
+    display: none;
+  }
+}
+
+.DateSwitching {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  // align-items: center;
+  @include device-size(phone) {
+    margin-bottom: 0.5rem;
+  }
+  @include device-size(miniDevice) {
+    margin-bottom: 0.5rem;
+  }
+  @include device-size(tablet) {
+    margin: 1rem 0 0 0;
+  }
+
+  // &::after {
+  //   content: '';
+  //   width: 300px;
+  // }
+}
+
+.returnTodayVisible {
+  @include device-size(phone) {
+    width: 100vw;
+    height: 40px;
+    margin-top: 8px;
+    justify-content: center;
+    transition: height 0.4s ease-in;
+  }
+  display: flex;
+  width: 300px;
+  font-size: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ffffff65;
+  border-radius: 10px;
+}
+
+.returnTodayHidden {
+  @extend .returnTodayVisible;
+  @include device-size(phone) {
+    height: 0px;
+    margin-top: 0;
+  }
+  visibility: hidden;
+}
+
+.contentContainer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
