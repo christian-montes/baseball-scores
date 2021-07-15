@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Menu from './menu';
 import NewMenu from './newMenu';
 
-export default function Layout({ children, page }) {
+export default function Layout({ children }) {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
   // const formattedDate = format(new Date(date), 'eeee MMM d');
