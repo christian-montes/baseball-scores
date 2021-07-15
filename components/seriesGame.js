@@ -1,3 +1,5 @@
+import styles from '../styles/seasonSeries.module.scss';
+
 export default function SeriesGame({ gameData, gameNum }) {
   const game = gameData['competitions'][0];
   const [
@@ -16,7 +18,7 @@ export default function SeriesGame({ gameData, gameNum }) {
 
   return (
     <>
-      <div style={{ height: '3rem', width: '100%', display: 'flex', marginBottom: '10px' }}>
+      <div className={styles.entry}>
         <div
           id="series-gamescore"
           style={{

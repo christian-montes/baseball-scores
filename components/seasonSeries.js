@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import SeriesGame from './seriesGame';
 
+import styles from '../styles/seasonSeries.module.scss';
+
 export default function SeasonSeries({ away, home }) {
   const [seriesData, setData] = useState(null);
   const homeID = getID(home);
@@ -52,7 +54,9 @@ export default function SeasonSeries({ away, home }) {
           <div>Regular Season Series</div>
           <div>{seriesData['state']}</div>
         </div>
-        <div id="season-series-games">{entries}</div>
+        <div className={styles.games} id="season-series-games">
+          {entries}
+        </div>
       </div>
     </>
   );
