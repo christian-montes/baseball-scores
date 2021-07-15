@@ -69,7 +69,7 @@ export default function Details() {
     <Layout date={new Date()} page="gameDetails">
       <GameBar home={homeTeam} away={awayTeam} />
       <main className={styles.mainContainer}>
-        <div id="column-1" className={styles.firstColumn}></div>
+        <div id="column-1" className={styles.firstColumn}>Hello</div>
         <div id="column-2" className={styles.secondColumn}>
           <SeasonSeries away={awayTeam.name} home={homeTeam.name} />
         </div>
