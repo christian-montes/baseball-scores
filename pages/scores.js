@@ -18,19 +18,41 @@ export default function ScorePage({ todaysGames, currentGames }) {
   const [data, setData] = useState(todaysGames);
   const refDate = useRef(currentGames);
   // destructuring data object to get date and games
-  const {
-    dates: [{ games }],
-  } = data;
-  const GameComponents = games.map((game) => {
-    return (
-      <Score
-        key={game.gamePk}
-        link={game.link}
-        publicGS={game.status.detailedState}
-        publicAGC={game.status.abstractGameCode}
-      />
-    );
-  });
+  // console.log(data);
+
+  let noGamesToday;
+  let GameComponents;
+  // console.log(data.dates[0]?.games)
+  try {
+    const {
+      dates: [{ games }],
+    } = data;
+    GameComponents = games.map((game) => {
+      return (
+        <Score
+          key={game.gamePk}
+          link={game.link}
+          publicGS={game.status.detailedState}
+          publicAGC={game.status.abstractGameCode}
+        />
+      );
+    });
+  } catch {
+    noGamesToday = 'No Games Scheduled';
+  }
+  // const {
+  //   dates: [{ games }],
+  // } = data;
+  // const GameComponents = games.map((game) => {
+  //   return (
+  //     <Score
+  //       key={game.gamePk}
+  //       link={game.link}
+  //       publicGS={game.status.detailedState}
+  //       publicAGC={game.status.abstractGameCode}
+  //     />
+  //   );
+  // });
   // console.log(GameComponents);
   // console.log(refDate);
 
@@ -72,7 +94,7 @@ export default function ScorePage({ todaysGames, currentGames }) {
     setData(todayData);
   };
 
-  console.log([refDate.current, formedDate]);
+  // console.log([refDate.current, formedDate]);
   const datesEqual = refDate.current === formedDate;
 
   return (
@@ -91,9 +113,7 @@ export default function ScorePage({ todaysGames, currentGames }) {
           charSet="utf-8"
         />
       </Head>
-      <Layout
-        page={'scores'}
-      >
+      <Layout>
         {/* <div className={styles.dateContainer}>
           <div id="left" className={styles.arrows} onClick={toggleDate}>
             <FontAwesomeIcon icon={faChevronCircleLeft} />
@@ -115,7 +135,11 @@ export default function ScorePage({ todaysGames, currentGames }) {
               <div className={styles.gameDate}>
                 {format(new Date(formedDate), 'eee MMMM d') || 'Today'}
               </div>
-              <div id="right" className={styles.arrowRight} onClick={toggleDate}>
+              <div
+                id="right"
+                className={styles.arrowRight}
+                onClick={toggleDate}
+              >
                 <FontAwesomeIcon icon={faChevronCircleRight} />
               </div>
             </div>
@@ -127,11 +151,13 @@ export default function ScorePage({ todaysGames, currentGames }) {
               }
               onClick={returnToToday}
             >
-              Today &#8617;
+              Return to Today &#8617;
             </div>
           </div>
           <div className={styles.contentContainer}>
-            <section className={styles.games}>{GameComponents}</section>
+            <section className={styles.games}>
+              {noGamesToday || GameComponents}
+            </section>
             <section className={styles.twitter}>
               <a
                 className="twitter-timeline"
@@ -162,6 +188,11 @@ export async function getServerSideProps(context) {
     return {
       notFound: true,
     };
+  }
+
+  if (todaysGames.totalGames === 0) {
+    let currentGames = new Date().toISOString().slice(0, 10);
+    return { props: { todaysGames, currentGames } };
   }
 
   const {
