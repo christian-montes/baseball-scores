@@ -18,7 +18,7 @@ export default function Home() {
         />
         <meta name="og:title" content="View baseball Scores and Standings" />
       </Head>
-      <Layout page={'index'}>
+      <Layout>
         <main className={styles.index}>
           <div className={styles.container}>
             <Link href="/scores">

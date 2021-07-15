@@ -89,7 +89,7 @@ export default function StandingsPage({ AmericanLeague, NationalLeague }) {
         <meta name="twitter:card" content="Current Baseball Standings" />
       </Head>
 
-      <Layout page={'standings'}>
+      <Layout>
         <div className={styles.container}>
           <div
             id="divisional"
