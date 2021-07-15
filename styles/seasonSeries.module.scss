@@ -1,0 +1,25 @@
+@import '../styles/mixins';
+
+.games {
+  @include device-size(phone) {
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+  }
+}
+
+.entry {
+  height: 3rem;
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  @include device-size(phone) {
+    &:last-child {
+      border: none;
+    }
+    width: 200px;
+    padding: 5px 10px;
+    border-right: 1px solid #FFFFFFAA;
+    background-color: $card-color;
+  }
+}

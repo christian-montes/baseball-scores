@@ -59,9 +59,9 @@ footer {
 }
 
 #__next {
-  max-width: 100%;
-  overflow-x: hidden;
-  position: relative;
+  // max-width: 100%;
+  // overflow-x: hidden;
+  // position: relative;
   display: flex;
   flex-direction: column;
   @include device-size(large-computer) {
@@ -70,23 +70,23 @@ footer {
   justify-content: space-between;
 }
 
-.showMenu {
-  @include device-size(phone) {
-    overflow-y: hidden;
-  }
-}
+// .showMenu {
+//   @include device-size(phone) {
+//     overflow-y: hidden;
+//   }
+// }
 
-.showMenuSafari {
-  @include device-size(phone) {
-    height: 85vh;
-  }
-}
+// .showMenuSafari {
+//   @include device-size(phone) {
+//     height: 85vh;
+//   }
+// }
 
-.hideFooter {
-  @include device-size(phone) {
-    display: none;
-  }
-}
+// .hideFooter {
+//   @include device-size(phone) {
+//     display: none;
+//   }
+// }
 
 .score {
   border: 1px solid $hover-color;
