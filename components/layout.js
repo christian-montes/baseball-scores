@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 import { useState } from 'react';
 import Menu from './menu';
-import NewMenu from './newMenu';
 
 export default function Layout({ children }) {
   const [showMenu, setShowMenu] = useState(false);
