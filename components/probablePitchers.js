@@ -31,14 +31,14 @@ export default function ProbablePitchers({ pitchers, names }) {
       <div>
         <div className={styles.pitcherName}>{nameAway}</div>
         <div className={awayID === '0' ? styles.tbd_pitcher : styles.wl_ERA}>
-          {awayID === '0' ? `TBD` : `${awayL}-${awayW}, ${awayERA} ERA`}
+          {awayID === '0' ? `TBD` : `${awayW}-${awayL}, ${awayERA} ERA`}
         </div>
       </div>
 
       <div>
         <div className={styles.pitcherName}>{nameHome}</div>
         <div className={homeID === '0' ? styles.tbd_pitcher : styles.wl_ERA}>
-          {homeID === '0' ? `TBD` : `${homeL}-${homeW}, ${homeERA} ERA`}
+          {homeID === '0' ? `TBD` : `${homeW}-${homeL}, ${homeERA} ERA`}
         </div>
       </div>
     </div>
