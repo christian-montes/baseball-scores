@@ -3,14 +3,11 @@ import Link from 'next/link';
 import styles from './layout.module.scss';
 import { useRouter } from 'next/router';
 
-import { format } from 'date-fns';
 import { useState } from 'react';
 import Menu from './menu';
+import NewMenu from './newMenu';
 
-export default function Layout({
-  children,
-  page,
-}) {
+export default function Layout({ children, page }) {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
   // const formattedDate = format(new Date(date), 'eeee MMM d');
@@ -65,12 +62,12 @@ export default function Layout({
   function checkWindowLocation(event) {
     event.preventDefault();
 
-    const body = document.querySelector('body');
-    const next = document.querySelector('main');
-    const footer = document.querySelector('footer');
-    body.classList.toggle('showMenu');
-    next.classList.toggle('showMenuSafari');
-    footer.classList.toggle('hideFooter');
+    // const body = document.querySelector('body');
+    // const next = document.querySelector('main');
+    // const footer = document.querySelector('footer');
+    // body.classList.toggle('showMenu');
+    // next.classList.toggle('showMenuSafari');
+    // footer.classList.toggle('hideFooter');
 
     event.currentTarget.href === window.location.href
       ? setShowMenu(!showMenu)
@@ -87,7 +84,7 @@ export default function Layout({
             height={60}
           />
         </div>
-        <div className={styles.todayContainer}>
+        {/* <div className={styles.todayContainer}>
           {page === 'index' ? (
             <div className={styles.pageName}>Home</div>
           ) : page === 'standings' ? (
@@ -97,28 +94,18 @@ export default function Layout({
           ) : (
             <div className={styles.pageName}>Scores</div>
           )}
-        </div>
+        </div> */}
+        {/* <NewMenu /> */}
         <div className={styles.child}>
-          <div style={{ width: '60px', height: '60px' }} />
-          {page !== 'index' && (
-            <div className={styles.dropdown}>
-              <div id="menu" className={styles.menu} onClick={toggleMenu}>
-                <div
-                  id="bar1"
-                  className={showMenu ? styles.bar1 : styles.bar}
-                />
-                <div
-                  id="bar2"
-                  className={showMenu ? styles.bar2 : styles.bar}
-                />
-                <div
-                  id="bar3"
-                  className={showMenu ? styles.bar3 : styles.bar}
-                />
-              </div>
-              <Menu show={showMenu} clickCallback={checkWindowLocation} />
-            </div>
-          )}
+          {/* <div className={styles.dropdown}> */}
+          <div id="menu" className={styles.menuBars} onClick={toggleMenu}>
+            <div id="bar1" className={showMenu ? styles.bar1 : styles.bar} />
+            <div id="bar2" className={showMenu ? styles.bar2 : styles.bar} />
+            <div id="bar3" className={showMenu ? styles.bar3 : styles.bar} />
+          </div>
+          <Menu show={showMenu} clickCallback={checkWindowLocation} />
+          {/* <Menu show={showMenu} clickCallback={checkWindowLocation} /> */}
+          {/* </div> */}
         </div>
       </header>
 
