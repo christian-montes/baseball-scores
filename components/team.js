@@ -1,4 +1,5 @@
-import Image from "next/image";
+import Image from 'next/image';
+import styles from '../styles/score.module.scss';
 
 export default function Team({ away, teamRecord, teamRunData, gameState }) {
   const {
@@ -8,39 +9,40 @@ export default function Team({ away, teamRecord, teamRunData, gameState }) {
   } = teamRecord;
 
   const {
-    home: { runs: runsHome },
-    away: { runs: runsAway },
+    home: { runs: runsHome, hits: hitsHome, errors: errHome },
+    away: { runs: runsAway, hits: hitsAway, errors: errAway },
   } = teamRunData;
 
   return (
     <>
-      <div
-        className="row h-50 align-items-center"
-        style={
-          away
-            ? { paddingBottom: '0px', marginBottom: '0px' }
-            : { paddingTop: '0px', marginTop: '0px' }
-        }
-      >
-        <div className="col-2 px-1" style={{ paddingTop: '5px' }}>
-          <Image src={`/${fileCode}.svg`} alt={teamName} width={23} height={23} />
+      <div className={styles.teamRow}>
+        <div className={styles.image}>
+          <Image
+            src={`/${fileCode}.svg`}
+            alt={teamName}
+            width={23}
+            height={23}
+          />
         </div>
-        <div className="col-7 h-100 ps-3">
-          <div
-            className="row h-50"
-            style={{ fontSize: '13px', paddingBottom: '0px' }}
-          >
+        <div className={styles.record}>
+          <div className={styles.teamName}>
             {teamName}
             {/* Name */}
           </div>
-          <div className="row" style={{ fontSize: '10px' }}>
+          <div className={styles.winLoss}>
             {/* 18-17 */}
             {`${wins}-${losses}`}
           </div>
         </div>
         {gameState !== 'Pre-Game' && (
-          <div className="col-2 px-0" style={{ textAlign: 'center' }}>
-            {away ? runsAway : runsHome}
+          <div className={styles.runs}>
+            <div className={styles.entry_container}>
+              {away ? runsAway : runsHome}
+            </div>
+            <div className={styles.hits_errors}>
+              {away ? hitsAway : hitsHome}
+            </div>
+            <div className={styles.hits_errors}>{away ? errAway : errHome}</div>
           </div>
         )}
       </div>

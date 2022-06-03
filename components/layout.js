@@ -3,41 +3,25 @@ import Link from 'next/link';
 import styles from './layout.module.scss';
 import { useRouter } from 'next/router';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronCircleLeft,
-  faChevronCircleRight,
-} from '@fortawesome/free-solid-svg-icons';
-import { format } from 'date-fns';
 import { useState } from 'react';
 import Menu from './menu';
 
-export default function Layout({
-  date,
-  children,
-  page,
-  referenceDate,
-  standings,
-  toggleStandings,
-  dateCallback,
-  returnCallback,
-}) {
+export default function Layout({ children }) {
   const [showMenu, setShowMenu] = useState(false);
   const router = useRouter();
-  const formattedDate = format(new Date(date), 'eeee MMM d');
-  let todayFormatted;
-  // const todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
-  try {
-    todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
-  } catch {
-    todayFormatted = format(new Date(date), 'eeee MMM d');
-  }
-  const datesEqual = formattedDate === todayFormatted;
+  // const formattedDate = format(new Date(date), 'eeee MMM d');
+  // let todayFormatted;
+  // try {
+  //   todayFormatted = format(new Date(referenceDate), 'eeee MMM d');
+  // } catch {
+  //   todayFormatted = format(new Date(date), 'eeee MMM d');
+  // }
+  // const datesEqual = formattedDate === todayFormatted;
 
   const footerPaths = [
     { name: 'Home', link: '/' },
     { name: 'Scores', link: '/scores' },
-    { name: 'Standings', link: '/standings' }
+    { name: 'Standings', link: '/standings' },
   ];
 
   const footerLinks = footerPaths
@@ -49,7 +33,7 @@ export default function Layout({
       );
     })
     .concat(
-      <li key='github'>
+      <li key="github">
         <a
           target="_blank"
           href="https://github.com/christian-montes/baseball-scores"
@@ -63,33 +47,62 @@ export default function Layout({
   function toggleMenu(event) {
     event.preventDefault();
     setShowMenu(!showMenu);
-    const body = document.querySelector('body');
-    const next = document.querySelector('main');
-    const footer = document.querySelector('footer');
-    body.classList.toggle('showMenu');
-    next.classList.toggle('showMenuSafari');
-    footer.classList.toggle('hideFooter');
+    // const body = document.querySelector('body');
+    // const next = document.querySelector('main');
+    // const footer = document.querySelector('footer');
+    // body.classList.toggle('showMenu');
+    // next.classList.toggle('showMenuSafari');
+    // footer.classList.toggle('hideFooter');
 
     // const menu = document.getElementById('menu');
     // menu.classList.toggle('menuDisplay');
+
+    const __nextContainer = document.getElementById('__next');
+    __nextContainer.classList.toggle('noScroll');
+    const body = document.querySelector('body');
+    body.classList.toggle('noScroll');
   }
 
   function checkWindowLocation(event) {
     event.preventDefault();
 
-    const body = document.querySelector('body');
-    const next = document.querySelector('main');
-    const footer = document.querySelector('footer');
-    body.classList.toggle('showMenu');
-    next.classList.toggle('showMenuSafari');
-    footer.classList.toggle('hideFooter');
+    // const body = document.querySelector('body');
+    // const next = document.querySelector('main');
+    // const footer = document.querySelector('footer');
+    // body.classList.toggle('showMenu');
+    // next.classList.toggle('showMenuSafari');
+    // footer.classList.toggle('hideFooter');
+    if (!showMenu) {
+      router.push(event.currentTarget.href);
+    } else {
+      const body = document.querySelector('body');
+      body.classList.toggle('noScroll');
+      const __nextContainer = document.getElementById('__next');
+      __nextContainer.classList.toggle('noScroll');
 
-    event.currentTarget.href === window.location.href
-      ? setShowMenu(!showMenu)
-      : router.push(event.currentTarget.href);
+      event.currentTarget.href === window.location.href
+        ? setShowMenu(!showMenu)
+        : router.push(event.currentTarget.href);
+    }
+
+    // const body = document.querySelector('body');
+    // body.classList.toggle('noScroll');
+    // const __nextContainer = document.getElementById('__next');
+    // __nextContainer.classList.toggle('noScroll');
+
+    // event.currentTarget.href === window.location.href
+    //   ? setShowMenu(!showMenu)
+    //   : router.push(event.currentTarget.href);
   }
   return (
-    <>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        justifyContent: 'space-between',
+      }}
+    >
       <header className={styles.parent}>
         <div className={styles.child}>
           <Image
@@ -99,110 +112,36 @@ export default function Layout({
             height={60}
           />
         </div>
-        {date && (
-          <div className={styles.todayContainer}>
-            {page === 'index' ? (
-              <div className={styles.gameDate}>Home</div>
-            ) : page === 'standings' ? (
-              <div className={styles.gameDate}>Standings</div>
-            ) : datesEqual ? (
-              <div className={styles.gameDate}>Scores</div>
-            ) : (
-              <div className={styles.todayDisplay} onClick={returnCallback}>
-                Return to today
-              </div>
-            )}
-            {/* {datesEqual ? (
-              <div className={styles.gameDate}>Today</div>
-            ) : (
-              <div className={styles.todayDisplay} onClick={returnCallback}>
-                Return to today
-              </div>
-            )} */}
-          </div>
-        )}
-        <div className={styles.child}>
-          <div style={{ width: '60px', height: '60px' }} />
-          {page !== 'index' && (
-            <div className={styles.dropdown}>
-              <div id="menu" className={styles.menu} onClick={toggleMenu}>
-                <div
-                  id="bar1"
-                  className={showMenu ? styles.bar1 : styles.bar}
-                />
-                <div
-                  id="bar2"
-                  className={showMenu ? styles.bar2 : styles.bar}
-                />
-                <div
-                  id="bar3"
-                  className={showMenu ? styles.bar3 : styles.bar}
-                />
-              </div>
-              <Menu show={showMenu} clickCallback={checkWindowLocation} />
-            </div>
+        {/* <div className={styles.todayContainer}>
+          {page === 'index' ? (
+            <div className={styles.pageName}>Home</div>
+          ) : page === 'standings' ? (
+            <div className={styles.pageName}>Standings</div>
+          ) : page === 'gameDetails' ? (
+            <div className={styles.pageName}>Details</div>
+          ) : (
+            <div className={styles.pageName}>Scores</div>
           )}
+        </div> */}
+        {/* <NewMenu /> */}
+        <div className={styles.child}>
+          {/* <div className={styles.dropdown}> */}
+          <div id="menu" className={styles.menuBars} onClick={toggleMenu}>
+            <div id="bar1" className={showMenu ? styles.bar1 : styles.bar} />
+            <div id="bar2" className={showMenu ? styles.bar2 : styles.bar} />
+            <div id="bar3" className={showMenu ? styles.bar3 : styles.bar} />
+          </div>
+          <Menu show={showMenu} clickCallback={checkWindowLocation} />
+          {/* <Menu show={showMenu} clickCallback={checkWindowLocation} /> */}
+          {/* </div> */}
         </div>
       </header>
 
-      {page === 'scores' ? (
-        <>
-          {date && (
-            <div className={styles.dateContainer}>
-              {page === 'scores' && (
-                <div id="left" className={styles.arrows} onClick={dateCallback}>
-                  <FontAwesomeIcon icon={faChevronCircleLeft} />
-                </div>
-              )}
-              <div className={styles.gameDate}>{formattedDate || 'Today'}</div>
-              {page === 'scores' && (
-                <div
-                  id="right"
-                  className={styles.arrows}
-                  onClick={dateCallback}
-                >
-                  <FontAwesomeIcon icon={faChevronCircleRight} />
-                </div>
-              )}
-            </div>
-          )}
-          <main className={styles.games}>{children}</main>
-        </>
-      ) : page === 'standings' ? (
-        <>
-          <div className={styles.container}>
-            <div
-              id="divisional"
-              onClick={toggleStandings}
-              className={
-                standings === 'divisional'
-                  ? styles.selectedElement
-                  : styles.element
-              }
-            >
-              Division
-            </div>
-            <div
-              id="wildcard"
-              onClick={toggleStandings}
-              className={
-                standings === 'wildcard'
-                  ? styles.selectedElement
-                  : styles.element
-              }
-            >
-              Wildcard
-            </div>
-          </div>
-          <main className={styles.standings}>{children}</main>
-        </>
-      ) : (
-        <main className={styles.index}>{children}</main>
-      )}
+      {children}
 
       <footer>
         <ul>{footerLinks}</ul>
       </footer>
-    </>
+    </div>
   );
 }

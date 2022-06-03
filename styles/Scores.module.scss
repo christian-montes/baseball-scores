@@ -1,0 +1,223 @@
+@import '../styles/mixins';
+
+// .dateContainer {
+//   display: flex;
+//   color: $secondary-text-color;
+//   font-size: 16px;
+//   justify-content: space-between;
+//   margin: 0 1.5rem 0 0;
+//   // width: 300px;
+//   width: 50vw;
+//   @include device-size(phone) {
+//     width: 100%;
+//     padding: 0 5px;
+//   }
+//   @include device-size(miniDevice) {
+//     width: 70vw;
+//   }
+// }
+
+.arrowLeft {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    $secondary-text-color 50%,
+    $hover-color 51%
+  );
+  color: $hover-color;
+  transition: 0.3s;
+  @include device-size(phone) {
+    margin: 0 1rem 0 0;
+  }
+  &:hover {
+    cursor: pointer;
+    background: radial-gradient(
+      circle at center,
+      $primary-text-color 50%,
+      $hover-color 51%
+    );
+  }
+}
+
+.arrowRight {
+  @extend .arrowLeft;
+  @include device-size(phone) {
+    margin: 0 0 0 1rem;
+  }
+}
+
+.gameDate {
+  color: $primary-text-color;
+  align-self: center;
+  background-color: $hover-color;
+  border-radius: 30px;
+  padding: 11px 1rem;
+  margin: 0 5px;
+}
+
+.primaryContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  // margin-top: 1.5rem;
+  // // align-items: center;
+  // width: 100vw;
+  // @include device-size(phone) {
+  //   margin-top: 0.5rem;
+  // }
+  // @include device-size(miniDevice) {
+  //   margin-top: 0.5rem;
+  // }
+  // @include device-size(tablet) {
+  //   margin: 1rem 0 0 0;
+  // }
+}
+
+.dateContainer {
+  display: flex;
+  color: $secondary-text-color;
+  font-size: 16px;
+  justify-content: space-between;
+  margin: 0 1.5rem 0 0;
+  // width: 300px;
+  width: 50vw;
+  @include device-size(phone) {
+    // width: 100%;
+    width: 100vw;
+    padding: 0 5px;
+    margin: 0;
+  }
+  @include device-size(miniDevice) {
+    // width: 70vw;
+    width: 100vw;
+    margin: 0 16px 0 16px;
+  }
+
+  @include device-size(tablet) {
+    width: 55%;
+    margin: 0 1rem 0 0;
+  }
+
+  @include device-size(tablet-laptop) {
+    width: 50vw;
+    margin: 0 1.5rem 0 0;
+  }
+
+  @include device-size(large-computer) {
+    width: 50vw;
+    margin: 0 2rem 0 0;
+  }
+}
+
+.games {
+  display: grid;
+  // padding: 0.5rem;
+  border-radius: 5px;
+  grid-template-columns: 1fr;
+
+  @include device-size(phone) {
+    width: 100vw;
+    row-gap: 5px;
+  }
+
+  @include device-size(miniDevice) {
+    row-gap: 5px;
+    width: 100vw;
+  }
+
+  @include device-size(tablet) {
+    gap: 5px;
+    width: 55%;
+    margin: 0 1rem 1rem 0;
+  }
+
+  @include device-size(tablet-laptop) {
+    gap: 5px;
+    width: 50vw;
+    margin: 0 1.5rem 1rem 0;
+  }
+
+  @include device-size(large-computer) {
+    gap: 5px;
+    width: 50vw;
+    margin: 0 2rem 3rem 0;
+  }
+}
+
+.twitter {
+  width: 300px;
+  @include device-size(phone) {
+    display: none;
+  }
+  @include device-size(miniDevice) {
+    display: none;
+  }
+}
+
+.DateSwitching {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  // align-items: center;
+  @include device-size(phone) {
+    margin: 0;
+    padding: 0.5rem 0;
+    position: sticky;
+    align-items: flex-start;
+    top: 0px;
+    z-index: 2;
+    background-color: #15202bd5;
+    backdrop-filter: blur(10px);
+  }
+  @include device-size(miniDevice) {
+    margin-bottom: 0.5rem;
+  }
+  @include device-size(tablet) {
+    margin-bottom: 1rem;
+  }
+
+  // &::after {
+  //   content: '';
+  //   width: 300px;
+  // }
+}
+
+.returnTodayVisible {
+  @include device-size(phone) {
+    width: 100vw;
+    height: 40px;
+    margin-top: 8px;
+    justify-content: center;
+    position: sticky;
+    // top: 5px;
+    font-size: 16px;
+  }
+  display: flex;
+  width: 300px;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: #bbbbbb65;
+  border-radius: 10px;
+}
+
+.returnTodayHidden {
+  @extend .returnTodayVisible;
+  @include device-size(phone) {
+    visibility: visible;
+    // background-color: #ffffffAA;
+  }
+  visibility: hidden;
+}
+
+// add media query for mini device AKA sideways phones
+
+.contentContainer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}

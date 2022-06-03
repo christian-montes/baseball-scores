@@ -2,7 +2,7 @@ import styles from './menu.module.scss';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function Menu({ show, clickCallback }) {
+export default function NewMenu({ show, clickCallback }) {
   const [page, setPage] = useState('');
   const menuLinks = [
     { name: 'Home', link: '/' },

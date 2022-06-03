@@ -1,3 +1,5 @@
+import { format, utcToZonedTime } from 'date-fns-tz';
+
 export default function Inning({
   publicGS,
   detailedState,
@@ -14,14 +16,17 @@ export default function Inning({
     away: { runs: runsAway },
   } = teamRunData;
 
-  const { time, ampm } = timeData;
+  const { dateTime } = timeData;
+  const USER_TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
+  const timeZonedDate = utcToZonedTime(dateTime, USER_TIME_ZONE);
+  const displayTimeFormatted = format(timeZonedDate, 'h:MM a zzz')
 
   // need to add scheduled time data
   // may be better to check if the innings played are simply different, not if one is greater than the other;
   const display =
     ['Pre-Game', 'Scheduled'].includes(detailedState) &&
     publicGS !== 'Postponed'
-      ? `${time} ${ampm}`
+      ? displayTimeFormatted
       : detailedState === 'Warmup'
       ? detailedState
       : detailedState === 'In Progress'
@@ -34,7 +39,7 @@ export default function Inning({
         : outs === 3
         ? `End ${nth_Inning}`
         : `Bot ${nth_Inning}`
-      : detailedState === 'Final' || abstractGameState === 'Final'
+      : (detailedState === 'Final' || abstractGameState === 'Final') && publicGS !== 'Postponed'
       ? inningNumber != scheduledInnings || scheduledInnings < 9
         ? `Final/${inningNumber}`
         : detailedState
@@ -45,8 +50,16 @@ export default function Inning({
   return (
     <>
       <div
-        className="position-absolute pe-2 top-0 end-0"
-        style={{ fontSize: '13px' }}
+        style={{
+          textAlign: 'end',
+          height: '100%',
+          width: '50%',
+          fontSize: '13px',
+          position: 'absolute',
+          paddingRight: '8px',
+          top: '0',
+          right: '0',
+        }}
       >
         {display}
       </div>

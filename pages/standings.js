@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Layout from '../components/layout';
 import Standings from '../components/standings';
+import styles from '../styles/Standings.module.scss';
 import { changeAbbreviation, getFileCode } from '../lib/teamNames';
 
 export async function getStaticProps() {
@@ -60,7 +61,6 @@ export async function getStaticProps() {
 export default function StandingsPage({ AmericanLeague, NationalLeague }) {
   const [viewStandings, setViewStandings] = useState('divisional');
   // console.log(AmericanLeague)
-  const dateProp = new Date();
   const StandingsTables = [AmericanLeague, NationalLeague].map((league) => {
     return (
       <Standings key={league['name']} data={league} show={viewStandings} />
@@ -76,29 +76,46 @@ export default function StandingsPage({ AmericanLeague, NationalLeague }) {
 
   return (
     <>
-            <Head>
-          <title>Current MLB Standings</title>
-          <meta name="Description" content="Current MLB Divisional Standings" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-          <link rel="icon" href="/favicon.ico" />
-          <meta
-            name="keywords"
-            content="Current MLB Standings major league baseball division standings divisional American National"
-          />
-          <meta name="og:title" content="Current MLB Standings" />
-          <meta name="twitter:card" content="Current Baseball Standings" />
-        </Head>
-    <Layout
-      date={dateProp}
-      page={'standings'}
-      toggleStandings={toggleStandings}
-      standings={viewStandings}
-    >
-      {StandingsTables}
-    </Layout>
+      <Head>
+        <title>Current MLB Standings</title>
+        <meta name="Description" content="Current MLB Divisional Standings" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="keywords"
+          content="Current MLB Standings major league baseball division standings divisional American National"
+        />
+        <meta name="og:title" content="Current MLB Standings" />
+        <meta name="twitter:card" content="Current Baseball Standings" />
+      </Head>
+
+      <Layout>
+        <div className={styles.container}>
+          <div
+            id="divisional"
+            onClick={toggleStandings}
+            className={
+              viewStandings === 'divisional'
+                ? styles.selectedElement
+                : styles.element
+            }
+          >
+            Division
+          </div>
+          <div
+            id="wildcard"
+            onClick={toggleStandings}
+            className={
+              viewStandings === 'wildcard'
+                ? styles.selectedElement
+                : styles.element
+            }
+          >
+            Wildcard
+          </div>
+        </div>
+        <main className={styles.standings}>{StandingsTables}</main>
+      </Layout>
     </>
   );
 }

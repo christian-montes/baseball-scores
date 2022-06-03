@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import styles from '../styles/Home.module.scss';
 import Layout from '../components/layout';
 
+import styles from '../styles/Home.module.scss';
+
 export default function Home() {
-  const dateProp = new Date();
-  // console.log(dateProp)
+  // const header = document.getElementById('header');
+  // const footer = document.getElementById('footer');
+
+  // console.log(window.getComputedStyle(header))
   return (
     <>
       <Head>
@@ -19,18 +22,17 @@ export default function Home() {
         />
         <meta name="og:title" content="View baseball Scores and Standings" />
       </Head>
-      <Layout page={'index'} date={dateProp}>
-        <div className={styles.container}>
-          <h1 className={styles.title}>Scores</h1>
-          <Link href="/scores">
-            <a className={styles.scores}>View Live Scores</a>
-          </Link>
-
-          <h1 className={styles.title}>Current Standings</h1>
-          <Link href="/standings">
-            <a className={styles.scores}>View Standings</a>
-          </Link>
-        </div>
+      <Layout>
+        <main className={styles.index}>
+          <div className={styles.container}>
+            <Link href="/scores">
+              <a className={styles.scores}>View Live Scores</a>
+            </Link>
+            <Link href="/standings">
+              <a className={styles.scores}>View Standings</a>
+            </Link>
+          </div>
+        </main>
       </Layout>
     </>
   );

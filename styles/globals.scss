@@ -59,33 +59,40 @@ footer {
 }
 
 #__next {
-  max-width: 100%;
-  overflow-x: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  // max-width: 100%;
+  // overflow-x: hidden;
+  // position: relative;
+  // display: flex;
+  // flex-direction: column;
+  margin: 0;
+  min-height: 100%;
   @include device-size(large-computer) {
     height: 100vh;
   }
-  justify-content: space-between;
+  // justify-content: space-between;
 }
 
-.showMenu {
-  @include device-size(phone) {
-    overflow-y: hidden;
-  }
-}
+// .showMenu {
+//   @include device-size(phone) {
+//     overflow-y: hidden;
+//   }
+// }
 
-.showMenuSafari {
-  @include device-size(phone) {
-    height: 85vh;
-  }
-}
+// .showMenuSafari {
+//   @include device-size(phone) {
+//     height: 85vh;
+//   }
+// }
 
-.hideFooter {
-  @include device-size(phone) {
-    display: none;
-  }
+// .hideFooter {
+//   @include device-size(phone) {
+//     display: none;
+//   }
+// }
+
+.noScroll {
+  position: fixed;
+  overflow-y: hidden;
 }
 
 .score {
