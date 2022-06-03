@@ -127,7 +127,10 @@ export default function Score({ link, publicGS, publicAGC }) {
           />
         </div>
       );
-    } else if (ds === 'Final' || cgs === 'F' || agc === 'F') {
+    } else if (
+      (ds === 'Final' || cgs === 'F' || agc === 'F') &&
+      pgs !== 'Postponed'
+    ) {
       return <DynamicDecisions decisions={decisions} />;
     } else {
       return <div />;
