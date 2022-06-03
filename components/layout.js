@@ -47,15 +47,20 @@ export default function Layout({ children }) {
   function toggleMenu(event) {
     event.preventDefault();
     setShowMenu(!showMenu);
-    const body = document.querySelector('body');
-    const next = document.querySelector('main');
-    const footer = document.querySelector('footer');
-    body.classList.toggle('showMenu');
-    next.classList.toggle('showMenuSafari');
-    footer.classList.toggle('hideFooter');
+    // const body = document.querySelector('body');
+    // const next = document.querySelector('main');
+    // const footer = document.querySelector('footer');
+    // body.classList.toggle('showMenu');
+    // next.classList.toggle('showMenuSafari');
+    // footer.classList.toggle('hideFooter');
 
     // const menu = document.getElementById('menu');
     // menu.classList.toggle('menuDisplay');
+
+    const __nextContainer = document.getElementById('__next');
+    __nextContainer.classList.toggle('noScroll');
+    const body = document.querySelector('body');
+    body.classList.toggle('noScroll');
   }
 
   function checkWindowLocation(event) {
@@ -67,13 +72,37 @@ export default function Layout({ children }) {
     // body.classList.toggle('showMenu');
     // next.classList.toggle('showMenuSafari');
     // footer.classList.toggle('hideFooter');
+    if (!showMenu) {
+      router.push(event.currentTarget.href);
+    } else {
+      const body = document.querySelector('body');
+      body.classList.toggle('noScroll');
+      const __nextContainer = document.getElementById('__next');
+      __nextContainer.classList.toggle('noScroll');
 
-    event.currentTarget.href === window.location.href
-      ? setShowMenu(!showMenu)
-      : router.push(event.currentTarget.href);
+      event.currentTarget.href === window.location.href
+        ? setShowMenu(!showMenu)
+        : router.push(event.currentTarget.href);
+    }
+
+    // const body = document.querySelector('body');
+    // body.classList.toggle('noScroll');
+    // const __nextContainer = document.getElementById('__next');
+    // __nextContainer.classList.toggle('noScroll');
+
+    // event.currentTarget.href === window.location.href
+    //   ? setShowMenu(!showMenu)
+    //   : router.push(event.currentTarget.href);
   }
   return (
-    <>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        justifyContent: 'space-between',
+      }}
+    >
       <header className={styles.parent}>
         <div className={styles.child}>
           <Image
@@ -113,6 +142,6 @@ export default function Layout({ children }) {
       <footer>
         <ul>{footerLinks}</ul>
       </footer>
-    </>
+    </div>
   );
 }
