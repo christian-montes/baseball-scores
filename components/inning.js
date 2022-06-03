@@ -39,7 +39,7 @@ export default function Inning({
         : outs === 3
         ? `End ${nth_Inning}`
         : `Bot ${nth_Inning}`
-      : detailedState === 'Final' || abstractGameState === 'Final'
+      : (detailedState === 'Final' || abstractGameState === 'Final') && publicGS !== 'Postponed'
       ? inningNumber != scheduledInnings || scheduledInnings < 9
         ? `Final/${inningNumber}`
         : detailedState
