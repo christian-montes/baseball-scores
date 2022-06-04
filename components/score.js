@@ -31,6 +31,10 @@ export default function Score({ link, publicGS, publicAGC }) {
 
   // const [test, setTest] = useState(publicGS);
   const [element, setElement] = useState(<div />);
+
+  /* will use this state to show/hide box that contains links to season series data
+  box score */
+  const [show, setShow] = useState(false);
   const router = useRouter();
 
   // useEffect(() => {
@@ -140,15 +144,24 @@ export default function Score({ link, publicGS, publicAGC }) {
   // console.log(publicGS);
 
   return (
-    <Link
-      href={{
-        pathname: '/boxscore/[gameID]',
-        query: { gameID: gamePk },
+    // <Link
+    //   href={{
+    //     pathname: '/boxscore/[gameID]',
+    //     query: { gameID: gamePk },
+    //   }}
+    // >
+
+    <div
+      className={show ? styles.containerExpandedHeight : styles.container}
+      onClick={() => {
+        setShow(!show);
+        // console.log(show);
       }}
     >
-      <div className={styles.container}>
-        <div className={styles.everything}>
-          {/* {viewDecisions ? (
+      <div
+        className={show ? styles.everythingExpandedHeight : styles.everything}
+      >
+        {/* {viewDecisions ? (
           <DynamicDecisions
             toggleView={toggleViewDecisions}
             teamRuns={teamRuns}
@@ -158,37 +171,37 @@ export default function Score({ link, publicGS, publicAGC }) {
           />
         ) : (
           <> */}
-          <div className={styles.nameAndScore}>
-            <div className={styles.rhe}>
-              <div className={styles.fakeImage} />
-              <div className={styles.fakeRecord} />
-              <div
-                className={
-                  ['Scheduled', 'Pre-Game', 'Postponed'].includes(publicGS)
-                    ? styles.runs_Preview
-                    : styles.runs
-                }
-              >
-                <div className={styles.entry_container}>R</div>
-                <div className={styles.entry_container}>H</div>
-                <div className={styles.entry_container}>E</div>
-              </div>
+        <div className={styles.nameAndScore}>
+          <div className={styles.rhe}>
+            <div className={styles.fakeImage} />
+            <div className={styles.fakeRecord} />
+            <div
+              className={
+                ['Scheduled', 'Pre-Game', 'Postponed'].includes(publicGS)
+                  ? styles.runs_Preview
+                  : styles.runs
+              }
+            >
+              <div className={styles.entry_container}>R</div>
+              <div className={styles.entry_container}>H</div>
+              <div className={styles.entry_container}>E</div>
             </div>
-            <Team
-              away
-              teamRecord={awayRecord}
-              teamRunData={teamRuns}
-              gameState={detailedState}
-            />
-            <Team
-              teamRecord={homeRecord}
-              teamRunData={teamRuns}
-              gameState={detailedState}
-            />
           </div>
+          <Team
+            away
+            teamRecord={awayRecord}
+            teamRunData={teamRuns}
+            gameState={detailedState}
+          />
+          <Team
+            teamRecord={homeRecord}
+            teamRunData={teamRuns}
+            gameState={detailedState}
+          />
+        </div>
 
-          <div className={styles.basesInning}>
-            {/* {['Scheduled', 'Pre-Game'].includes(publicGS) ? (
+        <div className={styles.basesInning}>
+          {/* {['Scheduled', 'Pre-Game'].includes(publicGS) ? (
             <ProbablePitchers pitchers={probablePitchers} names={playerNames} />
           ) : ['Warmup', 'In Progress', 'Delayed'].includes(publicGS) ? (
             <div className={styles.basesContainer}>
@@ -203,9 +216,9 @@ export default function Score({ link, publicGS, publicAGC }) {
           ) : (
             <div />
           )} */}
-            {element}
+          {element}
 
-            {/* {['Warmup', 'In Progress'].includes(publicGS) && (
+          {/* {['Warmup', 'In Progress'].includes(publicGS) && (
                 <div
                   className={styles.basesContainer}
                   onClick={toggleViewDecisions}
@@ -217,25 +230,45 @@ export default function Score({ link, publicGS, publicAGC }) {
                   />
                 </div>
               )} */}
-            <Inning
-              publicGS={publicGS}
-              detailedState={detailedState}
-              abstractGameState={abstractGameState}
-              inningData={{
-                inningNumber,
-                nth_Inning,
-                inningHalf,
-                scheduledInnings,
-              }}
-              outs={outs}
-              teamRunData={teamRuns}
-              timeData={datetime}
-            />
-          </div>
-          {/* </>
-        )} */}
+          <Inning
+            publicGS={publicGS}
+            detailedState={detailedState}
+            abstractGameState={abstractGameState}
+            inningData={{
+              inningNumber,
+              nth_Inning,
+              inningHalf,
+              scheduledInnings,
+            }}
+            outs={outs}
+            teamRunData={teamRuns}
+            timeData={datetime}
+          />
         </div>
+        {/* </>
+        )} */}
       </div>
-    </Link>
+      {/* this is the end of the main container that houses the main elements */}
+      <div
+        style={
+          show
+            ? {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-evenly',
+                width: '100%',
+                height: '30px',
+                marginTop: '3px',
+                borderTop: '1px solid white',
+              }
+            : { display: 'none' }
+        }
+      >
+        <div className={styles.dataButtons}>Boxscore</div>
+        <div className={styles.dataButtons}>Season series</div>
+      </div>
+    </div>
+
+    // </Link>
   );
 }
