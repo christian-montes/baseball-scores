@@ -8,6 +8,7 @@
 
 .container {
   height: 110px;
+  transition: 'height 1s ease-in-out';
   @include device-size(phone) {
     height: 78px;
   }
@@ -20,12 +21,38 @@
   border-radius: 5px;
 }
 
+.containerExpandedHeight {
+  @extend .container;
+  height: 140px;
+  @include device-size(phone) {
+    height: 108px;
+  }
+  @include device-size(miniDevice) {
+    height: 108px;
+  }
+}
+
 .everything {
   width: 100%;
   display: flex;
   flex-direction: row;
   height: 100%;
   // height: 4.5rem;
+}
+
+.everythingExpandedHeight {
+  @extend.everything;
+  height: 100px;
+  @include device-size(phone) {
+    height: 68px;
+  }
+  @include device-size(miniDevice) {
+    height: 68px;
+  }
+}
+
+.dataButtons {
+  height: 20px;
 }
 
 .nameAndScore {
