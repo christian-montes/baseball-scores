@@ -151,15 +151,13 @@ export default function Score({ link, publicGS, publicAGC }) {
     //   }}
     // >
 
-    <div
-      className={show ? styles.containerExpandedHeight : styles.container}
-      onClick={() => {
-        setShow(!show);
-        // console.log(show);
-      }}
-    >
+    <div className={show ? styles.containerExpandedHeight : styles.container}>
       <div
         className={show ? styles.everythingExpandedHeight : styles.everything}
+        onClick={() => {
+          setShow(!show);
+          // console.log(show);
+        }}
       >
         {/* {viewDecisions ? (
           <DynamicDecisions
@@ -264,7 +262,14 @@ export default function Score({ link, publicGS, publicAGC }) {
             : { display: 'none' }
         }
       >
-        <div className={styles.dataButtons}>Boxscore</div>
+        <Link
+          href={{
+            pathname: '/boxscore/[gameID]',
+            query: { gameID: gamePk },
+          }}
+        >
+          <a className={styles.dataButtons}>Boxscore</a>
+        </Link>
         <div className={styles.dataButtons}>Season series</div>
       </div>
     </div>
