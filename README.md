@@ -8,14 +8,14 @@ React.js is the backbone of this site. The use of React Hooks throughout makes i
 
 ### Live scores
 Providing live scores is the biggest feature this site provides. They can be seen on [this page](https://baseball-scores.vercel.app/scores "Live scores"). The main React component found on the Scores page is the Score component. It houses the necessary information to display the score of the game.
-The Score component contains the following sub-components listed with their respective function:
--**Team component** displays the team logo, name, record at the time the game took place, and runs scored.
--**Bases component** manages all data related to base runners to correctly display where runners are currently on base.
--**Inning component** displays the current inning, start time of the game, delays, or "Final" for finished games.
-*This site takes advantage of CSS media queries to load components depending on available screen size. The following components are not displayed to users on small screens*:
--**Game Decisions component** displays the winning and losing pitcher as well as any pitcher that records a save.
--**Probable Pitchers component** displays the probable pitchers that have been announced for the game.
--**Skeleton component** shows a blank Score component when data has not finished loading in lieu of loading icons for a refined look.
+The Score component contains the following sub-components listed with their respective function:\
+-**Team component** displays the team logo, name, record at the time the game took place, and runs scored.\
+-**Bases component** manages all data related to base runners to correctly display where runners are currently on base.\
+-**Inning component** displays the current inning, start time of the game, delays, or "Final" for finished games.\
+*This site takes advantage of CSS media queries to load components depending on available screen size. The following components are not displayed to users on small screens*:\
+-**Game Decisions component** displays the winning and losing pitcher as well as any pitcher that records a save.\
+-**Probable Pitchers component** displays the probable pitchers that have been announced for the game.\
+-**Skeleton component** shows a blank Score component when data has not finished loading in lieu of loading icons for a refined look.\
 
 Each of these components can be found in the folder named components, or [here](https://github.com/christian-montes/baseball-scores/tree/main/components "Components").
 
