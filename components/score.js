@@ -270,7 +270,14 @@ export default function Score({ link, publicGS, publicAGC }) {
         >
           <a className={styles.dataButtons}>Boxscore</a>
         </Link>
-        <div className={styles.dataButtons}>Season series</div>
+        <div className={styles.dataButtons}>Season Series</div>
+        <Link
+          href={{
+            pathname: '/head-to-head',
+          }}
+        >
+          <a className={styles.dataButtons}>Head to Head</a>
+        </Link>
       </div>
     </div>
 
