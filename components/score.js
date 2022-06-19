@@ -258,8 +258,13 @@ export default function Score({ link, publicGS, publicAGC }) {
                 height: '30px',
                 marginTop: '3px',
                 borderTop: '1px solid white',
+                visibility: 'visible',
+                transition: 'visibility 0.2s ease-in-out 0.1s',
               }
-            : { display: 'none' }
+            : {
+                visibility: 'hidden',
+                height: '0px',
+              }
         }
       >
         <Link
