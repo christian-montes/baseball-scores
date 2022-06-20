@@ -279,6 +279,7 @@ export default function Score({ link, publicGS, publicAGC }) {
         <Link
           href={{
             pathname: '/head-to-head',
+            query: { teamOne: awayRecord['name'], teamTwo: homeRecord['name'] },
           }}
         >
           <a className={styles.dataButtons}>Head to Head</a>
