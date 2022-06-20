@@ -1,29 +1,90 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+
+import getID from '../lib/teamIndex';
 
 import Layout from '../components/layout';
 import styles from '../styles/Head.module.scss';
+import SeasonSeries from '../components/seasonSeries';
 
 export default function Head2Head() {
   const router = useRouter();
+  // creating a reference to the child component
+  const seasonSeriesRef = useRef();
 
   const [team1, setTeam1] = useState('');
   const [team2, setTeam2] = useState('');
 
   useEffect(() => {
     let team1Element = document.getElementById('team1');
-    // console.log(team1Element.value);
-
     let team2Element = document.getElementById('team2');
     // console.log(team2Element.value);
 
+    var windowSearchString = window.location.search;
+    // console.log(windowSearchString);
+    let searchTeam1;
+    let searchTeam2;
+    if (
+      !/teamOne/.test(windowSearchString) &&
+      !/teamTwo/.test(windowSearchString)
+    ) {
+      // router.replace argument is an Object from Node docs
+      router.replace({ pathname: '/head-to-head', search: '' });
+    } else if (
+      !/teamTwo/.test(windowSearchString) &&
+      /teamOne/.test(windowSearchString)
+    ) {
+      searchTeam1 = windowSearchString
+        .slice(windowSearchString.indexOf('=') + 1)
+        .replace(/\+/g, ' ');
+      searchTeam2 = '';
+    } else if (
+      /teamTwo/.test(windowSearchString) &&
+      !/teamOne/.test(windowSearchString)
+    ) {
+      searchTeam2 = windowSearchString
+        .slice(windowSearchString.indexOf('=') + 1)
+        .replace(/\+/g, ' ');
+      searchTeam1 = '';
+    } else {
+      searchTeam1 = windowSearchString
+        .slice(
+          windowSearchString.indexOf('teamOne') + 'teamOne'.length + 1,
+          windowSearchString.indexOf('&')
+        )
+        .replace(/\+/g, ' ');
+      searchTeam2 = windowSearchString
+        .slice(windowSearchString.indexOf('teamTwo') + 'teamTwo'.length + 1)
+        .replace(/\+/g, ' ');
+    }
+    // let searchTeam1 = windowSearchString
+    //   .slice(
+    //     windowSearchString.indexOf('teamOne') + 'teamOne'.length + 1,
+    //     windowSearchString.indexOf('&')
+    //   )
+    //   .replace(/\+/g, ' ');
+
+    // let searchTeam2 = windowSearchString
+    //   .slice(windowSearchString.indexOf('teamTwo') + 'teamTwo'.length + 1)
+    //   .replace(/\+/g, ' ');
+
     let queryTeam1 = router.query?.teamOne;
     let queryTeam2 = router.query?.teamTwo;
-    // console.log(router.query);
 
     if (queryTeam1) {
       setTeam1(queryTeam1);
       team1Element.value = queryTeam1;
+    } else if (searchTeam1) {
+      if (getID(searchTeam1) < 1) {
+        router.replace('/head-to-head');
+        team1Element.value = '';
+        team2Element.value = '';
+        setTeam1('');
+        setTeam2('');
+      } else {
+        setTeam1(searchTeam1);
+        team1Element.value = searchTeam1;
+      }
     } else {
       setTeam1(team1Element.value);
     }
@@ -31,6 +92,17 @@ export default function Head2Head() {
     if (queryTeam2) {
       setTeam2(queryTeam2);
       team2Element.value = queryTeam2;
+    } else if (searchTeam2) {
+      if (getID(searchTeam2) < 1) {
+        router.replace('/head-to-head');
+        team1Element.value = '';
+        team2Element.value = '';
+        setTeam1('');
+        setTeam2('');
+      } else {
+        setTeam2(searchTeam2);
+        team2Element.value = searchTeam2;
+      }
     } else {
       setTeam2(team2Element.value);
     }
@@ -142,9 +214,12 @@ export default function Head2Head() {
             onChange={(event) => {
               console.log(event.target.value);
               setTeam1(event.target.value);
+              seasonSeriesRef.current.updateAwayTeam(event.target.value);
             }}
           >
-            <option defaultValue>Team 1</option>
+            <option value="" defaultValue>
+              Team 1
+            </option>
             {dropdownOptionsTeamOne}
           </select>
 
@@ -155,15 +230,21 @@ export default function Head2Head() {
             onChange={(event) => {
               console.log(event.target.value);
               setTeam2(event.target.value);
+              seasonSeriesRef.current.updateHomeTeam(event.target.value);
             }}
           >
-            <option defaultValue>Team 2</option>
+            <option value="" defaultValue>
+              Team 2
+            </option>
             {dropdownOptionsTeamTwo}
           </select>
         </div>
         <div>
           Team 1: {team1} Team 2: {team2}
         </div>
+        <section>
+          <SeasonSeries away={team1} home={team2} ref={seasonSeriesRef} />
+        </section>
       </main>
     </Layout>
   );
