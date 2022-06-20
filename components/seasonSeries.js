@@ -1,14 +1,30 @@
 import getID from '../lib/teamIndex';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import SeriesGame from './seriesGame';
 
 import styles from '../styles/seasonSeries.module.scss';
 
-export default function SeasonSeries({ away, home }) {
+const SeasonSeries = forwardRef(({ away, home }, ref) => {
+  // if (!away || !home) return <div />;
+
+  // if (awayID === 0 || homeID === 0) return <div>Invalid Entry</div>;
+
   const [seriesData, setData] = useState(null);
-  const homeID = getID(home);
-  const awayID = getID(away);
+  const [homeTeam, setHomeTeam] = useState(home);
+  const [awayTeam, setAwayTeam] = useState(away);
+
+  const homeID = getID(homeTeam);
+  const awayID = getID(awayTeam);
+
+  useImperativeHandle(ref, () => ({
+    updateHomeTeam(tm) {
+      setHomeTeam(tm);
+    },
+    updateAwayTeam(tm) {
+      setAwayTeam(tm);
+    },
+  }));
 
   // const { data } = axios.get(
   //   `http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/${homeID}/schedule`
@@ -23,10 +39,16 @@ export default function SeasonSeries({ away, home }) {
       })
       .then((res) => res.data);
 
-    setData(data);
-  }, []);
+    if (typeof data === 'string') {
+      setData(null);
+    } else {
+      setData(data);
+    }
+  }, [homeTeam, awayTeam]);
 
-  if (!seriesData) return <div>Awaiting data</div>;
+  if (!seriesData) return <div>Awaiting user input</div>;
+  // console.log(typeof seriesData);
+  // if (typeof seriesData === 'string') return <div />;
 
   const entries = seriesData['series'].map((game, index) => {
     return <SeriesGame key={index} gameData={game} gameNum={index + 1} />;
@@ -60,4 +82,6 @@ export default function SeasonSeries({ away, home }) {
       </div>
     </>
   );
-}
+});
+
+export default SeasonSeries;
