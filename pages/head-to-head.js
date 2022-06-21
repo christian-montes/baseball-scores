@@ -73,6 +73,7 @@ export default function Head2Head() {
 
     if (queryTeam1) {
       setTeam1(queryTeam1);
+      seasonSeriesRef.current.updateAwayTeam(queryTeam1);
       team1Element.value = queryTeam1;
     } else if (searchTeam1) {
       if (getID(searchTeam1) < 1) {
@@ -82,6 +83,8 @@ export default function Head2Head() {
         setTeam1('');
         setTeam2('');
       } else {
+        // FIX THIS!!!!
+        seasonSeriesRef.current.updateAwayTeam(searchTeam1);
         setTeam1(searchTeam1);
         team1Element.value = searchTeam1;
       }
@@ -91,6 +94,7 @@ export default function Head2Head() {
 
     if (queryTeam2) {
       setTeam2(queryTeam2);
+      seasonSeriesRef.current.updateHomeTeam(queryTeam2);
       team2Element.value = queryTeam2;
     } else if (searchTeam2) {
       if (getID(searchTeam2) < 1) {
@@ -101,6 +105,7 @@ export default function Head2Head() {
         setTeam2('');
       } else {
         setTeam2(searchTeam2);
+        seasonSeriesRef.current.updateHomeTeam(searchTeam2);
         team2Element.value = searchTeam2;
       }
     } else {
@@ -110,6 +115,7 @@ export default function Head2Head() {
     // queryTeam1 ? setTeam1(queryTeam1) : setTeam1(team1Element.value);
     // queryTeam2 ? setTeam2(queryTeam2) : setTeam2(team2Element.value);
   }, []);
+  // console.log(team1, team2, 'hello');
 
   const teams = [
     {
