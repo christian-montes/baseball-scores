@@ -25,6 +25,7 @@ const SeasonSeries = forwardRef(({ away, home }, ref) => {
       setAwayTeam(tm);
     },
   }));
+  // console.log(homeTeam, awayTeam)
 
   // const { data } = axios.get(
   //   `http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/${homeID}/schedule`
