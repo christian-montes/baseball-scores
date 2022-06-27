@@ -7,6 +7,7 @@ import Layout from '../../components/layout';
 import { getFileCode } from '../../lib/teamNames';
 import SeasonSeries from '../../components/seasonSeries';
 import styles from '../../styles/teams.module.scss';
+import { useEffect } from 'react';
 
 export async function getStaticPaths() {
   const paths = getAllMatchups().slice(0, 10);
@@ -22,17 +23,16 @@ export async function getStaticProps({ params }) {
   let awayTeamID;
   let homeTeamID;
 
-  // console.log(params.teams, teams, awayTeamID, homeTeamID);
-
   let homeURL;
   let homeSchedule;
 
   try {
-    teams = params.teams.split('-');
-    awayTeamID = getID(teams[0].replace(/_/g, ' '));
-    homeTeamID = getID(teams[1].replace(/_/g, ' '));
+    teams = params.teams.split('_');
+    awayTeamID = getID(teams[0].replace(/-/g, ' '));
+    homeTeamID = getID(teams[1].replace(/-/g, ' '));
     homeURL = `http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/${homeTeamID}/schedule`;
     homeSchedule = await axios.get(homeURL).then((res) => res.data);
+    // console.log(params.teams, teams, awayTeamID, homeTeamID);
   } catch {
     return {
       redirect: {
@@ -155,13 +155,14 @@ export default function ViewSeries({
   teamNames,
 }) {
   const router = useRouter();
+  useEffect(() => {
+    if (!matchupData) {
+      router.push('/scores');
+    }
+  }, []);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
-  }
-
-  if (!matchupData) {
-    router.replace('/teamscores/');
   }
 
   // const entries = matchupData['series'].map((game, index) => {

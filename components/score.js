@@ -88,8 +88,8 @@ export default function Score({ link, publicGS, publicAGC }) {
     },
   } = appData;
 
-  const awayTeamSlug = awayRecord['name'].replaceAll(' ', '_');
-  const homeTeamSlug = homeRecord['name'].replaceAll(' ', '_');
+  const awayTeamSlug = awayRecord['name'].replaceAll(' ', '-');
+  const homeTeamSlug = homeRecord['name'].replaceAll(' ', '-');
 
   // updateDeps.push(abstractGameCode, detailedState);
 
@@ -283,7 +283,7 @@ export default function Score({ link, publicGS, publicAGC }) {
           href={{
             pathname: '/teamscores/[teams]',
             query: {
-              teams: `${awayTeamSlug}-${homeTeamSlug}`,
+              teams: `${awayTeamSlug}_${homeTeamSlug}`,
             },
           }}
         >
