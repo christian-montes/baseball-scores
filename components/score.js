@@ -87,6 +87,10 @@ export default function Score({ link, publicGS, publicAGC }) {
       decisions,
     },
   } = appData;
+
+  const awayTeamSlug = awayRecord['name'].replaceAll(' ', '_');
+  const homeTeamSlug = homeRecord['name'].replaceAll(' ', '_');
+
   // updateDeps.push(abstractGameCode, detailedState);
 
   // const toggleViewDecisions = (event) => {
@@ -275,11 +279,12 @@ export default function Score({ link, publicGS, publicAGC }) {
         >
           <a className={styles.dataButtons}>Boxscore</a>
         </Link>
-        <div className={styles.dataButtons}>Season Series</div>
         <Link
           href={{
-            pathname: '/head-to-head',
-            query: { teamOne: awayRecord['name'], teamTwo: homeRecord['name'] },
+            pathname: '/teamscores/[teams]',
+            query: {
+              teams: `${awayTeamSlug}-${homeTeamSlug}`,
+            },
           }}
         >
           <a className={styles.dataButtons}>Head to Head</a>
