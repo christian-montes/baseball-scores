@@ -5,49 +5,49 @@ import SeriesGame from './seriesGame';
 
 import styles from '../styles/seasonSeries.module.scss';
 
-const SeasonSeries = forwardRef(({ away, home }, ref) => {
+export default function SeasonSeries({ seriesData }) {
   // if (!away || !home) return <div />;
 
   // if (awayID === 0 || homeID === 0) return <div>Invalid Entry</div>;
 
-  const [seriesData, setData] = useState(null);
-  const [homeTeam, setHomeTeam] = useState(home);
-  const [awayTeam, setAwayTeam] = useState(away);
+  // const [seriesData, setData] = useState(null);
+  // const [homeTeam, setHomeTeam] = useState(home);
+  // const [awayTeam, setAwayTeam] = useState(away);
 
-  const homeID = getID(homeTeam);
-  const awayID = getID(awayTeam);
+  // const homeID = getID(homeTeam);
+  // const awayID = getID(awayTeam);
 
-  useImperativeHandle(ref, () => ({
-    updateHomeTeam(tm) {
-      setHomeTeam(tm);
-    },
-    updateAwayTeam(tm) {
-      setAwayTeam(tm);
-    },
-  }));
+  // useImperativeHandle(ref, () => ({
+  //   updateHomeTeam(tm) {
+  //     setHomeTeam(tm);
+  //   },
+  //   updateAwayTeam(tm) {
+  //     setAwayTeam(tm);
+  //   },
+  // }));
   // console.log(homeTeam, awayTeam)
 
   // const { data } = axios.get(
   //   `http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/${homeID}/schedule`
   // ).then(res => res.data);
-  useEffect(async () => {
-    const data = await axios
-      .get('/api/headtohead', {
-        params: {
-          homeID,
-          awayID,
-        },
-      })
-      .then((res) => res.data);
+  // useEffect(async () => {
+  //   const data = await axios
+  //     .get('/api/headtohead', {
+  //       params: {
+  //         homeID,
+  //         awayID,
+  //       },
+  //     })
+  //     .then((res) => res.data);
 
-    if (typeof data === 'string') {
-      setData(null);
-    } else {
-      setData(data);
-    }
-  }, [homeTeam, awayTeam]);
+  //   if (typeof data === 'string') {
+  //     setData(null);
+  //   } else {
+  //     setData(data);
+  //   }
+  // }, [homeTeam, awayTeam]);
 
-  if (!seriesData) return <div>Awaiting user input</div>;
+  // if (!seriesData) return <div>Awaiting user input</div>;
   // console.log(typeof seriesData);
   // if (typeof seriesData === 'string') return <div />;
 
@@ -77,12 +77,12 @@ const SeasonSeries = forwardRef(({ away, home }, ref) => {
           <div>Regular Season Series</div>
           <div>{seriesData['state']}</div>
         </div>
-        <div className={styles.games} id="season-series-games">
+        <div id="season-series-games">
           {entries}
         </div>
       </div>
     </>
   );
-});
+}
 
-export default SeasonSeries;
+// export default SeasonSeries;
