@@ -1,25 +1,31 @@
 import SkeletonElement from './SkeletonElement';
 import SkeletonTeam from './SkeletonTeam';
+import styles from './SkeletonElement.module.scss';
 
 export default function SkeletonScore() {
   return (
     <>
       <div
-        className="score wrapper container py-1"
-        style={{ backgroundColor: ' #405259' }}
+        // className="score wrapper"
+        className={styles.skeletonContainer}
       >
-        <div className="row" style={{ height: '4.5rem' }}>
-          <div className="col-8 col-sm-7">
+        <div className={styles.skeletonEverything}>
+          <div style={{ width: '50%' }}>
+            <div className={styles.skeletonRHE} />
             <SkeletonTeam />
             <SkeletonTeam />
           </div>
 
-          <div className="col pe-0 h-100 position-relative">
+          <div style={{ width: '50%' }}>
             <div
-              className="position-absolute pe-2 top-0 end-0"
-              style={{ width: '4rem' }}
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                paddingRight: '8px',
+              }}
             >
-              <SkeletonElement type="name" />
+              <SkeletonElement type="gamestate" />
             </div>
           </div>
         </div>

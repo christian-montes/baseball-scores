@@ -131,6 +131,9 @@
       // padding: 21px 1rem;
       padding: 0;
     }
+    &:hover {
+      background-color: #456c94;
+    }
 
     a {
       color: $primary-text-color;
@@ -143,6 +146,9 @@
       &:active {
         background-color: paleturquoise;
       }
+      &:hover {
+      background-color: #456c94;
+    }
     }
   }
 }

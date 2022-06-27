@@ -2,21 +2,25 @@
 
 .mainContainer {
   display: flex;
-  margin: 0 auto 2rem;
-  width: 90vw;
+  margin: auto ;
+  // margin: auto;
+  width: 60%;
   @include device-size(phone) {
     width: 100%;
-    flex-direction: column-reverse;
+    // flex-direction: column-reverse;
     // flex-direction: row-reverse;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
   }
   // min-height: 30px;
 }
 
 .firstColumn {
-  width: 65%;
+  // display: flex;
+  margin: auto;
+  // width: 100%;
   @include device-size(phone) {
-    width: 100%;
+    // width: 100%;
+    margin: auto;
   }
 }
 

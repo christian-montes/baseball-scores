@@ -1,0 +1,29 @@
+@import '../styles/mixins';
+
+.body {
+  width: 60%;
+  margin: 0 auto 1rem;
+  @include device-size(phone) {
+    width: 100%;
+    margin: 1rem auto 1rem;
+  }
+}
+
+.teamString {
+  @include device-size(phone) {
+    display: none;
+  }
+}
+
+.vsText {
+  font-weight: 100;
+  font-size: 40px;
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  margin-bottom: 1rem;
+}
