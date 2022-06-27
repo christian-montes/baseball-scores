@@ -1,6 +1,5 @@
 import Layout from '../../components/layout';
 import GameBar from '../../components/scoreBar';
-import SeasonSeries from '../../components/seasonSeries';
 
 import styles from '../../styles/gameID.module.scss';
 
@@ -66,13 +65,13 @@ export default function Details() {
   } = gameData;
 
   return (
-    <Layout date={new Date()} page="gameDetails">
-      <GameBar home={homeTeam} away={awayTeam} />
+    <Layout>
       <main className={styles.mainContainer}>
-        <div id="column-1" className={styles.firstColumn}>Hello</div>
-        <div id="column-2" className={styles.secondColumn}>
-          <SeasonSeries away={awayTeam.name} home={homeTeam.name} />
+        {/* <GameBar home={homeTeam} away={awayTeam} /> */}
+        <div id="column-1" className={styles.firstColumn}>
+          Page in development
         </div>
+        {/* <div id="column-2" className={styles.secondColumn}></div> */}
       </main>
     </Layout>
   );
