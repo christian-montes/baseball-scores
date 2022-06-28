@@ -135,7 +135,7 @@ export async function getStaticProps({ params }) {
   };
 
   const teamNames = teams.map((team) => {
-    return team.replace(/_/g, ' ');
+    return team.replace(/-/g, ' ');
   });
 
   return {
@@ -155,14 +155,13 @@ export default function ViewSeries({
   teamNames,
 }) {
   const router = useRouter();
-  useEffect(() => {
-    if (!matchupData) {
-      router.push('/scores');
-    }
-  }, []);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
+  }
+
+  if (!matchupData) {
+    router.push('/scores');
   }
 
   // const entries = matchupData['series'].map((game, index) => {
