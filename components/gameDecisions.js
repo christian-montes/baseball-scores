@@ -1,14 +1,16 @@
 import styles from '../styles/score.module.scss';
 
 export default function Decision({ decisions }) {
-  const {
-    winner: { fullName: nameWinner },
-    loser: { fullName: nameLoser },
-  } = decisions;
+  // const {
+  //   winner: { fullName: nameWinner },
+  //   loser: { fullName: nameLoser },
+  // } = decisions;
 
   // const lastNameWinner = nameWinner.split(' ').slice(-1);
   // const lastNameLoser = nameLoser.split(' ').slice(-1);
   let nameSave = 'N/A';
+  let nameWinner = decisions?.winner?.fullName || '';
+  let nameLoser = decisions?.loser?.fullName || '';
 
   if (decisions?.save) {
     nameSave = decisions.save.fullName;
