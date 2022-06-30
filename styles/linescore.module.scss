@@ -13,7 +13,21 @@
 
 .section2 {
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
   // overflow-x: scroll;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+
+    div {
+      height: 15px;
+      width: 15px;
+      text-align: center;
+    }
+  }
 }
 
 .section3 {
@@ -25,6 +39,12 @@
   div {
     display: flex;
     justify-content: space-around;
+
+    div {
+      height: 15px;
+      width: 15px;
+      text-align: center;
+    }
   }
 }
 
