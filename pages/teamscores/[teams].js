@@ -145,6 +145,7 @@ export async function getStaticProps({ params }) {
       homeCode: getFileCode(homeAbbrev),
       teamNames,
     },
+    revalidate: 86400
   };
 }
 
