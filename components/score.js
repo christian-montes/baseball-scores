@@ -253,7 +253,7 @@ export default function Score({ link, publicGS, publicAGC }) {
       </div>
       {/* this is the end of the main container that houses the main elements */}
       <div className={show ? styles.line : styles.hiddenLS}>
-        <LineScore />
+        <LineScore linescoreData={appData.liveData.linescore} />
       </div>
       <div
         style={
