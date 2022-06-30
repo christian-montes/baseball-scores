@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic';
 import ProbablePitchers from './probablePitchers';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import LineScore from './linescore';
 
 const DynamicBases = dynamic(() => import('./bases'));
 const DynamicDecisions = dynamic(() => import('./gameDecisions'));
@@ -251,6 +252,9 @@ export default function Score({ link, publicGS, publicAGC }) {
         )} */}
       </div>
       {/* this is the end of the main container that houses the main elements */}
+      <div className={show ? styles.line : styles.hiddenLS}>
+        <LineScore />
+      </div>
       <div
         style={
           show
@@ -260,7 +264,7 @@ export default function Score({ link, publicGS, publicAGC }) {
                 justifyContent: 'space-evenly',
                 width: '100%',
                 height: '30px',
-                marginTop: '3px',
+                // marginTop: '3px',
                 borderTop: '1px solid white',
                 visibility: 'visible',
                 transition: 'visibility 0.2s ease-in-out 0.1s',
