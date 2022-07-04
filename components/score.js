@@ -253,7 +253,10 @@ export default function Score({ link, publicGS, publicAGC }) {
       </div>
       {/* this is the end of the main container that houses the main elements */}
       <div className={show ? styles.line : styles.hiddenLS}>
-        <LineScore linescoreData={appData.liveData.linescore} />
+        <LineScore
+          linescoreData={appData.liveData.linescore}
+          names={[awayRecord['shortName'], homeRecord['shortName']]}
+        />
       </div>
       <div
         style={
