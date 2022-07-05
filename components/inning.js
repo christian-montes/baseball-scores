@@ -54,7 +54,7 @@ export default function Inning({
           textAlign: 'end',
           height: '100%',
           width: '50%',
-          fontSize: '13px',
+          fontSize: '12px',
           position: 'absolute',
           paddingRight: '8px',
           top: '0',
