@@ -35,7 +35,7 @@ export default function Menu({ show, clickCallback }) {
           href="https://github.com/christian-montes/baseball-scores"
           rel="external noopener noreferrer"
         >
-          GitHub
+          Source
         </a>
       </li>
     );
