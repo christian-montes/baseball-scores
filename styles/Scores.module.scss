@@ -195,6 +195,7 @@
     position: sticky;
     // top: 5px;
     font-size: 16px;
+    background-color: #7c7474;
   }
   display: flex;
   width: 300px;
@@ -208,7 +209,8 @@
 .returnTodayHidden {
   @extend .returnTodayVisible;
   @include device-size(phone) {
-    visibility: visible;
+    visibility: hidden;
+    display: none;
     // background-color: #ffffffAA;
   }
   visibility: hidden;
