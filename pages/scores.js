@@ -27,6 +27,45 @@ export default function ScorePage({ todaysGames, currentGames }) {
     const {
       dates: [{ games }],
     } = data;
+
+    /*
+    The list of games returned from the server will move games that have
+    finished or are postponed to the end of the list to show
+     games that are in progress
+    */
+
+    games.sort((gameOne, gameTwo) => {
+      if (gameOne['status']['abstractGameState'] === 'Live') {
+        if (gameTwo['status']['abstractGameState'] === 'Live') {
+          if (
+            gameOne['status']['codedGameState'] ===
+            gameTwo['status']['codedGameState']
+          ) {
+            return 0;
+          } else if (gameOne['status']['codedGameState'] === 'I') {
+            return -1;
+          } else if (gameOne['status']['codedGameState'] === 'P') {
+            return 1;
+          }
+        }
+      }
+      if (
+        gameOne['status']['abstractGameState'] ===
+        gameTwo['status']['abstractGameState']
+      ) {
+        return 0;
+      }
+      if (
+        (gameOne['status']['abstractGameState'] === 'Final' &&
+          ['Live', 'Preview'].includes(
+            gameTwo['status']['abstractGameState']
+          )) ||
+        (gameOne['status']['abstractGameState'] === 'Preview' &&
+          gameTwo['status']['abstractGameState'] === 'Live')
+      ) {
+        return 1;
+      }
+    });
     GameComponents = games.map((game) => {
       return (
         <Score
