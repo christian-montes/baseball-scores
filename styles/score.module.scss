@@ -217,6 +217,16 @@
   }
 }
 
+.horizontalContainer {
+  display: flex;
+}
+
+.centerElements {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .heading {
   font-weight: 300;
   padding-left: 8px;
