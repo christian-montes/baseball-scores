@@ -1,6 +1,6 @@
 import styles from '../styles/score.module.scss';
 
-export default function ProbablePitchers({ pitchers, names }) {
+export default function ProbablePitchers({ pitchers, names, row }) {
   const {
     away: { id: awayID, fullName: nameAway } = { id: '0', fullName: 'TBD' },
     home: { id: homeID, fullName: nameHome } = { id: '0', fullName: 'TBD' },
@@ -26,16 +26,18 @@ export default function ProbablePitchers({ pitchers, names }) {
   }
 
   return (
-    <div className={styles.probablesContainer}>
+    <div
+      className={row ? styles.horizontalContainer : styles.probablesContainer}
+    >
       <div className={styles.heading}>Probable Pitchers</div>
-      <div>
+      <div className={row && styles.centerElements}>
         <div className={styles.pitcherName}>{nameAway}</div>
         <div className={awayID === '0' ? styles.tbd_pitcher : styles.wl_ERA}>
           {awayID === '0' ? `TBD` : `${awayW}-${awayL}, ${awayERA} ERA`}
         </div>
       </div>
 
-      <div>
+      <div className={row && styles.centerElements}>
         <div className={styles.pitcherName}>{nameHome}</div>
         <div className={homeID === '0' ? styles.tbd_pitcher : styles.wl_ERA}>
           {homeID === '0' ? `TBD` : `${homeW}-${homeL}, ${homeERA} ERA`}
