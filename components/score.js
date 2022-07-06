@@ -253,10 +253,20 @@ export default function Score({ link, publicGS, publicAGC }) {
       </div>
       {/* this is the end of the main container that houses the main elements */}
       <div className={show ? styles.line : styles.hiddenLS}>
-        <LineScore
+        {abstractGameState === 'Preview' ? (
+          <ProbablePitchers pitchers={probablePitchers} names={playerNames} row />
+        ) : ['Live', 'Final'].includes(abstractGameState) ? (
+          <LineScore
+            linescoreData={appData.liveData.linescore}
+            names={[awayRecord['shortName'], homeRecord['shortName']]}
+          />
+        ) : (
+          'Game Postponed'
+        )}
+        {/* <LineScore
           linescoreData={appData.liveData.linescore}
           names={[awayRecord['shortName'], homeRecord['shortName']]}
-        />
+        /> */}
       </div>
       <div
         style={
