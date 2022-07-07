@@ -219,16 +219,56 @@
 
 .horizontalContainer {
   display: flex;
+  width: 100%;
 }
 
 .centerElements {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
 }
 
 .heading {
   font-weight: 300;
+  padding-left: 8px;
+
+  @include device-size(phone) {
+    display: none;
+  }
+}
+
+.awayPitcherData {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+
+  @include device-size(phone) {
+    width: 50%;
+  }
+}
+
+.homePitcherData {
+  @extend .awayPitcherData;
+  flex-flow: row-reverse;
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.imageStyles {
+  width: 35px;
+  height: 35px;
+}
+
+.homeImageStyles {
+  @extend .imageStyles;
+  margin-left: 5px;
+}
+
+.pitcherSmallFont {
+  font-weight: 300;
+  font-size: 10px;
   padding-left: 8px;
 }
 
