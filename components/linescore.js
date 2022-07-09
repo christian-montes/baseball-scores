@@ -21,7 +21,7 @@ export default function LineScore({ linescoreData, names }) {
     );
   });
 
-  const awayInnings = inningsData.map((inning, index) => {
+  let awayInnings = inningsData.map((inning, index) => {
     const { away } = inning;
 
     return (
@@ -31,11 +31,22 @@ export default function LineScore({ linescoreData, names }) {
     );
   });
 
-  const homeInnings = inningsData.map((inning, index) => {
+  const differenceAway = topRow.length - awayInnings.length;
+  awayInnings = awayInnings.concat(
+    Array(differenceAway).fill(<div>&nbsp;</div>)
+  );
+
+  let homeInnings = inningsData.map((inning, index) => {
     const { home } = inning;
 
     return <div key={`home_inning_${index}`}>{home.runs}</div>;
   });
+
+  const differenceHome = topRow.length - homeInnings.length;
+  homeInnings = homeInnings.concat(
+    Array(differenceHome).fill(<div>&nbsp;</div>)
+  );
+
   return (
     <div className={styles.threeSections}>
       <div className={styles.section1}>
