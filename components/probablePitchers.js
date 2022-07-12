@@ -64,7 +64,7 @@ export default function ProbablePitchers({ pitchers, names, row }) {
     homeERA = playersHome[`ID${homeID}`]['seasonStats']['pitching']['era'];
   }
 
-  if (!pitcherAway || !pitcherHome) return <div />
+  if (!pitcherAway || !pitcherHome) return <div />;
 
   return (
     <div
