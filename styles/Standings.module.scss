@@ -20,7 +20,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     width: 100vw;
-    padding: 0 1rem 2rem;
+    padding: 0 1rem 1rem;
     margin: 1rem auto;
   }
 
@@ -36,6 +36,26 @@
     gap: 10px;
     width: 90vw;
     margin: 24px auto;
+  }
+}
+
+.note {
+  width: 100vw;
+  font-style: italic;
+  margin: 1rem 0 1rem 10px;
+
+  @include device-size(tablet) {
+    margin: 0 0 1rem 1rem;
+  }
+
+  @include device-size(tablet-laptop) {
+    width: 80vw;
+    margin: 0 auto 24px;
+  }
+
+  @include device-size(large-computer) {
+    width: 90vw;
+    margin: 0 auto 24px;
   }
 }
 
