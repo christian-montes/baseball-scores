@@ -33,7 +33,9 @@ export default function LineScore({ linescoreData, names }) {
 
   const differenceAway = topRow.length - awayInnings.length;
   awayInnings = awayInnings.concat(
-    Array(differenceAway).fill(<div>&nbsp;</div>)
+    Array(differenceAway).map((item, index) => {
+      return <div key={`away_fill_${index}`}>&nbsp;</div>;
+    })
   );
 
   let homeInnings = inningsData.map((inning, index) => {
@@ -44,7 +46,9 @@ export default function LineScore({ linescoreData, names }) {
 
   const differenceHome = topRow.length - homeInnings.length;
   homeInnings = homeInnings.concat(
-    Array(differenceHome).fill(<div>&nbsp;</div>)
+    Array(differenceHome).map((item, index) => {
+      return <div key={`home_fill_${index}`}>&nbsp;</div>;
+    })
   );
 
   return (
