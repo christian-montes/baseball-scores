@@ -115,6 +115,10 @@ export default function StandingsPage({ AmericanLeague, NationalLeague }) {
           </div>
         </div>
         <main className={styles.standings}>{StandingsTables}</main>
+        <div className={styles.note}>
+          If series data is not up to date, refresh the page for the most
+          up-to-date data
+        </div>
       </Layout>
     </>
   );
